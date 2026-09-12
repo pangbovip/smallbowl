@@ -23,10 +23,10 @@ window.PHOTO_CREDITS = [
  },
  {
   "id": "pay",
-  "title": "A woman paying at Ziguangyuan, Yuanda Xilu (20250411135111).jpg",
+  "title": "Alipay and WeChat pay signs in BurgerKing ZBAA (20170309123855).jpg",
   "author": "N509FZ",
   "license": "CC BY-SA 4.0",
-  "page": "https://commons.wikimedia.org/wiki/File:A_woman_paying_at_Ziguangyuan,_Yuanda_Xilu_(20250411135111).jpg"
+  "page": "https://commons.wikimedia.org/wiki/File:Alipay_and_WeChat_pay_signs_in_BurgerKing_ZBAA_(20170309123855).jpg"
  },
  {
   "id": "metro",
@@ -51,10 +51,10 @@ window.PHOTO_CREDITS = [
  },
  {
   "id": "toilet",
-  "title": "UDDT with squatting pan (3705401645).jpg",
-  "author": "SuSanA Secretariat",
-  "license": "CC BY 2.0",
-  "page": "https://commons.wikimedia.org/wiki/File:UDDT_with_squatting_pan_(3705401645).jpg"
+  "title": "Toilet sign in Belgium.jpg",
+  "author": "Sally V",
+  "license": "CC BY-SA 4.0",
+  "page": "https://commons.wikimedia.org/wiki/File:Toilet_sign_in_Belgium.jpg"
  },
  {
   "id": "roujiamo",
@@ -97,5 +97,12 @@ window.PHOTO_CREDITS = [
   "author": "Shizuha",
   "license": "CC BY-SA 3.0",
   "page": "https://commons.wikimedia.org/wiki/File:Glass_gaiwan_shizuhaused_01.jpg"
+ },
+ {
+  "id": "tiantan",
+  "title": "20200110 Temple of Heaven-1.jpg",
+  "author": "Balon Greyjoy",
+  "license": "CC0",
+  "page": "https://commons.wikimedia.org/wiki/File:20200110_Temple_of_Heaven-1.jpg"
  }
 ];

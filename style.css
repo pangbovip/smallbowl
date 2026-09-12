@@ -353,3 +353,21 @@ html[lang="ja"] .foot-sister-title, html[lang="ko"] .foot-sister-title { font-fa
 .credits-label { font-family: var(--f-mono); letter-spacing: .08em; text-transform: uppercase; margin-right: 4px; }
 html[lang="ja"] .credits-label, html[lang="ko"] .credits-label { font-family: inherit; letter-spacing: 0; text-transform: none; font-weight: 700; }
 @media print { .card-img { max-height: 120pt; } .foot-credits { display: block !important; } }
+
+/* ---------- hero photo (Temple of Heaven) ---------- */
+.hero { align-items: stretch; }
+.hero-demo { position: relative; display: grid; grid-template-rows: 1fr auto; gap: 0; min-height: 520px; }
+.hero-photo { margin: 0; position: relative; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); background: var(--ground-2); }
+.hero-photo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%; }
+.hero-photo figcaption { position: absolute; left: 0; right: 0; top: 0; padding: 14px 16px; display: grid; gap: 2px; color: #fff; font-size: .72rem; line-height: 1.4; background: linear-gradient(to bottom, rgba(10,14,12,.55), rgba(10,14,12,0)); text-shadow: 0 1px 2px rgba(0,0,0,.4); }
+.hero-photo-zh { font-family: var(--f-brush); font-size: 1.5rem; line-height: 1; }
+.hero-card-wrap { position: relative; margin: -72px 24px 0 -28px; display: grid; gap: 8px; z-index: 2; }
+.hero-card-wrap .demo-label { color: var(--ink-2); background: color-mix(in srgb, var(--ground) 82%, transparent); backdrop-filter: blur(6px); padding: 4px 8px; border-radius: 4px; justify-self: start; }
+.say-card-hero { box-shadow: 0 1px 0 rgba(23,33,29,.06), 0 24px 48px -20px rgba(23,33,29,.55); }
+@media (max-width: 860px) {
+  .hero-demo { min-height: 0; }
+  .hero-photo { aspect-ratio: 3 / 2; }
+  .hero-photo img { height: 100%; }
+  .hero-card-wrap { margin: -40px 12px 0 12px; }
+}
+@media print { .hero-photo { display: none; } .hero-card-wrap { margin: 0; } }
