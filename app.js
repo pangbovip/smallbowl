@@ -51,7 +51,7 @@
     $$(".lang [data-lang]").forEach(function (b) { b.classList.toggle("is-on", b.getAttribute("data-lang") === state.lang); });
     var sister = $("[data-sister-href]");
     if (sister) sister.href = state.lang === "ja" ? "https://wenguhall.com/ja.html" : "https://wenguhall.com/";
-    renderBoard(); renderDays(); renderTiers(); renderFaq();
+    renderBoard(); renderDays(); renderTiers(); renderFaq(); renderCredits();
   }
 
   function sayCardHTML(say, extraClass) {
@@ -86,6 +86,7 @@
           '<div class="card-foot">' + sayCardHTML(card.say) + '</div>';
       }
       return '<article class="card' + (locked ? " is-locked" : "") + '" data-city="' + esc(card.city) + '" id="card-' + esc(card.id) + '">' +
+        '<img class="card-img" src="images/' + esc(card.id) + '.jpg" alt="' + esc(card.title) + '" loading="lazy" width="1200" height="800">' +
         '<div class="card-head"><div class="card-name"><span class="card-zh">' + esc(card.zh) + '</span>' +
         '<h3 class="card-title">' + esc(card.title) + '</h3><span class="card-city">' + esc(city) + '</span></div>' +
         '<span class="price">' + esc(card.price) + '</span></div>' + body + '</article>';
@@ -164,6 +165,16 @@
     if (row) row.hidden = state.unlocked;
     var owned = $("#ownedRow");
     if (owned) { owned.hidden = !state.unlocked; $("#ownedCode").textContent = state.code; }
+  }
+
+  function renderCredits() {
+    var el = $("#photoCredits"), list = window.PHOTO_CREDITS || [];
+    if (!el || !list.length) return;
+    var c = window.CONTENT[state.lang];
+    var byId = {}; c.cards.forEach(function (k) { byId[k.id] = k.zh; });
+    el.innerHTML = '<span class="credits-label">' + esc(t("foot.photos")) + '</span> ' + list.map(function (p) {
+      return '<a href="' + esc(p.page) + '" target="_blank" rel="noopener license">' + esc(byId[p.id] || p.id) + '</a> ' + esc(p.author) + ', ' + esc(p.license);
+    }).join(" · ");
   }
 
   function renderFaq() {

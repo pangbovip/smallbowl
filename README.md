@@ -86,6 +86,7 @@ PayPal Secret 在 https://developer.paypal.com/dashboard/applications/live 里�
 - 新卡片：在三个 `content-*.js` 的 `cards` 数组里各加一项，`id` 相同。`locked: true` 的卡片只写 `hook` 和 `teaser`，完整内容放 `content-paid-*.js` 的 `cards[id]`。
 - 行程：`content-paid-*.js` 的 `days[i]` 有 `plan`（时刻/中文/说明）、`rain`、`say` 三部分，第 i 天对应 `content-*.js` 里 `days[i]` 的城市和标题。
 - 每张卡必须有 `say`（中文 + 拼音 + 释义），这是"指给店员看"功能的来源。
+- 每张卡对应一张 `images/<id>.jpg`（3:2）。换成自己拍的照片直接覆盖同名文件，并把 `images/credits.js` 里对应条目删掉。
 - 城市筛选按钮在 `index.html` 的 `.filters` 里，`data-filter` 值要和卡片的 `city` 一致。
 
 ## 内容核对提醒

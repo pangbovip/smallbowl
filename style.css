@@ -342,3 +342,14 @@ html[lang="ja"] .plan-say-label, html[lang="ko"] .plan-say-label { font-family: 
 html[lang="ja"] .foot-sister-title, html[lang="ko"] .foot-sister-title { font-family: inherit; }
 .foot-sister-link { display: inline-block; margin-top: 8px; color: var(--ink); font-weight: 600; }
 @media print { .foot-sister { display: none !important; } }
+
+/* ---------- card photos & credits ---------- */
+.card-img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; background: var(--ground-2); border-bottom: 1px solid var(--line); }
+.card.is-locked .lock { top: 62%; }
+.card { grid-template-rows: auto auto 1fr auto; }
+.card.is-locked .card-img { filter: saturate(.7); }
+.foot-credits { grid-column: 1 / -1; font-size: .7rem; line-height: 1.7; color: var(--ink-3); border-top: 1px solid var(--line); padding-top: 12px; }
+.foot-credits a { color: var(--ink-2); text-decoration: none; border-bottom: 1px dotted var(--line); }
+.credits-label { font-family: var(--f-mono); letter-spacing: .08em; text-transform: uppercase; margin-right: 4px; }
+html[lang="ja"] .credits-label, html[lang="ko"] .credits-label { font-family: inherit; letter-spacing: 0; text-transform: none; font-weight: 700; }
+@media print { .card-img { max-height: 120pt; } .foot-credits { display: block !important; } }
