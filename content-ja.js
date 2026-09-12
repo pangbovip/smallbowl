@@ -1,6 +1,39 @@
 window.CONTENT = window.CONTENT || {};
 window.CONTENT.ja = {
   cityNames: { beijing: "北京", shanghai: "上海", xian: "西安", chengdu: "成都", suzhou: "蘇州", everywhere: "どこでも" },
+  apps: [
+    { id: "alipay", name: "Alipay（アリペイ）", zh: "支付宝", mark: "支", tag: "必須",
+      what: "どこでも支払い、シェア自転車の解錠、地下鉄の乗車、滴滴の配車、観光地のチケット予約。この1本で旅のほとんどが片付きます。",
+      why: "現金、交通カード、タクシーアプリ、自転車アプリ",
+      setup: "インストールし、自国の電話番号で登録、Visa/Mastercard/JCBを追加して、パスポート認証まで済ませる。約15分。着陸前に必ず終えておくこと。",
+      site: "https://www.alipay.com/" },
+    { id: "wechat", name: "WeChat（微信）", zh: "微信", mark: "微", tag: "必須",
+      what: "中国の連絡手段そのもの。さらにアプリ内のミニプログラムから、故宮・博物館・多くの飲食店の予約もここで行います。",
+      why: "LINE、および予約サイトの半分",
+      setup: "早めに登録を。新規アカウントは既存ユーザーの承認が必要になることがあり、ホテルのロビーで困るより自宅で解決しておくのが楽です。WeChat Payにもカードを登録し、Alipayの予備に。",
+      site: "https://www.wechat.com/" },
+    { id: "amap", name: "Amap（高徳地図）", zh: "高德地图", mark: "高", tag: "地図",
+      what: "実際に正しい地図。中国ではGoogleマップの位置が数百メートルずれ、リアルタイムの交通情報もありません。Amapは英語表示で徒歩・地下鉄・バスの経路が出ます。",
+      why: "Googleマップ",
+      setup: "出発前にインストールし、設定を英語に切り替えておく。空港で中国語メニューを探す羽目になりません。",
+      site: "https://www.amap.com/" },
+    { id: "trip", name: "Trip.com（トリップドットコム）", zh: "携程", mark: "携", tag: "鉄道",
+      what: "高速鉄道の切符を日本語・英語で予約でき、パスポートがそのまま切符になります。外国人の宿泊登録ができるホテルも探せます（できないホテルもあります）。",
+      why: "中国語のみの12306（鉄道公式サイト）",
+      setup: "アカウント作成と全員分のパスポート情報入力は自宅で。北京→上海は1週間前に予約を。人気の時間帯は売り切れます。",
+      site: "https://www.trip.com/" },
+    { id: "translate", name: "Google翻訳", zh: "翻译", mark: "译", tag: "言語",
+      what: "メニュー、看板、券売機にカメラを向けるだけ。現地でスマホを使う用途として、これがいちばん役に立ちます。",
+      why: "言葉の通じない相手に尋ねること",
+      setup: "中国語のオフラインパックを出発前にダウンロード。中国の回線ではGoogleが遮断されるため、ローミングが切れたときにカメラ翻訳を生かすのはこのオフラインパックです。",
+      site: "https://translate.google.com/" },
+    { id: "esim", name: "海外ローミングeSIM", zh: "境外流量", mark: "网", tag: "通信",
+      what: "通信が自国を経由するので、Google、LINE、Instagram、WhatsAppがそのまま使えます。VPNは不要。",
+      why: "現地SIMとVPN",
+      setup: "Airalo、Ubigi、または自分のキャリアのローミングプランを自宅で購入・設定。機内で有効化する。ホテルのWi-Fiは現地回線なので、Googleが必要なときはモバイルデータに戻すこと。",
+      site: "https://www.airalo.com/" }
+  ],
+
   cards: [
     {
       id: "douzhi", city: "beijing", zh: "豆汁", title: "豆汁（ドウジー）の飲み方", price: "1杯 3〜5元",

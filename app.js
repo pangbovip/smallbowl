@@ -50,6 +50,9 @@
   /* ---------- render ---------- */
   function renderAll() {
     document.documentElement.lang = state.lang;
+    // Before the group exists, the buttons ask us to add you rather than promising a link that isn't there.
+    var groupKey = hasGroupLink() ? "group.cta" : "group.ctaAsk";
+    ["#groupBtn", "#ownedGroupBtn"].forEach(function (sel) { var b = $(sel); if (b) b.setAttribute("data-i18n", groupKey); });
     $$("[data-i18n]").forEach(function (el) { el.textContent = t(el.getAttribute("data-i18n")); });
     $$("[data-i18n-placeholder]").forEach(function (el) { el.placeholder = t(el.getAttribute("data-i18n-placeholder")); });
     $$(".lang [data-lang]").forEach(function (b) { b.classList.toggle("is-on", b.getAttribute("data-lang") === state.lang); });
@@ -57,7 +60,27 @@
     ["#groupBtn", "#ownedGroupBtn"].forEach(function (sel) { var b = $(sel); if (b) b.href = group; });
     var sister = $("[data-sister-href]");
     if (sister) sister.href = state.lang === "ja" ? "https://wenguhall.com/ja.html" : "https://wenguhall.com/";
-    renderBoard(); renderDays(); renderTiers(); renderFaq(); renderCredits();
+    renderBoard(); renderApps(); renderDays(); renderTiers(); renderFaq(); renderCredits();
+  }
+
+  // Free section: the apps you must install and verify before you land.
+  function renderApps() {
+    var el = $("#appsGrid"), list = (window.CONTENT[state.lang] || {}).apps;
+    if (!el || !list) return;
+    el.innerHTML = list.map(function (a) {
+      return '<article class="app" id="app-' + esc(a.id) + '">' +
+        '<span class="app-mark" aria-hidden="true">' + esc(a.mark) + '</span>' +
+        '<div class="app-head"><span class="app-name">' + esc(a.name) + '</span>' +
+        '<span class="app-zh">' + esc(a.zh) + '</span>' +
+        '<span class="app-tag">' + esc(a.tag) + '</span></div>' +
+        '<p class="app-what">' + esc(a.what) + '</p>' +
+        '<dl class="app-rows">' +
+        '<div class="app-row"><dt>' + esc(t("apps.doNow")) + '</dt><dd class="app-setup">' + esc(a.setup) + '</dd></div>' +
+        '<div class="app-row"><dt>' + esc(t("apps.why")) + '</dt><dd>' + esc(a.why) + '</dd></div>' +
+        '</dl>' +
+        '<a class="app-site" href="' + esc(a.site) + '" target="_blank" rel="noopener">' + esc(t("apps.open")) + '</a>' +
+        '</article>';
+    }).join("");
   }
 
   function sayCardHTML(say, extraClass) {
@@ -109,8 +132,9 @@
     });
   }
 
+  function hasGroupLink() { return GROUP_LINK.indexOf("REPLACE_ME") < 0; }
   function groupHref() {
-    if (GROUP_LINK.indexOf("REPLACE_ME") < 0) return GROUP_LINK;
+    if (hasGroupLink()) return GROUP_LINK;
     return "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(t("group.fallbackMsg"));
   }
 

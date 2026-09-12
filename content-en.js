@@ -1,6 +1,39 @@
 window.CONTENT = window.CONTENT || {};
 window.CONTENT.en = {
   cityNames: { beijing: "Beijing", shanghai: "Shanghai", xian: "Xi'an", chengdu: "Chengdu", suzhou: "Suzhou", everywhere: "Everywhere" },
+  apps: [
+    { id: "alipay", name: "Alipay", zh: "支付宝", mark: "支", tag: "Essential",
+      what: "Pay anywhere, ride any shared bike, buy metro tickets, hail a Didi, book attraction tickets. One app covers most of the trip.",
+      why: "Cash, a transport card, a taxi app, a bike app",
+      setup: "Install, sign up with your home phone number, add a Visa/Mastercard/JCB, then finish passport verification. Takes about 15 minutes and must be done before you land.",
+      site: "https://www.alipay.com/" },
+    { id: "wechat", name: "WeChat", zh: "微信", mark: "微", tag: "Essential",
+      what: "How China messages. Also how you reserve the Forbidden City, museums and many restaurants, through mini-programs inside the app.",
+      why: "LINE, KakaoTalk and half the booking websites",
+      setup: "Install and register early: new accounts sometimes need an existing user to vouch for you, and that is easier to solve at home than in a hotel lobby. Add your card in WeChat Pay as a backup to Alipay.",
+      site: "https://www.wechat.com/" },
+    { id: "amap", name: "Amap", zh: "高德地图", mark: "高", tag: "Maps",
+      what: "The map that is actually right. Google Maps is offset by a few hundred metres in China and has no live transit. Amap has an English mode with walking, metro and bus directions.",
+      why: "Google Maps",
+      setup: "Install and switch to English in the settings before you go, so you are not hunting through Chinese menus at the airport.",
+      site: "https://www.amap.com/" },
+    { id: "trip", name: "Trip.com", zh: "携程", mark: "携", tag: "Trains",
+      what: "High-speed train tickets in English, with your passport as the ticket. Also hotels that are licensed to take foreign guests, which not every hotel is.",
+      why: "The Chinese-only 12306 railway site",
+      setup: "Create the account and enter every traveller's passport details at home. Book the Beijing to Shanghai train a week ahead; popular departures sell out.",
+      site: "https://www.trip.com/" },
+    { id: "translate", name: "Google Translate", zh: "翻译", mark: "译", tag: "Language",
+      what: "Point the camera at a menu, a sign, a ticket machine. The camera mode is the single most useful thing you will do with your phone here.",
+      why: "Asking someone who does not speak your language",
+      setup: "Download the Chinese offline pack before you fly. On a Chinese network Google is blocked, so the offline pack is what keeps the camera working if your roaming drops.",
+      site: "https://translate.google.com/" },
+    { id: "esim", name: "A roaming eSIM", zh: "境外流量", mark: "网", tag: "Internet",
+      what: "Data that routes through your home country, so Google, LINE, KakaoTalk, Instagram and WhatsApp all work normally. No VPN needed.",
+      why: "A local SIM card and a VPN",
+      setup: "Buy from Airalo, Ubigi or your own carrier's roaming plan and install the eSIM at home. Activate it on the plane. Hotel Wi-Fi is a local network, so switch back to data when you need Google.",
+      site: "https://www.airalo.com/" }
+  ],
+
   cards: [
     {
       id: "douzhi", city: "beijing", zh: "豆汁", title: "How to drink douzhi", price: "3–5 RMB a bowl",

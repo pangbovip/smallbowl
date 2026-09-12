@@ -42,7 +42,7 @@ worker/            可选：Cloudflare Worker，用 PayPal API 校验交易并�
 | `PAYPAL_CLIENT_ID` | 已填问古堂的客户端 ID | 不用改（客户端 ID 本来就是公开的） |
 | `PRICE_USD` | `2.00` | 改价只改这里 |
 | `VERIFY_ENDPOINT` | 空 | 可选：填 Worker 地址后解锁码走服务端校验（见下） |
-| `GROUP_LINK` | 占位符 | **要改**：WhatsApp 建群 → 群资料 → 通过链接邀请 → 复制链接，粘贴到这里。没填之前，"加入群"按钮会退化成给你发一条 WhatsApp 私信请求拉群，不会出现死链 |
+| `GROUP_LINK` | 占位符 | **要改**：WhatsApp 建群 → 群资料 → 通过链接邀请 → 复制链接，粘贴到这里。没填之前，按钮自动变成"发消息请求入群"，点击是给你发一条预填的 WhatsApp 私信，你手动拉人；填上链接后按钮自动变回"加入群" |
 | `UNLOCK_CODES` | 含演示码 `SMALLBOWL-DEMO` | **删掉演示码**，留给退款补发、朋友、媒体用 |
 
 ### 两种校验强度
@@ -87,6 +87,7 @@ PayPal Secret 在 https://developer.paypal.com/dashboard/applications/live 里�
 - 新卡片：在三个 `content-*.js` 的 `cards` 数组里各加一项，`id` 相同。`locked: true` 的卡片只写 `hook` 和 `teaser`，完整内容放 `content-paid-*.js` 的 `cards[id]`。
 - 行程：`content-paid-*.js` 的 `days[i]` 有 `plan`（时刻/中文/说明）、`rain`、`say` 三部分，第 i 天对应 `content-*.js` 里 `days[i]` 的城市和标题。
 - 每张卡必须有 `say`（中文 + 拼音 + 释义），这是"指给店员看"功能的来源。
+- 免费板块"出发前必装的 App"在三个 `content-*.js` 的 `apps` 数组里，字段：`mark`（标志上的汉字）、`tag`、`what`、`why`（替代了什么）、`setup`（在家要做完的事）、`site`。
 - 每张卡对应一张 `images/<id>.jpg`（3:2）。换成自己拍的照片直接覆盖同名文件，并把 `images/credits.js` 里对应条目删掉。
 - 城市筛选按钮在 `index.html` 的 `.filters` 里，`data-filter` 值要和卡片的 `city` 一致。
 
