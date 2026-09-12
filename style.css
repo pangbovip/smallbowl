@@ -377,3 +377,18 @@ html[lang="ja"] .credits-label, html[lang="ko"] .credits-label { font-family: in
 .brand-mark { flex: none; color: var(--ink); }
 .brand-mark-lg { margin-bottom: 4px; }
 .foot-brand { align-content: start; }
+
+/* ---------- ask us ---------- */
+.faq-ask { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px; margin-top: 20px; font-size: var(--step-1); color: var(--ink-2); max-width: 72ch; }
+.faq-ask a { color: var(--seal); font-weight: 600; text-decoration: none; border-bottom: 1.5px solid currentColor; }
+.foot-contact { grid-column: 1 / -1; display: grid; gap: 12px; border-top: 1px solid var(--line); padding-top: 24px; max-width: 62ch; scroll-margin-top: 80px; }
+.foot-contact h3 { font-size: var(--step-3); font-weight: 700; color: var(--ink); }
+.foot-contact > p { color: var(--ink-2); font-size: var(--step-1); }
+.ask-links { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 2px; }
+.ask-link { display: grid; gap: 1px; padding: 10px 16px; background: var(--paper); border: 1px solid var(--line); border-radius: 8px; text-decoration: none; transition: border-color .12s ease, transform .12s ease; }
+.ask-link:hover { border-color: var(--seal); transform: translateY(-1px); }
+.ask-link-label { font-family: var(--f-mono); font-size: .64rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); }
+html[lang="ja"] .ask-link-label, html[lang="ko"] .ask-link-label { font-family: inherit; letter-spacing: 0; text-transform: none; font-size: .72rem; font-weight: 700; }
+.ask-link-value { font-family: var(--f-mono); font-size: .9rem; color: var(--ink); }
+.ask-note { font-size: var(--step-0); color: var(--ink-3); }
+@media print { .foot-contact, .faq-ask { display: none !important; } }
