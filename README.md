@@ -12,7 +12,7 @@ site/
   content-en.js    英文内容：卡片、7 天、价格档、FAQ
   content-ja.js    日文内容
   content-ko.js    韩文内容
-  content-paid.js  付费内容样例（解锁后显示）
+  content-paid-en.js / -ja.js / -ko.js  付费内容：6 张卡完整正文、7 天逐小时行程（含雨天方案、每天 6 句）、12 句通用短语
   app.js           渲染、语言切换、筛选、PayPal 弹窗、解锁码、"指给店员看"放大卡
 worker/            可选：Cloudflare Worker，用 PayPal API 校验交易并存解锁码
 ```
@@ -61,15 +61,18 @@ npx wrangler deploy
 
 PayPal Secret 在 https://developer.paypal.com/dashboard/applications/live 里，点问古堂那个应用就能看到（和客户端 ID 配对）。部署完把 Worker 地址（形如 `https://smallbowl-unlock.<你的子域>.workers.dev`）填进 `app.js` 的 `VERIFY_ENDPOINT`，推送即可。
 
-### 付费内容本身
+### 付费内容
 
-定价卡承诺了"7 天逐小时、60 张指给店员看的卡、每日雨天方案、离线 PDF"。目前 `content-paid.js` 只有烤鸭卡和第 1 天的样例。**开始收款前要把这些写完**，否则买家付 2 美元看到的和免费版几乎一样，会退款和差评。PDF 可以用浏览器"打印为 PDF"从解锁后的页面导出，或者我来单独生成。
+解锁后页面多出两个区块："完整行程（逐小时）"和"短语本"。每天一张表（时刻 / 给司机看的中文 / 做什么）、雨天方案、6 句当日短语；6 张锁定卡显示完整步骤。短语总数：免费 8 + 卡片 6 + 每日 42 + 通用 12 = 68 张。
+
+"存为 PDF"按钮调用浏览器打印，`style.css` 末尾的 `@media print` 只输出解锁内容，买家自己存离线版。付费内容文件仍是公开的静态 JS，看源码能读到；2 美元的产品接受这个取舍，介意就按上面 Worker 方案把这三个文件改成解锁后再从 Worker 拉取。
 
 `MAIL_ENDPOINT`：邮件订阅接口（Buttondown、Formspree、Mailchimp）。留空时邮箱只存本机 localStorage。
 
 ## 添加内容
 
-- 新卡片：在三个 `content-*.js` 的 `cards` 数组里各加一项，`id` 相同。`locked: true` 的卡片只写 `hook` 和 `teaser`，完整内容放 `content-paid.js`。
+- 新卡片：在三个 `content-*.js` 的 `cards` 数组里各加一项，`id` 相同。`locked: true` 的卡片只写 `hook` 和 `teaser`，完整内容放 `content-paid-*.js` 的 `cards[id]`。
+- 行程：`content-paid-*.js` 的 `days[i]` 有 `plan`（时刻/中文/说明）、`rain`、`say` 三部分，第 i 天对应 `content-*.js` 里 `days[i]` 的城市和标题。
 - 每张卡必须有 `say`（中文 + 拼音 + 释义），这是"指给店员看"功能的来源。
 - 城市筛选按钮在 `index.html` 的 `.filters` 里，`data-filter` 值要和卡片的 `city` 一致。
 

@@ -279,3 +279,51 @@ html[lang="ja"] .faq summary, html[lang="ko"] .faq summary { font-family: inheri
 .pay-code-small { font-size: .85rem; padding: 4px 8px; }
 .owned-row[hidden] { display: none; }
 .unlock-row[hidden] { display: none; }
+
+/* ---------- paid: full plan & phrasebook ---------- */
+.paid-section[hidden] { display: none; }
+.paid-section { border-top: 1px solid var(--line); padding-top: clamp(24px, 4vw, 40px); }
+.print-btn { justify-self: start; }
+.plan-list { display: grid; gap: 40px; }
+.plan-day { display: grid; gap: 14px; }
+.plan-head { display: grid; gap: 2px; }
+.plan-head .day-num { padding: 0; }
+.plan-head h3 { font-size: var(--step-3); font-weight: 700; }
+.plan-city { font-family: var(--f-brush); font-weight: 400; color: var(--seal); font-size: 1.4em; margin-right: 4px; }
+.plan-table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); }
+.plan-table { border-collapse: collapse; width: 100%; min-width: 640px; font-size: var(--step-0); }
+.plan-table th { text-align: left; font-family: var(--f-mono); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); padding: 10px 14px; border-bottom: 1px solid var(--line); font-weight: 600; }
+html[lang="ja"] .plan-table th, html[lang="ko"] .plan-table th { font-family: inherit; letter-spacing: 0; text-transform: none; font-size: .76rem; font-weight: 700; }
+.plan-table td { padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.plan-table tr:last-child td { border-bottom: 0; }
+.plan-t { font-family: var(--f-mono); font-variant-numeric: tabular-nums; white-space: nowrap; color: var(--ink-2); width: 1%; }
+.plan-zh { width: 30%; }
+.say-inline { font: inherit; font-family: var(--f-zh); font-weight: 700; font-size: 1rem; background: none; border: 0; padding: 0; text-align: left; cursor: pointer; color: var(--ink); border-bottom: 1.5px dashed var(--seal); line-height: 1.5; }
+.say-inline:hover { color: var(--seal); }
+.plan-what { color: var(--ink-2); }
+.plan-rain { font-size: var(--step-0); color: var(--ink-2); background: var(--ground-2); padding: 10px 14px; border-radius: 6px; }
+.plan-rain b { color: var(--tea); margin-right: 4px; }
+.plan-say-label { font-family: var(--f-mono); font-size: .66rem; letter-spacing: .1em; text-transform: uppercase; color: var(--ink-3); margin-top: 4px; }
+html[lang="ja"] .plan-say-label, html[lang="ko"] .plan-say-label { font-family: inherit; letter-spacing: 0; text-transform: none; font-size: .76rem; font-weight: 700; }
+.say-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; }
+.say-card-mini { padding: 14px 16px 12px; gap: 4px; }
+.say-card-mini .say-zh { font-size: 1.15rem; padding-right: 34px; }
+.say-card-mini::after { font-size: 1rem; top: 10px; right: 12px; }
+.say-card-mini .say-hint { display: none; }
+
+/* ---------- print: the buyer's offline PDF ---------- */
+@media print {
+  .top, .hero-actions, .hero-note, .hero-demo, .strip, .filters, .pricing, #faq, .foot, .lock-btn, .print-btn, .say-hint, .say-overlay, .pay-overlay, .day-lock a { display: none !important; }
+  body { background: #fff; color: #000; font-size: 10.5pt; }
+  main { max-width: none; padding: 0; }
+  .section { padding-bottom: 24pt; }
+  .card, .plan-day, .say-card, .tier { break-inside: avoid; box-shadow: none; }
+  .card.is-locked { display: none; }
+  .board { grid-template-columns: 1fr 1fr; gap: 10pt; }
+  .days { overflow: visible; grid-template-columns: repeat(7, 1fr); }
+  .plan-table { min-width: 0; }
+  .plan-table-wrap { overflow: visible; }
+  .say-card::after { display: none; }
+  .say-grid { grid-template-columns: 1fr 1fr 1fr; }
+  a { text-decoration: none; color: inherit; }
+}

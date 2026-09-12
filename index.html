@@ -107,6 +107,25 @@
     <div class="days" id="daysGrid"></div>
   </section>
 
+  <!-- PAID: full hour-by-hour plan (rendered only when unlocked) -->
+  <section class="section paid-section" id="fullplan" hidden>
+    <div class="section-head">
+      <h2 data-i18n="plan.title">The full plan, hour by hour</h2>
+      <p data-i18n="plan.sub">Tap any Chinese name to enlarge it for a driver or a counter. Times are a rhythm, not a schedule; the order matters more than the clock.</p>
+      <button type="button" class="btn btn-small btn-ghost print-btn" id="printBtn" data-i18n="plan.print">Save as PDF</button>
+    </div>
+    <div class="plan-list" id="planList"></div>
+  </section>
+
+  <!-- PAID: phrasebook -->
+  <section class="section paid-section" id="phrasebook" hidden>
+    <div class="section-head">
+      <h2 data-i18n="book.title">Phrasebook for the rest</h2>
+      <p data-i18n="book.sub">Allergies, bills, being lost. Every card enlarges when tapped.</p>
+    </div>
+    <div class="say-grid" id="bookList"></div>
+  </section>
+
   <!-- PRICING -->
   <section class="section pricing" id="pricing">
     <div class="section-head">
@@ -184,7 +203,9 @@
 <script src="content-en.js"></script>
 <script src="content-ja.js"></script>
 <script src="content-ko.js"></script>
-<script src="content-paid.js"></script>
+<script src="content-paid-en.js"></script>
+<script src="content-paid-ja.js"></script>
+<script src="content-paid-ko.js"></script>
 <script src="app.js"></script>
 </body>
 </html>

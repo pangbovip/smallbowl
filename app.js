@@ -62,7 +62,7 @@
       var city = c.cityNames[card.city] || card.city;
       var body;
       if (card.locked) {
-        var paid = window.PAID && window.PAID[state.lang] && window.PAID[state.lang][card.id];
+        var paid = paidData() && paidData().cards && paidData().cards[card.id];
         if (state.unlocked && paid) card = Object.assign({}, card, paid);
       }
       if (locked || !card.steps) {
@@ -95,17 +95,48 @@
     });
   }
 
+  function paidData() { return window.PAID && (window.PAID[state.lang] || window.PAID.en); }
+
   function renderDays() {
     var c = window.CONTENT[state.lang];
+    var p = paidData();
     $("#daysGrid").innerHTML = c.days.map(function (d, i) {
-      var paid = window.PAID && window.PAID[state.lang] && window.PAID[state.lang]["day" + (i + 1)];
-      var lockBlock = state.unlocked && paid
-        ? '<div class="day-lock is-open"><b>' + esc(t("day.locked")) + '</b>' + paid.map(function (s) { return "<span>" + esc(s) + "</span>"; }).join("") + '</div>'
+      var open = state.unlocked && p && p.days && p.days[i];
+      var lockBlock = open
+        ? '<div class="day-lock is-open"><b>' + esc(t("day.locked")) + '</b><a href="#plan-day-' + (i + 1) + '">' + esc(t("day.openLink")) + '</a></div>'
         : '<div class="day-lock"><b>' + esc(t("day.locked")) + '</b><span>' + esc(d.lock) + '</span></div>';
       return '<div class="day"><span class="day-num">' + esc(t("day.n")) + " " + (i + 1) + '</span>' +
         '<div class="day-city">' + esc(d.zh) + '<span>' + esc(c.cityNames[d.city] || d.city) + " · " + esc(d.label) + '</span></div>' +
         '<ul class="day-list">' + d.items.map(function (s) { return "<li>" + esc(s) + "</li>"; }).join("") + '</ul>' + lockBlock + '</div>';
     }).join("");
+    renderFullPlan();
+  }
+
+  // Paid sections: hour-by-hour plan per day, and the general phrasebook. Only rendered when unlocked.
+  function renderFullPlan() {
+    var c = window.CONTENT[state.lang];
+    var p = paidData();
+    var planSec = $("#fullplan"), bookSec = $("#phrasebook");
+    var show = state.unlocked && p && p.days;
+    planSec.hidden = !show; bookSec.hidden = !show;
+    if (!show) { $("#planList").innerHTML = ""; $("#bookList").innerHTML = ""; return; }
+    $("#planList").innerHTML = p.days.map(function (day, i) {
+      var d = c.days[i] || {};
+      var rows = day.plan.map(function (s) {
+        return '<tr><td class="plan-t">' + esc(s.t) + '</td>' +
+          '<td class="plan-zh"><button type="button" class="say-inline" data-say="' + esc(s.zh) + '" data-say-pinyin="">' + esc(s.zh) + '</button></td>' +
+          '<td class="plan-what">' + esc(s.what) + '</td></tr>';
+      }).join("");
+      var says = day.say.map(function (s) { return sayCardHTML(s, "say-card-mini"); }).join("");
+      return '<section class="plan-day" id="plan-day-' + (i + 1) + '">' +
+        '<header class="plan-head"><span class="day-num">' + esc(t("day.n")) + " " + (i + 1) + '</span>' +
+        '<h3><span class="plan-city">' + esc(d.zh || "") + '</span> ' + esc((c.cityNames[d.city] || d.city || "") + " · " + (d.label || "")) + '</h3></header>' +
+        '<div class="plan-table-wrap"><table class="plan-table"><thead><tr><th>' + esc(t("plan.time")) + '</th><th>' + esc(t("plan.show")) + '</th><th>' + esc(t("plan.what")) + '</th></tr></thead><tbody>' + rows + '</tbody></table></div>' +
+        '<p class="plan-rain"><b>' + esc(t("plan.rain")) + '</b> ' + esc(day.rain) + '</p>' +
+        '<p class="plan-say-label">' + esc(t("plan.say")) + '</p><div class="say-grid">' + says + '</div>' +
+        '</section>';
+    }).join("");
+    $("#bookList").innerHTML = (p.phrasebook || []).map(function (s) { return sayCardHTML(s, "say-card-mini"); }).join("");
   }
 
   function renderTiers() {
@@ -241,10 +272,12 @@
   }
   function closeSay() { overlay.hidden = true; document.body.style.overflow = ""; }
   document.addEventListener("click", function (e) {
-    var card = e.target.closest && e.target.closest(".say-card[data-say]");
+    var card = e.target.closest && e.target.closest(".say-card[data-say], .say-inline[data-say]");
     if (card && !card.closest(".is-locked")) { openSay(card.getAttribute("data-say"), card.getAttribute("data-say-pinyin")); return; }
     if (e.target === overlay || e.target.closest && e.target.closest("#sayClose")) closeSay();
   });
+  var printBtn = $("#printBtn");
+  if (printBtn) printBtn.addEventListener("click", function () { window.print(); });
   document.addEventListener("keydown", function (e) {
     if (e.key !== "Escape") return;
     if (!overlay.hidden) closeSay();
