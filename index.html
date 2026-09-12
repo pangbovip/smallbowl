@@ -114,6 +114,10 @@
       <p data-i18n="pricing.sub">The free page gets you started. The full guide is what I'd hand a friend the night before they fly.</p>
     </div>
     <div class="tiers" id="tiers"></div>
+    <p class="unlock-row owned-row" id="ownedRow" hidden>
+      <span data-i18n="pricing.owned">Unlocked on this device. Your code, for your other phone:</span>
+      <code class="pay-code pay-code-small" id="ownedCode"></code>
+    </p>
     <p class="unlock-row">
       <span data-i18n="pricing.haveCode">Already bought?</span>
       <input type="text" id="codeInput" inputmode="text" autocomplete="off" data-i18n-placeholder="pricing.codePh" placeholder="Enter your unlock code">
@@ -147,6 +151,26 @@
   </form>
   <p class="foot-legal" data-i18n="foot.legal">Prices and rules change. Everything here was checked in 2026. Not affiliated with any restaurant, app or government.</p>
 </footer>
+
+<!-- PayPal checkout modal -->
+<div class="pay-overlay" id="payOverlay" hidden role="dialog" aria-modal="true" aria-labelledby="payTitle">
+  <div class="pay-box">
+    <button type="button" class="say-close pay-close" id="payClose" aria-label="Close">×</button>
+    <p class="eyebrow" data-i18n="pay.eyebrow">Full guide · one-time</p>
+    <h3 id="payTitle" data-i18n="pay.title">$2. Unlocks right here, right now.</h3>
+    <p class="pay-sub" data-i18n="pay.sub">Every locked card and every day opens on this page the moment PayPal confirms. You also get a code for your other devices and the PDF link.</p>
+    <p class="pay-loading unlock-msg" id="payLoading" hidden data-i18n="pay.loading">Loading PayPal…</p>
+    <div id="payButtons"></div>
+    <p class="pay-note" data-i18n="pay.note">PayPal balance or any credit card, no PayPal account needed. Charged in US dollars; your bank converts.</p>
+    <div class="pay-done" id="payDone" hidden>
+      <p class="pay-done-title" data-i18n="pay.doneTitle">Paid. Everything is open.</p>
+      <p data-i18n="pay.doneCode">Your unlock code (also in your PayPal receipt as the transaction ID):</p>
+      <div class="pay-code-row"><code class="pay-code" id="payCode"></code><button type="button" class="btn btn-small" id="payCopy" data-i18n="pay.copy">Copy</button></div>
+      <p class="pay-note" data-i18n="pay.doneNote">Type it into "Already bought?" on any other phone or laptop. Save it somewhere.</p>
+    </div>
+    <p class="unlock-msg" id="payErr" aria-live="polite"></p>
+  </div>
+</div>
 
 <!-- Fullscreen point-and-say overlay -->
 <div class="say-overlay" id="sayOverlay" hidden role="dialog" aria-modal="true" aria-label="Show this to staff">

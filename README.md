@@ -13,7 +13,8 @@ site/
   content-ja.js    日文内容
   content-ko.js    韩文内容
   content-paid.js  付费内容样例（解锁后显示）
-  app.js           渲染、语言切换、筛选、解锁码、"指给店员看"放大卡
+  app.js           渲染、语言切换、筛选、PayPal 弹窗、解锁码、"指给店员看"放大卡
+worker/            可选：Cloudflare Worker，用 PayPal API 校验交易并存解锁码
 ```
 
 本地预览：直接双击 `site/index.html`，或在 `site/` 下运行 `python -m http.server 8080`。
@@ -22,18 +23,49 @@ site/
 
 仓库 https://github.com/pangbovip/smallbowl ，GitHub Pages 从 main 分支根目录发布，自定义域名 https://chinavisit.org （CNAME 文件），域名和 DNS 都在 Cloudflare，与问古堂同一套。
 
-## 收款：三处要改的地方（都在 `app.js` 顶部）
+## 收款：PayPal 弹窗，付完当场解锁
 
-1. **PAY_LINKS**：换成你的 Stripe Payment Link / Gumroad / Lemon Squeezy 购买链接。
-   - 日韩用户建议 Stripe（支持 JCB、Konbini、Kakao Pay 通过 Alipay+ 不行，但卡支付够用）。
-   - Gumroad 最简单：上传 PDF，设价 US$2，复制链接即可。定价只有一档：2 美元（¥300 / ₩2,800）买断。
-2. **UNLOCK_CODES**：购买后邮件里发给用户的解锁码。也支持链接直达：`https://你的域名/?code=XIAOWAN2026`。
-   - 当前是纯前端校验，只能挡住普通用户。要真正防盗版：
-     - 把 `content-paid.js` 从公开目录移走，只在 PDF 里发完整内容；或
-     - 用 Gumroad License Key / Lemon Squeezy License API 在 Cloudflare Worker 里校验后再返回付费内容。
-3. **MAIL_ENDPOINT**：邮件订阅接口（Buttondown、Formspree、Mailchimp）。留空时邮箱只存本机 localStorage。
+流程（已实现，和问古堂同一个 PayPal 商家账号）：
 
-演示解锁码：`SMALLBOWL-DEMO`（上线前删掉）。
+1. 访客点任意"解锁"或"购买 · $2"按钮 → 页面内弹出 PayPal 按钮（PayPal 余额或任意信用卡，不需要 PayPal 账号）。
+2. 付款成功 → 本机立即解锁全部锁定卡和 7 天付费内容 → 弹窗显示解锁码 `SB-<PayPal 交易号>`，可一键复制。
+3. 换设备：在定价区"已购买？"输入解锁码即可。买家丢了码也没关系，PayPal 收据邮件里的 Transaction ID 就是它。
+
+`app.js` 顶部四个配置：
+
+| 变量 | 现状 | 上线前 |
+|---|---|---|
+| `PAYPAL_CLIENT_ID` | 已填问古堂的客户端 ID | 不用改（客户端 ID 本来就是公开的） |
+| `PRICE_USD` | `2.00` | 改价只改这里 |
+| `VERIFY_ENDPOINT` | 空 | 可选：填 Worker 地址后解锁码走服务端校验（见下） |
+| `UNLOCK_CODES` | 含演示码 `SMALLBOWL-DEMO` | **删掉演示码**，留给退款补发、朋友、媒体用 |
+
+### 两种校验强度
+
+- **不部署 Worker（现状）**：解锁码在浏览器里只校验格式（`SB-` + 12~20 位字母数字）。挡得住普通用户，挡不住看源码的人。2 美元的产品，这个强度通常够用。
+- **部署 Worker（推荐，20 分钟）**：付款后页面把交易号发给 Worker，Worker 用 PayPal API 核实"已完成、≥2 美元"才发码并存入 KV；换设备输码时也查 KV。步骤：
+
+```bash
+cd worker
+npx wrangler login
+npx wrangler kv namespace create CODES
+```
+
+把打印出的 id 填进 `wrangler.toml`，然后：
+
+```bash
+npx wrangler secret put PAYPAL_CLIENT_ID
+npx wrangler secret put PAYPAL_SECRET
+npx wrangler deploy
+```
+
+PayPal Secret 在 https://developer.paypal.com/dashboard/applications/live 里，点问古堂那个应用就能看到（和客户端 ID 配对）。部署完把 Worker 地址（形如 `https://smallbowl-unlock.<你的子域>.workers.dev`）填进 `app.js` 的 `VERIFY_ENDPOINT`，推送即可。
+
+### 付费内容本身
+
+定价卡承诺了"7 天逐小时、60 张指给店员看的卡、每日雨天方案、离线 PDF"。目前 `content-paid.js` 只有烤鸭卡和第 1 天的样例。**开始收款前要把这些写完**，否则买家付 2 美元看到的和免费版几乎一样，会退款和差评。PDF 可以用浏览器"打印为 PDF"从解锁后的页面导出，或者我来单独生成。
+
+`MAIL_ENDPOINT`：邮件订阅接口（Buttondown、Formspree、Mailchimp）。留空时邮箱只存本机 localStorage。
 
 ## 添加内容
 

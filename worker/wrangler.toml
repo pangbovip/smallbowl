@@ -1,0 +1,17 @@
+name = "smallbowl-unlock"
+main = "src/index.js"
+compatibility_date = "2026-01-01"
+
+[vars]
+PRICE_USD = "2.00"
+ALLOWED_ORIGIN = "https://chinavisit.org,https://www.chinavisit.org"
+
+# Create with:  npx wrangler kv namespace create CODES
+# then paste the id it prints below.
+[[kv_namespaces]]
+binding = "CODES"
+id = "REPLACE_WITH_KV_ID"
+
+# Secrets (never in this file):
+#   npx wrangler secret put PAYPAL_CLIENT_ID
+#   npx wrangler secret put PAYPAL_SECRET

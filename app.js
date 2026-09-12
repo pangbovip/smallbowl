@@ -1,16 +1,17 @@
 /* Small Bowl China — page logic
-   Config you will edit: PAY_LINKS, UNLOCK_CODES, MAIL_ENDPOINT */
+   Config you will edit: PAYPAL_CLIENT_ID, PRICE_USD, VERIFY_ENDPOINT, UNLOCK_CODES, MAIL_ENDPOINT */
 (function () {
   "use strict";
 
-  // 1. Payment links. Replace with your Stripe Payment Link / Gumroad / Lemon Squeezy URLs.
-  var PAY_LINKS = {
-    pack: "https://buy.stripe.com/REPLACE_ME_pack"   // US$2 one-time
-  };
-  // 2. Unlock codes you send after purchase. Client-side only: good enough to gate a guide, not a bank.
-  //    For real license checks use Gumroad's license API or Lemon Squeezy license keys (see README).
-  var UNLOCK_CODES = ["SMALLBOWL-DEMO", "XIAOWAN2026"];
-  // 3. Newsletter endpoint (Buttondown / Mailchimp / Formspree). Empty = store locally, no network.
+  // 1. PayPal. Same business account as wenguhall.com (client ID is public by design).
+  var PAYPAL_CLIENT_ID = "AZAUdHJ_fPObN-WAMZWZNRT5F2DBm262FCzEXr95R71042sUsGrIqtQUp8oclUDGJJ4-KjBLeuA08Gvw";
+  var PRICE_USD = "2.00";
+  // 2. Optional Cloudflare Worker that verifies payments with PayPal and stores codes (see worker/).
+  //    Empty = no backend: unlock happens on this device and the code is "SB-" + PayPal transaction ID.
+  var VERIFY_ENDPOINT = "";
+  // 3. Hand-issued codes (refunds, friends, press). Remove SMALLBOWL-DEMO before launch.
+  var UNLOCK_CODES = ["SMALLBOWL-DEMO"];
+  // 4. Newsletter endpoint (Buttondown / Mailchimp / Formspree). Empty = store locally, no network.
   var MAIL_ENDPOINT = "";
 
   var LANGS = ["en", "ja", "ko"];
@@ -20,6 +21,7 @@
   var state = {
     lang: pickLang(),
     unlocked: safeGet("sb_unlocked") === "1",
+    code: safeGet("sb_code") || "",
     filter: "all"
   };
 
@@ -60,7 +62,6 @@
       var city = c.cityNames[card.city] || card.city;
       var body;
       if (card.locked) {
-        // Locked cards ship teaser only; the full body lives in the paid guide (content-paid-*.js after unlock).
         var paid = window.PAID && window.PAID[state.lang] && window.PAID[state.lang][card.id];
         if (state.unlocked && paid) card = Object.assign({}, card, paid);
       }
@@ -69,7 +70,7 @@
           '<ol class="steps"><li>' + esc(card.teaser || "") + '</li><li>&nbsp;</li><li>&nbsp;</li></ol></div>' +
           '<div class="card-foot"><div class="say-card"><span class="say-zh">……</span><span class="say-pinyin">&nbsp;</span></div></div>' +
           '<div class="lock">' + esc(card.zh) + '<small>' + esc(t("card.locked")) + '</small></div>' +
-          '<a class="btn btn-seal btn-small lock-btn" href="#pricing">' + esc(t("card.unlock")) + '</a>';
+          '<button type="button" class="btn btn-seal btn-small lock-btn" data-buy>' + esc(t("card.unlock")) + '</button>';
       } else {
         body = '<div class="card-body"><p class="hook">' + esc(card.hook) + '</p>' +
           '<ol class="steps">' + card.steps.map(function (s) { return "<li>" + esc(s) + "</li>"; }).join("") + '</ol>' +
@@ -110,9 +111,10 @@
   function renderTiers() {
     var c = window.CONTENT[state.lang];
     $("#tiers").innerHTML = c.tiers.map(function (tier) {
-      var cta = tier.cta === "free"
-        ? '<span class="btn btn-ghost" aria-disabled="true">' + esc(t("tier.free")) + '</span>'
-        : '<a class="btn ' + (tier.hero ? "btn-seal" : "btn-primary") + '" href="' + esc(PAY_LINKS[tier.link] || "#") + '" target="_blank" rel="noopener">' + esc(t("tier.buy")) + " · " + esc(tier.name) + '</a>';
+      var cta;
+      if (tier.cta === "free") cta = '<span class="btn btn-ghost" aria-disabled="true">' + esc(t("tier.free")) + '</span>';
+      else if (state.unlocked) cta = '<span class="btn btn-ghost" aria-disabled="true">' + esc(t("tier.owned")) + '</span>';
+      else cta = '<button type="button" class="btn btn-seal" data-buy>' + esc(t("tier.buy")) + " · $" + PRICE_USD.replace(/\.00$/, "") + '</button>';
       var price = tier.cur
         ? '<strong>' + esc(tier.cur === "USD" ? "$" + tier.price : tier.cur === "JPY" ? "¥" + tier.price : "₩" + tier.price) + '</strong><span>' + esc((tier.alt ? tier.alt + " · " : "") + tier.sub) + '</span>'
         : '<strong>0</strong><span>' + esc(tier.sub) + '</span>';
@@ -120,6 +122,10 @@
         '<h3>' + esc(tier.name) + '</h3><div class="tier-price">' + price + '</div>' +
         '<ul>' + tier.items.map(function (s) { return "<li>" + esc(s) + "</li>"; }).join("") + '</ul>' + cta + '</div>';
     }).join("");
+    var row = $(".unlock-row");
+    if (row) row.hidden = state.unlocked;
+    var owned = $("#ownedRow");
+    if (owned) { owned.hidden = !state.unlocked; $("#ownedCode").textContent = state.code; }
   }
 
   function renderFaq() {
@@ -128,6 +134,103 @@
       return '<details' + (i === 0 ? " open" : "") + '><summary>' + esc(f.q) + '</summary><div class="faq-body">' + esc(f.a) + '</div></details>';
     }).join("");
   }
+
+  /* ---------- unlock ---------- */
+  function unlock(code) {
+    state.unlocked = true; state.code = code || state.code;
+    safeSet("sb_unlocked", "1"); if (state.code) safeSet("sb_code", state.code);
+    renderAll();
+  }
+  // Returns a Promise<boolean>. With a worker, the code is checked server-side; without one,
+  // hand-issued codes and the "SB-" + PayPal transaction ID shape are accepted on the client.
+  function validateCode(code) {
+    code = code.trim().toUpperCase();
+    if (!code) return Promise.resolve(false);
+    if (UNLOCK_CODES.indexOf(code) >= 0) return Promise.resolve(true);
+    if (VERIFY_ENDPOINT) {
+      return fetch(VERIFY_ENDPOINT + "/check?code=" + encodeURIComponent(code))
+        .then(function (r) { return r.json(); }).then(function (j) { return !!j.ok; }, function () { return false; });
+    }
+    return Promise.resolve(/^SB-[A-Z0-9]{12,20}$/.test(code));
+  }
+  function tryUnlock() {
+    var code = $("#codeInput").value.trim().toUpperCase();
+    var msg = $("#codeMsg");
+    msg.textContent = "…"; msg.className = "unlock-msg";
+    validateCode(code).then(function (ok) {
+      if (ok) { msg.textContent = ""; unlock(code); }
+      else { msg.textContent = t("pricing.codeBad"); msg.className = "unlock-msg"; }
+    });
+  }
+  $("#codeBtn").addEventListener("click", tryUnlock);
+  $("#codeInput").addEventListener("keydown", function (e) { if (e.key === "Enter") tryUnlock(); });
+  var m = /[?&]code=([^&]+)/.exec(location.search);
+  if (m) { validateCode(decodeURIComponent(m[1])).then(function (ok) { if (ok) unlock(decodeURIComponent(m[1]).toUpperCase()); }); }
+
+  /* ---------- PayPal checkout modal ---------- */
+  var payOverlay = $("#payOverlay"), paypalLoaded = false, paypalRendered = false;
+  function openPay() {
+    payOverlay.hidden = false; document.body.style.overflow = "hidden";
+    $("#payDone").hidden = true; $("#payErr").textContent = "";
+    $("#payButtons").hidden = false;
+    loadPayPal();
+  }
+  function closePay() { payOverlay.hidden = true; document.body.style.overflow = ""; }
+  function loadPayPal() {
+    if (paypalRendered) return;
+    if (paypalLoaded) { renderButtons(); return; }
+    paypalLoaded = true;
+    $("#payLoading").hidden = false;
+    var s = document.createElement("script");
+    s.src = "https://www.paypal.com/sdk/js?client-id=" + PAYPAL_CLIENT_ID + "&currency=USD&intent=capture&disable-funding=paylater&locale=" + ({ en: "en_US", ja: "ja_JP", ko: "ko_KR" }[state.lang]);
+    s.onload = renderButtons;
+    s.onerror = function () { $("#payLoading").hidden = true; $("#payErr").textContent = t("pay.loadError"); paypalLoaded = false; };
+    document.head.appendChild(s);
+  }
+  function renderButtons() {
+    if (paypalRendered || !window.paypal) return;
+    paypalRendered = true;
+    $("#payLoading").hidden = true;
+    window.paypal.Buttons({
+      style: { layout: "vertical", color: "black", shape: "rect", height: 44, tagline: false },
+      createOrder: function (data, actions) {
+        return actions.order.create({
+          purchase_units: [{ amount: { value: PRICE_USD, currency_code: "USD" }, description: "Small Bowl China: full 7-day guide (chinavisit.org)" }],
+          application_context: { shipping_preference: "NO_SHIPPING", brand_name: "Small Bowl China" }
+        });
+      },
+      onApprove: function (data, actions) {
+        return actions.order.capture().then(function (details) {
+          var cap = details && details.purchase_units && details.purchase_units[0].payments && details.purchase_units[0].payments.captures;
+          var txn = (cap && cap[0] && cap[0].id) || data.orderID;
+          return issueCode(txn, data.orderID).then(function (code) {
+            unlock(code);
+            $("#payButtons").hidden = true;
+            $("#payCode").textContent = code;
+            $("#payDone").hidden = false;
+          });
+        }).catch(function () { $("#payErr").textContent = t("pay.error"); });
+      },
+      onError: function () { $("#payErr").textContent = t("pay.error"); }
+    }).render("#payButtons");
+  }
+  // The code is the PayPal transaction ID with an SB- prefix, so a buyer can always recover it
+  // from their PayPal receipt email. With a worker, the worker verifies the capture and stores it.
+  function issueCode(txnId, orderId) {
+    var code = "SB-" + String(txnId).toUpperCase();
+    if (!VERIFY_ENDPOINT) return Promise.resolve(code);
+    return fetch(VERIFY_ENDPOINT + "/issue", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ captureId: txnId, orderId: orderId }) })
+      .then(function (r) { return r.json(); }).then(function (j) { return j.code || code; }, function () { return code; });
+  }
+  document.addEventListener("click", function (e) {
+    if (e.target.closest && e.target.closest("[data-buy]")) { e.preventDefault(); openPay(); return; }
+    if (e.target === payOverlay || (e.target.closest && e.target.closest("#payClose"))) closePay();
+  });
+  $("#payCopy").addEventListener("click", function () {
+    var code = $("#payCode").textContent;
+    var done = function () { $("#payCopy").textContent = t("pay.copied"); };
+    if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(code).then(done, done); else done();
+  });
 
   /* ---------- point-and-say overlay ---------- */
   var overlay = $("#sayOverlay");
@@ -142,7 +245,11 @@
     if (card && !card.closest(".is-locked")) { openSay(card.getAttribute("data-say"), card.getAttribute("data-say-pinyin")); return; }
     if (e.target === overlay || e.target.closest && e.target.closest("#sayClose")) closeSay();
   });
-  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !overlay.hidden) closeSay(); });
+  document.addEventListener("keydown", function (e) {
+    if (e.key !== "Escape") return;
+    if (!overlay.hidden) closeSay();
+    if (!payOverlay.hidden) closePay();
+  });
 
   /* ---------- controls ---------- */
   $$(".lang button").forEach(function (b) {
@@ -152,19 +259,6 @@
     var chip = e.target.closest(".chip"); if (!chip) return;
     state.filter = chip.getAttribute("data-filter"); applyFilter();
   });
-  $("#codeBtn").addEventListener("click", tryUnlock);
-  $("#codeInput").addEventListener("keydown", function (e) { if (e.key === "Enter") tryUnlock(); });
-  function tryUnlock() {
-    var code = $("#codeInput").value.trim().toUpperCase();
-    var msg = $("#codeMsg");
-    if (UNLOCK_CODES.indexOf(code) >= 0) {
-      state.unlocked = true; safeSet("sb_unlocked", "1");
-      msg.textContent = t("pricing.codeOk"); msg.className = "unlock-msg ok"; renderAll();
-    } else { msg.textContent = t("pricing.codeBad"); msg.className = "unlock-msg"; }
-  }
-  // ?code=XXXX in the URL (put it in the purchase email) unlocks without typing
-  var m = /[?&]code=([^&]+)/.exec(location.search);
-  if (m && UNLOCK_CODES.indexOf(decodeURIComponent(m[1]).toUpperCase()) >= 0) { state.unlocked = true; safeSet("sb_unlocked", "1"); }
 
   $("#mailForm").addEventListener("submit", function (e) {
     e.preventDefault();
