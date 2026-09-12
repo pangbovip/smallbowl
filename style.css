@@ -371,3 +371,9 @@ html[lang="ja"] .credits-label, html[lang="ko"] .credits-label { font-family: in
   .hero-card-wrap { margin: -40px 12px 0 12px; }
 }
 @media print { .hero-photo { display: none; } .hero-card-wrap { margin: 0; } }
+
+/* ---------- logo mark ---------- */
+.brand { align-items: center; }
+.brand-mark { flex: none; color: var(--ink); }
+.brand-mark-lg { margin-bottom: 4px; }
+.foot-brand { align-content: start; }
