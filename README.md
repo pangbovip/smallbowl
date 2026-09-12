@@ -20,7 +20,7 @@ site/
 
 ## 上线（免费）
 
-把 `site/` 整个目录拖到 Netlify Drop、Cloudflare Pages 或 GitHub Pages 即可，无需构建。
+仓库 https://github.com/pangbovip/smallbowl ，GitHub Pages 从 main 分支根目录发布，自定义域名 https://chinavisit.org （CNAME 文件），域名和 DNS 都在 Cloudflare，与问古堂同一套。
 
 ## 收款：三处要改的地方（都在 `app.js` 顶部）
 
