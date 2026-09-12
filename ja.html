@@ -23,7 +23,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <meta name="theme-color" content="#F1F3EE">
-<link rel="stylesheet" href="style.css?v=20260912f">
+<link rel="stylesheet" href="style.css?v=20260912g">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
  {"@type":"WebSite","name":"China Visit","alternateName":["Small Bowl China","小碗"],"url":"https://chinavisit.org/","inLanguage":["en","ja","ko"],"description":"A 7-day China guide for first-time visitors, built from small practical details: food etiquette, shared bikes, QR payment, metro, toilets."},
@@ -71,7 +71,7 @@
         <a class="btn btn-primary" href="#details" data-i18n="hero.cta1">無料のディテールを読む</a>
         <a class="btn btn-ghost" href="#pricing" data-i18n="hero.cta2">7日間の完全版を手に入れる</a>
       </div>
-      <p class="hero-note" data-i18n="hero.note">無料：ディテール8枚＋7日間の骨組み。有料：1時間ごとの予定、すべての住所、「見せるだけ」カード60枚。</p>
+      <p class="hero-note" data-i18n="hero.note">無料：ディテール8枚＋7日間の骨組み。2ドル：1時間ごとの予定、すべての住所、「見せるだけ」カード60枚、WhatsAppグループ。</p>
     </div>
 
     <div class="hero-demo" aria-label="Point-and-say card demo">
@@ -160,12 +160,13 @@
   <section class="section pricing" id="pricing">
     <div class="section-head">
       <h2 data-i18n="pricing.title">すべてのディテールを、2ドルで。</h2>
-      <p data-i18n="pricing.sub">豆汁一杯より安い。買い切り、サブスクなし、このサイトとPDFの両方で解除。出発前夜の友人に渡すつもりで書いたものです。</p>
+      <p data-i18n="pricing.sub">豆汁一杯より安い。買い切り、サブスクなし。このサイトとPDFで全部読めるうえ、滞在中の質問に答えるWhatsAppグループにもご招待します。</p>
     </div>
     <div class="tiers" id="tiers"></div>
     <p class="unlock-row owned-row" id="ownedRow" hidden>
       <span data-i18n="pricing.owned">この端末では解除済み。別のスマホ用のコード：</span>
       <code class="pay-code pay-code-small" id="ownedCode"></code>
+      <a class="btn btn-small btn-seal" id="ownedGroupBtn" href="#" target="_blank" rel="noopener" data-i18n="group.cta">WhatsAppグループに参加</a>
     </p>
     <p class="unlock-row">
       <span data-i18n="pricing.haveCode">購入済みの方</span>
@@ -246,6 +247,11 @@
       <p data-i18n="pay.doneCode">解除コード（PayPalの領収メールの取引IDと同じです）：</p>
       <div class="pay-code-row"><code class="pay-code" id="payCode"></code><button type="button" class="btn btn-small" id="payCopy" data-i18n="pay.copy">コピー</button></div>
       <p class="pay-note" data-i18n="pay.doneNote">別のスマホやPCでは「購入済みの方」に入力してください。どこかに保存を。</p>
+      <div class="group-join">
+        <p class="group-join-title" data-i18n="group.title">もうひとつ：グループのこと</p>
+        <p data-i18n="group.text">ご購入いただいた方はWhatsAppグループにご招待します。中国滞在中、読めないメニュー、見つからない駅、おかしいと感じた値段、何でも聞いてください。私たちも、先月行ってきた旅行者も答えます。</p>
+        <a class="btn btn-seal group-btn" id="groupBtn" href="#" target="_blank" rel="noopener" data-i18n="group.cta">WhatsAppグループに参加</a>
+      </div>
     </div>
     <p class="unlock-msg" id="payErr" aria-live="polite"></p>
   </div>
@@ -259,14 +265,14 @@
   <p class="say-overlay-tip" data-i18n="say.tip">画面を見せる。指さす。笑う。コツはそれだけ。</p>
 </div>
 
-<script src="i18n.js?v=20260912f"></script>
-<script src="content-en.js?v=20260912f"></script>
-<script src="content-ja.js?v=20260912f"></script>
-<script src="content-ko.js?v=20260912f"></script>
-<script src="content-paid-en.js?v=20260912f"></script>
-<script src="content-paid-ja.js?v=20260912f"></script>
-<script src="content-paid-ko.js?v=20260912f"></script>
-<script src="images/credits.js?v=20260912f"></script>
-<script src="app.js?v=20260912f"></script>
+<script src="i18n.js?v=20260912g"></script>
+<script src="content-en.js?v=20260912g"></script>
+<script src="content-ja.js?v=20260912g"></script>
+<script src="content-ko.js?v=20260912g"></script>
+<script src="content-paid-en.js?v=20260912g"></script>
+<script src="content-paid-ja.js?v=20260912g"></script>
+<script src="content-paid-ko.js?v=20260912g"></script>
+<script src="images/credits.js?v=20260912g"></script>
+<script src="app.js?v=20260912g"></script>
 </body>
 </html>

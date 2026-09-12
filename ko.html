@@ -23,7 +23,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <meta name="theme-color" content="#F1F3EE">
-<link rel="stylesheet" href="style.css?v=20260912f">
+<link rel="stylesheet" href="style.css?v=20260912g">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
  {"@type":"WebSite","name":"China Visit","alternateName":["Small Bowl China","小碗"],"url":"https://chinavisit.org/","inLanguage":["en","ja","ko"],"description":"A 7-day China guide for first-time visitors, built from small practical details: food etiquette, shared bikes, QR payment, metro, toilets."},
@@ -71,7 +71,7 @@
         <a class="btn btn-primary" href="#details" data-i18n="hero.cta1">무료 디테일 읽기</a>
         <a class="btn btn-ghost" href="#pricing" data-i18n="hero.cta2">7일 전체 가이드 받기</a>
       </div>
-      <p class="hero-note" data-i18n="hero.note">무료: 디테일 8장 + 7일 뼈대. 유료: 시간 단위 일정, 모든 주소, '보여주기' 카드 60장.</p>
+      <p class="hero-note" data-i18n="hero.note">무료: 디테일 8장 + 7일 뼈대. 2달러: 시간 단위 일정, 모든 주소, '보여주기' 카드 60장, WhatsApp 단체방.</p>
     </div>
 
     <div class="hero-demo" aria-label="Point-and-say card demo">
@@ -160,12 +160,13 @@
   <section class="section pricing" id="pricing">
     <div class="section-head">
       <h2 data-i18n="pricing.title">모든 디테일을, 2달러에.</h2>
-      <p data-i18n="pricing.sub">더우즈 한 그릇보다 싸다. 1회 결제, 구독 없음, 이 사이트와 PDF 모두 해제. 출발 전날 친구에게 건네줄 생각으로 썼습니다.</p>
+      <p data-i18n="pricing.sub">더우즈 한 그릇보다 싸다. 1회 결제, 구독 없음. 사이트와 PDF로 전부 보는 데다, 중국에 있는 동안 질문에 답해주는 WhatsApp 단체방에도 초대합니다.</p>
     </div>
     <div class="tiers" id="tiers"></div>
     <p class="unlock-row owned-row" id="ownedRow" hidden>
       <span data-i18n="pricing.owned">이 기기에서 해제됨. 다른 폰용 코드:</span>
       <code class="pay-code pay-code-small" id="ownedCode"></code>
+      <a class="btn btn-small btn-seal" id="ownedGroupBtn" href="#" target="_blank" rel="noopener" data-i18n="group.cta">WhatsApp 단체방 참여</a>
     </p>
     <p class="unlock-row">
       <span data-i18n="pricing.haveCode">이미 구매하셨나요?</span>
@@ -246,6 +247,11 @@
       <p data-i18n="pay.doneCode">잠금 해제 코드 (페이팔 영수증의 거래 ID와 동일):</p>
       <div class="pay-code-row"><code class="pay-code" id="payCode"></code><button type="button" class="btn btn-small" id="payCopy" data-i18n="pay.copy">복사</button></div>
       <p class="pay-note" data-i18n="pay.doneNote">다른 폰이나 노트북에서는 '이미 구매하셨나요?'에 입력하세요. 어딘가에 저장해 두세요.</p>
+      <div class="group-join">
+        <p class="group-join-title" data-i18n="group.title">하나 더: 단체방</p>
+        <p data-i18n="group.text">구매하신 분은 WhatsApp 단체방에 초대해 드립니다. 중국에 있는 동안 뭐든 물어보세요. 못 읽는 메뉴판, 못 찾는 역, 이상해 보이는 가격. 저희도 답하고, 지난달에 다녀온 여행자들도 답합니다.</p>
+        <a class="btn btn-seal group-btn" id="groupBtn" href="#" target="_blank" rel="noopener" data-i18n="group.cta">WhatsApp 단체방 참여</a>
+      </div>
     </div>
     <p class="unlock-msg" id="payErr" aria-live="polite"></p>
   </div>
@@ -259,14 +265,14 @@
   <p class="say-overlay-tip" data-i18n="say.tip">화면을 보여준다. 가리킨다. 웃는다. 요령은 그게 전부.</p>
 </div>
 
-<script src="i18n.js?v=20260912f"></script>
-<script src="content-en.js?v=20260912f"></script>
-<script src="content-ja.js?v=20260912f"></script>
-<script src="content-ko.js?v=20260912f"></script>
-<script src="content-paid-en.js?v=20260912f"></script>
-<script src="content-paid-ja.js?v=20260912f"></script>
-<script src="content-paid-ko.js?v=20260912f"></script>
-<script src="images/credits.js?v=20260912f"></script>
-<script src="app.js?v=20260912f"></script>
+<script src="i18n.js?v=20260912g"></script>
+<script src="content-en.js?v=20260912g"></script>
+<script src="content-ja.js?v=20260912g"></script>
+<script src="content-ko.js?v=20260912g"></script>
+<script src="content-paid-en.js?v=20260912g"></script>
+<script src="content-paid-ja.js?v=20260912g"></script>
+<script src="content-paid-ko.js?v=20260912g"></script>
+<script src="images/credits.js?v=20260912g"></script>
+<script src="app.js?v=20260912g"></script>
 </body>
 </html>

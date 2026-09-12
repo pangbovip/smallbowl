@@ -392,3 +392,11 @@ html[lang="ja"] .ask-link-label, html[lang="ko"] .ask-link-label { font-family: 
 .ask-link-value { font-family: var(--f-mono); font-size: .9rem; color: var(--ink); }
 .ask-note { font-size: var(--step-0); color: var(--ink-3); }
 @media print { .foot-contact, .faq-ask { display: none !important; } }
+
+/* ---------- buyers' WhatsApp group ---------- */
+.group-join { display: grid; gap: 8px; border-top: 1px dashed var(--line); padding-top: 14px; margin-top: 2px; }
+.group-join-title { font-family: var(--f-display); font-weight: 700; font-size: var(--step-2); color: var(--ink); }
+html[lang="ja"] .group-join-title, html[lang="ko"] .group-join-title { font-family: inherit; }
+.group-join > p { font-size: var(--step-0); color: var(--ink-2); }
+.group-btn { justify-self: start; margin-top: 4px; }
+.owned-row .btn { margin-left: 4px; }

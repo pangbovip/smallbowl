@@ -42,6 +42,7 @@ worker/            可选：Cloudflare Worker，用 PayPal API 校验交易并�
 | `PAYPAL_CLIENT_ID` | 已填问古堂的客户端 ID | 不用改（客户端 ID 本来就是公开的） |
 | `PRICE_USD` | `2.00` | 改价只改这里 |
 | `VERIFY_ENDPOINT` | 空 | 可选：填 Worker 地址后解锁码走服务端校验（见下） |
+| `GROUP_LINK` | 占位符 | **要改**：WhatsApp 建群 → 群资料 → 通过链接邀请 → 复制链接，粘贴到这里。没填之前，"加入群"按钮会退化成给你发一条 WhatsApp 私信请求拉群，不会出现死链 |
 | `UNLOCK_CODES` | 含演示码 `SMALLBOWL-DEMO` | **删掉演示码**，留给退款补发、朋友、媒体用 |
 
 ### 两种校验强度

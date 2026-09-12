@@ -9,9 +9,13 @@
   // 2. Optional Cloudflare Worker that verifies payments with PayPal and stores codes (see worker/).
   //    Empty = no backend: unlock happens on this device and the code is "SB-" + PayPal transaction ID.
   var VERIFY_ENDPOINT = "";
-  // 3. Hand-issued codes (refunds, friends, press). Remove SMALLBOWL-DEMO before launch.
+  // 3. WhatsApp group for buyers. Create the group in WhatsApp, then Group info > Invite via link > Copy link.
+  //    Until that link is pasted here, the buttons fall back to a direct WhatsApp message asking to be added.
+  var GROUP_LINK = "https://chat.whatsapp.com/REPLACE_ME_group";
+  var WHATSAPP_NUMBER = "8613910049069";
+  // 4. Hand-issued codes (refunds, friends, press). Remove SMALLBOWL-DEMO before launch.
   var UNLOCK_CODES = ["SMALLBOWL-DEMO"];
-  // 4. Newsletter endpoint (Buttondown / Mailchimp / Formspree). Empty = store locally, no network.
+  // 5. Newsletter endpoint (Buttondown / Mailchimp / Formspree). Empty = store locally, no network.
   var MAIL_ENDPOINT = "";
 
   var LANGS = ["en", "ja", "ko"];
@@ -49,6 +53,8 @@
     $$("[data-i18n]").forEach(function (el) { el.textContent = t(el.getAttribute("data-i18n")); });
     $$("[data-i18n-placeholder]").forEach(function (el) { el.placeholder = t(el.getAttribute("data-i18n-placeholder")); });
     $$(".lang [data-lang]").forEach(function (b) { b.classList.toggle("is-on", b.getAttribute("data-lang") === state.lang); });
+    var group = groupHref();
+    ["#groupBtn", "#ownedGroupBtn"].forEach(function (sel) { var b = $(sel); if (b) b.href = group; });
     var sister = $("[data-sister-href]");
     if (sister) sister.href = state.lang === "ja" ? "https://wenguhall.com/ja.html" : "https://wenguhall.com/";
     renderBoard(); renderDays(); renderTiers(); renderFaq(); renderCredits();
@@ -101,6 +107,11 @@
       var show = state.filter === "all" || card.getAttribute("data-city") === state.filter;
       card.hidden = !show;
     });
+  }
+
+  function groupHref() {
+    if (GROUP_LINK.indexOf("REPLACE_ME") < 0) return GROUP_LINK;
+    return "https://wa.me/" + WHATSAPP_NUMBER + "?text=" + encodeURIComponent(t("group.fallbackMsg"));
   }
 
   function paidData() { return window.PAID && (window.PAID[state.lang] || window.PAID.en); }
@@ -161,7 +172,7 @@
         '<h3>' + esc(tier.name) + '</h3><div class="tier-price">' + price + '</div>' +
         '<ul>' + tier.items.map(function (s) { return "<li>" + esc(s) + "</li>"; }).join("") + '</ul>' + cta + '</div>';
     }).join("");
-    var row = $(".unlock-row");
+    var row = $(".unlock-row:not(.owned-row)");
     if (row) row.hidden = state.unlocked;
     var owned = $("#ownedRow");
     if (owned) { owned.hidden = !state.unlocked; $("#ownedCode").textContent = state.code; }

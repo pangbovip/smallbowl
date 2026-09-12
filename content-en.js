@@ -158,7 +158,7 @@ window.CONTENT.en = {
 
   tiers: [
     { name: "Free", price: "0", cur: "", sub: "this page", items: ["8 detail cards", "7-day skeleton", "14 point-and-say phrases", "FAQ"], cta: "free" },
-    { name: "Full guide", price: "2", cur: "USD", alt: "¥300 · ₩2,800", sub: "one-time, less than a bowl of douzhi", hero: true, tag: "Everything", items: ["7 days, hour by hour", "Chinese address for every stop, paste into Didi", "60 point-and-say cards", "Rain plans for each day", "Offline PDF + this site unlocked", "Free updates through 2026"], cta: "buy", link: "pack" }
+    { name: "Full guide", price: "2", cur: "USD", alt: "¥300 · ₩2,800", sub: "one-time, less than a bowl of douzhi", hero: true, tag: "Everything", items: ["7 days, hour by hour", "Chinese address for every stop, paste into Didi", "60 point-and-say cards", "Rain plans for each day", "Offline PDF + this site unlocked", "WhatsApp group: ask us anything while you are there", "Free updates through 2026"], cta: "buy", link: "pack" }
   ],
 
   faq: [
