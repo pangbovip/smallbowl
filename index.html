@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Small Bowl China</title>
+<meta name="description" content="A 7-day China guide for Japanese, Korean and Western travelers, built from the small details: how to drink douzhi, eat soup dumplings, ride a shared bike, pay by QR.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+KR:wght@400;700&family=Noto+Sans+SC:wght@400;700&family=Zhi+Mang+Xing&display=swap">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="top">
+  <a class="brand" href="#top">
+    <span class="brand-zh">小碗</span>
+    <span class="brand-en">Small Bowl</span>
+  </a>
+  <nav class="nav" aria-label="Sections">
+    <a href="#details" data-i18n="nav.details">Details</a>
+    <a href="#days" data-i18n="nav.days">7 days</a>
+    <a href="#pricing" data-i18n="nav.pricing">Full guide</a>
+    <a href="#faq" data-i18n="nav.faq">FAQ</a>
+  </nav>
+  <div class="lang" role="group" aria-label="Language">
+    <button type="button" data-lang="en" lang="en">EN</button>
+    <button type="button" data-lang="ja" lang="ja">日本語</button>
+    <button type="button" data-lang="ko" lang="ko">한국어</button>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO: thesis = a live point-and-say card -->
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow" data-i18n="hero.eyebrow">7 days in China · for first-timers from Japan, Korea and beyond</p>
+      <h1 data-i18n="hero.title">The big sights are easy. It's the small bowl that trips you up.</h1>
+      <p class="lede" data-i18n="hero.lede">Everyone tells you to see the Great Wall. Nobody tells you how to drink douzhi without spitting it out, how to open a soup dumpling without burning your lip, or how to unlock a shared bike when the app is in Chinese. This guide is only the small things.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary" href="#details" data-i18n="hero.cta1">Read the free details</a>
+        <a class="btn btn-ghost" href="#pricing" data-i18n="hero.cta2">Get the full 7-day guide</a>
+      </div>
+      <p class="hero-note" data-i18n="hero.note">Free: 8 details + the 7-day skeleton. Paid: every hour, every address, 60 point-and-say cards.</p>
+    </div>
+
+    <div class="hero-demo" aria-label="Point-and-say card demo">
+      <p class="demo-label" data-i18n="hero.demoLabel">Try it: tap the card, show your phone to the counter</p>
+      <button type="button" class="say-card say-card-hero" data-say="一碗豆汁，一个焦圈，谢谢。" data-say-pinyin="yì wǎn dòu zhī, yí ge jiāo quān, xiè xie">
+        <span class="say-zh">一碗豆汁，一个焦圈，谢谢。</span>
+        <span class="say-pinyin">yì wǎn dòu zhī, yí ge jiāo quān, xiè xie</span>
+        <span class="say-meaning" data-i18n="hero.demoMeaning">"One bowl of douzhi, one jiaoquan, thanks."</span>
+        <span class="say-hint" data-i18n="hero.demoHint">Tap to enlarge</span>
+      </button>
+    </div>
+  </section>
+
+  <!-- WHY THIS EXISTS -->
+  <section class="strip">
+    <div class="strip-item">
+      <span class="strip-num">3<small>RMB</small></span>
+      <span data-i18n="strip.a">A bowl of douzhi. Cheapest culture shock in Beijing.</span>
+    </div>
+    <div class="strip-item">
+      <span class="strip-num">1.5<small>RMB / 15 min</small></span>
+      <span data-i18n="strip.b">A shared bike, once you can unlock it.</span>
+    </div>
+    <div class="strip-item">
+      <span class="strip-num">0<small>%</small></span>
+      <span data-i18n="strip.c">Tipping. Never. Anywhere.</span>
+    </div>
+    <div class="strip-item">
+      <span class="strip-num">30<small data-i18n="strip.dUnit">days</small></span>
+      <span data-i18n="strip.d">Visa-free for Japanese and Korean passports (as of 2026, check before flying).</span>
+    </div>
+  </section>
+
+  <!-- DETAIL CARDS (menu board) -->
+  <section class="section" id="details">
+    <div class="section-head">
+      <h2 data-i18n="details.title">The details</h2>
+      <p data-i18n="details.sub">Each card is one thing you'll actually do. Steps, where, price, the one mistake, and a phrase to show.</p>
+    </div>
+    <div class="filters" role="group" aria-label="Filter by city">
+      <button type="button" class="chip is-on" data-filter="all" data-i18n="filters.all">All</button>
+      <button type="button" class="chip" data-filter="beijing">北京 Beijing</button>
+      <button type="button" class="chip" data-filter="shanghai">上海 Shanghai</button>
+      <button type="button" class="chip" data-filter="xian">西安 Xi'an</button>
+      <button type="button" class="chip" data-filter="chengdu">成都 Chengdu</button>
+      <button type="button" class="chip" data-filter="everywhere" data-i18n="filters.everywhere">Everywhere</button>
+    </div>
+    <div class="board" id="board"></div>
+  </section>
+
+  <!-- 7 DAYS -->
+  <section class="section" id="days">
+    <div class="section-head">
+      <h2 data-i18n="days.title">The 7-day skeleton</h2>
+      <p data-i18n="days.sub">Beijing → Shanghai by high-speed rail. This is the free outline. The paid guide fills every hour, with the Chinese address for each stop and what to do when it rains.</p>
+    </div>
+    <div class="days" id="daysGrid"></div>
+  </section>
+
+  <!-- PRICING -->
+  <section class="section pricing" id="pricing">
+    <div class="section-head">
+      <h2 data-i18n="pricing.title">Want every detail? That part is paid.</h2>
+      <p data-i18n="pricing.sub">The free page gets you started. The full guide is what I'd hand a friend the night before they fly.</p>
+    </div>
+    <div class="tiers" id="tiers"></div>
+    <p class="unlock-row">
+      <span data-i18n="pricing.haveCode">Already bought?</span>
+      <input type="text" id="codeInput" inputmode="text" autocomplete="off" data-i18n-placeholder="pricing.codePh" placeholder="Enter your unlock code">
+      <button type="button" class="btn btn-small" id="codeBtn" data-i18n="pricing.codeBtn">Unlock</button>
+      <span class="unlock-msg" id="codeMsg" aria-live="polite"></span>
+    </p>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section" id="faq">
+    <div class="section-head">
+      <h2 data-i18n="faq.title">Before you fly</h2>
+    </div>
+    <div class="faq" id="faqList"></div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="foot-brand">
+    <span class="brand-zh">小碗</span>
+    <p data-i18n="foot.line">Small Bowl. Order the small bowl first. If you like it, order the big one.</p>
+  </div>
+  <form class="foot-form" id="mailForm">
+    <label for="mailInput" data-i18n="foot.mailLabel">New details every week, before your trip</label>
+    <div class="foot-form-row">
+      <input type="email" id="mailInput" required data-i18n-placeholder="foot.mailPh" placeholder="you@example.com">
+      <button type="submit" class="btn btn-small" data-i18n="foot.mailBtn">Subscribe</button>
+    </div>
+    <span class="unlock-msg" id="mailMsg" aria-live="polite"></span>
+  </form>
+  <p class="foot-legal" data-i18n="foot.legal">Prices and rules change. Everything here was checked in 2026. Not affiliated with any restaurant, app or government.</p>
+</footer>
+
+<!-- Fullscreen point-and-say overlay -->
+<div class="say-overlay" id="sayOverlay" hidden role="dialog" aria-modal="true" aria-label="Show this to staff">
+  <button type="button" class="say-close" id="sayClose" aria-label="Close">×</button>
+  <p class="say-overlay-zh" id="sayZh"></p>
+  <p class="say-overlay-pinyin" id="sayPinyin"></p>
+  <p class="say-overlay-tip" data-i18n="say.tip">Show the screen. Point. Smile. That's the whole trick.</p>
+</div>
+
+<script src="i18n.js"></script>
+<script src="content-en.js"></script>
+<script src="content-ja.js"></script>
+<script src="content-ko.js"></script>
+<script src="content-paid.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
