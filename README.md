@@ -6,7 +6,9 @@
 
 ```
 site/
-  index.html       页面骨架，所有文案通过 data-i18n 注入
+  index.html       页面骨架（英文，x-default），所有文案通过 data-i18n 注入
+  ja.html / ko.html  由 build.py 从 index.html + i18n.js 生成的日/韩版（独立网址，供 Google 收录）
+  build.py         改过 index.html 或 i18n.js 后运行一次：python build.py
   style.css        视觉系统（浅色 / 深色自动）
   i18n.js          界面文案（三语）
   content-en.js    英文内容：卡片、7 天、价格档、FAQ
@@ -68,6 +70,14 @@ PayPal Secret 在 https://developer.paypal.com/dashboard/applications/live 里�
 "存为 PDF"按钮调用浏览器打印，`style.css` 末尾的 `@media print` 只输出解锁内容，买家自己存离线版。付费内容文件仍是公开的静态 JS，看源码能读到；2 美元的产品接受这个取舍，介意就按上面 Worker 方案把这三个文件改成解锁后再从 Worker 拉取。
 
 `MAIL_ENDPOINT`：邮件订阅接口（Buttondown、Formspree、Mailchimp）。留空时邮箱只存本机 localStorage。
+
+## SEO 与收录
+
+- 三个语言各有独立网址并互相声明 hreflang：`/`、`/ja.html`、`/ko.html`；`sitemap.xml` 列出三者。
+- `index.html` 头部有 JSON-LD（WebSite、Product $2、FAQPage）。
+- Google Search Console：用"网域"属性添加 `chinavisit.org`，在 Cloudflare DNS 加 Google 给的 TXT 记录验证，然后在"站点地图"提交 `https://chinavisit.org/sitemap.xml`。
+- 韩国用户主要用 Naver：在 Naver Search Advisor 添加站点并提交同一个 sitemap。日本用户用 Google，Yahoo Japan 也走 Google 索引。
+- 与问古堂互链：本站页脚"姊妹站"区块指向 wenguhall.com（日文页指向 /ja.html）；问古堂页脚已回链 chinavisit.org。
 
 ## 添加内容
 

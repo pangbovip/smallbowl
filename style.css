@@ -327,3 +327,12 @@ html[lang="ja"] .plan-say-label, html[lang="ko"] .plan-say-label { font-family: 
   .say-grid { grid-template-columns: 1fr 1fr 1fr; }
   a { text-decoration: none; color: inherit; }
 }
+
+/* ---------- sister site (Wen Gu Hall) ---------- */
+.lang a { text-decoration: none; display: inline-block; }
+.foot-sister { grid-column: 1 / -1; display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: start; border-top: 1px solid var(--line); padding-top: 22px; font-size: var(--step-0); color: var(--ink-2); max-width: 70ch; }
+.foot-sister-mark { font-family: var(--f-brush); font-size: 1.6rem; line-height: 1; color: #B08D57; border: 1.5px solid #B08D57; border-radius: 50%; width: 44px; height: 44px; display: grid; place-items: center; }
+.foot-sister-title { font-family: var(--f-display); font-weight: 700; color: var(--ink); font-size: var(--step-1); margin-bottom: 4px; }
+html[lang="ja"] .foot-sister-title, html[lang="ko"] .foot-sister-title { font-family: inherit; }
+.foot-sister-link { display: inline-block; margin-top: 8px; color: var(--ink); font-weight: 600; }
+@media print { .foot-sister { display: none !important; } }

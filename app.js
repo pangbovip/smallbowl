@@ -26,6 +26,11 @@
   };
 
   function pickLang() {
+    // Priority: ?lang= in the URL, then the page's own language (ja.html / ko.html), then the saved choice, then the browser.
+    var q = /[?&]lang=(en|ja|ko)\b/.exec(location.search);
+    if (q) { safeSet("sb_lang", q[1]); return q[1]; }
+    var pageLang = document.documentElement.getAttribute("data-lang");
+    if (LANGS.indexOf(pageLang) >= 0) { safeSet("sb_lang", pageLang); return pageLang; }
     var saved = safeGet("sb_lang");
     if (LANGS.indexOf(saved) >= 0) return saved;
     var nav = (navigator.language || "en").toLowerCase();
@@ -43,7 +48,9 @@
     document.documentElement.lang = state.lang;
     $$("[data-i18n]").forEach(function (el) { el.textContent = t(el.getAttribute("data-i18n")); });
     $$("[data-i18n-placeholder]").forEach(function (el) { el.placeholder = t(el.getAttribute("data-i18n-placeholder")); });
-    $$(".lang button").forEach(function (b) { b.classList.toggle("is-on", b.getAttribute("data-lang") === state.lang); });
+    $$(".lang [data-lang]").forEach(function (b) { b.classList.toggle("is-on", b.getAttribute("data-lang") === state.lang); });
+    var sister = $("[data-sister-href]");
+    if (sister) sister.href = state.lang === "ja" ? "https://wenguhall.com/ja.html" : "https://wenguhall.com/";
     renderBoard(); renderDays(); renderTiers(); renderFaq();
   }
 
@@ -285,8 +292,13 @@
   });
 
   /* ---------- controls ---------- */
-  $$(".lang button").forEach(function (b) {
-    b.addEventListener("click", function () { state.lang = b.getAttribute("data-lang"); safeSet("sb_lang", state.lang); renderAll(); });
+  // Language links are real URLs for search engines; for people we switch in place without a reload.
+  $$(".lang [data-lang]").forEach(function (b) {
+    b.addEventListener("click", function (e) {
+      e.preventDefault();
+      state.lang = b.getAttribute("data-lang"); safeSet("sb_lang", state.lang); renderAll();
+      try { history.replaceState(null, "", b.getAttribute("href")); } catch (err) {}
+    });
   });
   $(".filters").addEventListener("click", function (e) {
     var chip = e.target.closest(".chip"); if (!chip) return;
