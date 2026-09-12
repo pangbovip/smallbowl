@@ -77,10 +77,17 @@ small { font-size: .55em; font-weight: 400; margin-left: .25em; letter-spacing: 
 .nav { display: flex; gap: 18px; margin-left: auto; font-size: var(--step-0); }
 .nav a { text-decoration: none; color: var(--ink-2); padding: 4px 0; border-bottom: 2px solid transparent; }
 .nav a:hover { color: var(--ink); border-color: var(--seal); }
-.lang { display: flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; }
-.lang button { background: none; border: 0; padding: 5px 11px; font-size: .78rem; cursor: pointer; color: var(--ink-2); }
-.lang button.is-on { background: var(--ink); color: var(--ground); }
-@media (max-width: 720px) { .nav { display: none; } .top { gap: 12px; } .lang { margin-left: auto; } }
+/* language switcher: a segmented control, current language set in ink */
+.lang { display: inline-flex; align-items: stretch; border: 1px solid var(--line); border-radius: 6px; overflow: hidden; background: var(--paper); line-height: 1; flex: none; }
+.lang a { display: inline-flex; align-items: center; padding: 8px 13px; font-family: var(--f-display); font-size: .78rem; font-weight: 600; letter-spacing: .03em; color: var(--ink-2); text-decoration: none; border-right: 1px solid var(--line); transition: background .12s ease, color .12s ease; }
+.lang a:last-child { border-right: 0; }
+.lang a[lang="ja"] { font-family: "Noto Sans JP", var(--f-body); font-weight: 700; letter-spacing: 0; }
+.lang a[lang="ko"] { font-family: "Noto Sans KR", var(--f-body); font-weight: 700; letter-spacing: 0; }
+.lang a:hover { background: var(--ground-2); color: var(--ink); }
+.lang a.is-on, .lang a.is-on:hover { background: var(--ink); color: var(--ground); border-right-color: var(--ink); }
+.lang a.is-on + a { border-left: 0; }
+.lang a:focus-visible { outline-offset: -3px; }
+@media (max-width: 720px) { .nav { display: none; } .top { gap: 12px; } .lang { margin-left: auto; } .lang a { padding: 8px 10px; } }
 
 /* ---------- hero ---------- */
 main { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--gutter); }
@@ -329,7 +336,6 @@ html[lang="ja"] .plan-say-label, html[lang="ko"] .plan-say-label { font-family: 
 }
 
 /* ---------- sister site (Wen Gu Hall) ---------- */
-.lang a { text-decoration: none; display: inline-block; }
 .foot-sister { grid-column: 1 / -1; display: grid; grid-template-columns: auto 1fr; gap: 16px; align-items: start; border-top: 1px solid var(--line); padding-top: 22px; font-size: var(--step-0); color: var(--ink-2); max-width: 70ch; }
 .foot-sister-mark { font-family: var(--f-brush); font-size: 1.6rem; line-height: 1; color: #B08D57; border: 1.5px solid #B08D57; border-radius: 50%; width: 44px; height: 44px; display: grid; place-items: center; }
 .foot-sister-title { font-family: var(--f-display); font-weight: 700; color: var(--ink); font-size: var(--step-1); margin-bottom: 4px; }

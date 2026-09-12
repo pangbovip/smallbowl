@@ -9,6 +9,8 @@ site/
   index.html       页面骨架（英文，x-default），所有文案通过 data-i18n 注入
   ja.html / ko.html  由 build.py 从 index.html + i18n.js 生成的日/韩版（独立网址，供 Google 收录）
   build.py         改过 index.html 或 i18n.js 后运行一次：python build.py
+
+改了 style.css 或任何 .js 后，把 index.html 里 `?v=` 的版本号改一下再运行 build.py，否则老访客的浏览器会用缓存的旧文件。
   style.css        视觉系统（浅色 / 深色自动）
   i18n.js          界面文案（三语）
   content-en.js    英文内容：卡片、7 天、价格档、FAQ
