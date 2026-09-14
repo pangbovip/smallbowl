@@ -82,6 +82,13 @@ PayPal Secret 在 https://developer.paypal.com/dashboard/applications/live 里�
 - 韩国用户主要用 Naver：在 Naver Search Advisor 添加站点并提交同一个 sitemap。日本用户用 Google，Yahoo Japan 也走 Google 索引。
 - 与问古堂互链：本站页脚"姊妹站"区块指向 wenguhall.com（日文页指向 /ja.html）；问古堂页脚已回链 chinavisit.org。
 
+## 数据与推广
+
+- **访问统计**：Cloudflare Web Analytics，代码在 `index.html` 的 `</body>` 前，`build.py` 会带到日韩页。看数据：Cloudflare 后台 → Analytics & Logs → Web Analytics → chinavisit.org。能看访问量、来源网站、国家、设备、热门页面。
+- **IndexNow**：`.github/workflows/indexnow.yml` 在每次改动页面并推送后，等 90 秒通知 Bing、Naver 等搜索引擎重新抓取；密钥文件是根目录的 `00869675f174f36b12e5b37f660fc249.txt`，不要删。
+- **推送前先 `git fetch` 再变基**：仓库在 GitHub 网页上也会有人加文件。
+- **推广素材**：`推广素材/`（不进网站仓库）。`发帖文案.md` 是各平台文案和两周发布节奏；`make_share_images.py` 生成 1080×1350 分享图，改了卡片内容后重新运行即可。
+
 ## 添加内容
 
 - 新卡片：在三个 `content-*.js` 的 `cards` 数组里各加一项，`id` 相同。`locked: true` 的卡片只写 `hook` 和 `teaser`，完整内容放 `content-paid-*.js` 的 `cards[id]`。
