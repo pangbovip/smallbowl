@@ -60,6 +60,8 @@
     ["#groupBtn", "#ownedGroupBtn"].forEach(function (sel) { var b = $(sel); if (b) b.href = group; });
     var sister = $("[data-sister-href]");
     if (sister) sister.href = state.lang === "ja" ? "https://wenguhall.com/ja.html" : "https://wenguhall.com/";
+    var visa = $("[data-visa-href]");
+    if (visa) visa.href = state.lang === "en" ? "visa/" : state.lang + "/visa/";
     renderBoard(); renderApps(); renderDays(); renderTiers(); renderFaq(); renderCredits();
   }
 

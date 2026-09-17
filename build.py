@@ -42,6 +42,7 @@ def build(lang, i18n):
         if val is None:
             return mo.group(0)
         return mo.group(1) + html.escape(val, quote=False) + mo.group(4)
+    page = page.replace('href="visa/" data-i18n="nav.visa"', 'href="%s/visa/" data-i18n="nav.visa"' % lang, 1)
     page = re.sub(r'(data-i18n="([^"]+)"[^>]*>)(.*?)(</)', text_repl, page, flags=re.S)
 
     def ph_repl(mo):

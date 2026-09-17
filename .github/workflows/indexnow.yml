@@ -11,27 +11,35 @@ on:
       - "content-*.js"
       - "i18n.js"
       - "app.js"
+      - "visa/**"
+      - "ja/visa/**"
+      - "ko/visa/**"
   workflow_dispatch:
 
 jobs:
   ping:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+
       - name: Wait for GitHub Pages to publish
         run: sleep 90
 
+      # The URL list is read from sitemap.xml, so new pages get pinged without editing this file.
       - name: Notify IndexNow
         run: |
-          curl -sS -X POST "https://api.indexnow.org/IndexNow" \
-            -H "Content-Type: application/json; charset=utf-8" \
-            -w "\nHTTP %{http_code}\n" \
-            -d '{
+          python3 - <<'EOF' > payload.json
+          import json, re
+          urls = re.findall(r"<loc>([^<]+)</loc>", open("sitemap.xml", encoding="utf-8").read())
+          print(json.dumps({
               "host": "chinavisit.org",
               "key": "00869675f174f36b12e5b37f660fc249",
               "keyLocation": "https://chinavisit.org/00869675f174f36b12e5b37f660fc249.txt",
-              "urlList": [
-                "https://chinavisit.org/",
-                "https://chinavisit.org/ja.html",
-                "https://chinavisit.org/ko.html"
-              ]
-            }'
+              "urlList": urls[:10000],
+          }))
+          EOF
+          echo "URLs in payload: $(grep -o 'https://chinavisit.org/[^"]*' payload.json | grep -vc 00869675)"
+          curl -sS -X POST "https://api.indexnow.org/IndexNow" \
+            -H "Content-Type: application/json; charset=utf-8" \
+            -w "\nHTTP %{http_code}\n" \
+            --data-binary @payload.json

@@ -2,7 +2,7 @@
 window.I18N = {
   en: {
     "nav.details": "Details", "nav.days": "7 days", "nav.pricing": "Full guide", "nav.faq": "FAQ",
-    "nav.apps": "Apps",
+    "nav.apps": "Apps", "nav.visa": "Visa",
     "apps.title": "Install these before you fly",
     "apps.sub": "All free. All must be set up at home, on your own network: verification texts and card checks fail once you are on a Chinese connection. An hour tonight saves a bad first morning.",
     "apps.note": "You do not need a Chinese phone number or a Chinese bank account for any of these. A foreign number and a Visa, Mastercard or JCB are enough.",
@@ -80,7 +80,7 @@ window.I18N = {
 
   ja: {
     "nav.details": "ディテール", "nav.days": "7日間", "nav.pricing": "完全版", "nav.faq": "よくある質問",
-    "nav.apps": "アプリ",
+    "nav.apps": "アプリ", "nav.visa": "ビザ",
     "apps.title": "出発前に入れておくアプリ",
     "apps.sub": "すべて無料。そしてすべて、自宅の回線で設定を終えておくこと。中国の回線に入ると認証SMSやカード確認が通らなくなります。今夜の1時間が、初日の朝を救います。",
     "apps.note": "どれも中国の電話番号や中国の銀行口座は不要です。海外の番号と、Visa・Mastercard・JCBがあれば足ります。",
@@ -158,7 +158,7 @@ window.I18N = {
 
   ko: {
     "nav.details": "디테일", "nav.days": "7일", "nav.pricing": "전체 가이드", "nav.faq": "FAQ",
-    "nav.apps": "앱",
+    "nav.apps": "앱", "nav.visa": "비자",
     "apps.title": "출발 전에 깔아둘 앱",
     "apps.sub": "전부 무료. 그리고 전부 집에서, 본인 네트워크로 설정을 끝내야 합니다. 중국 회선에 들어가면 인증 문자와 카드 확인이 통과되지 않습니다. 오늘 밤 한 시간이 첫날 아침을 구합니다.",
     "apps.note": "어느 것도 중국 전화번호나 중국 은행 계좌가 필요 없습니다. 해외 번호와 비자·마스터카드·JCB면 충분합니다.",

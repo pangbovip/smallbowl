@@ -102,3 +102,26 @@ PayPal Secret 在 https://developer.paypal.com/dashboard/applications/live 里�
 ## 内容核对提醒
 
 签证、支付手续费、票价按 2026 年中情况写的。每季度核对：日韩免签政策、支付宝/微信境外卡是否收手续费（目前不收）、故宫预约规则、高铁票价。
+
+## 签证页面（/visa/）
+
+面向搜索流量的静态页，全部由脚本生成，按国籍接住"Do Americans need a visa for China"一类搜索，每页底部把人导回首页的免费细节和 $2 完整版。
+
+```
+visa_data.py    政策数据：每个国家属于哪种制度、天数、起止日期、240 小时过境资格；出典 SOURCES
+visa_copy.py    三语文案与页面模板
+visa.css        签证页样式（沿用 style.css 的变量）
+build_visa.py   生成页面 + 重写 sitemap.xml：python build_visa.py
+```
+
+生成结果（110 页）：
+
+- `/visa/` 查询器 + 全部国家表；`/visa/240-hour-transit.html` 过境说明；`/visa/<国家>.html` 102 个国籍页（英文）
+- `/ja/visa/`、`/ja/visa/japan.html`、`/ja/visa/240-hour-transit.html`
+- `/ko/visa/`、`/ko/visa/south-korea.html`、`/ko/visa/240-hour-transit.html`
+
+**政策变了怎么改：** 改 `visa_data.py`（国家的 `scheme`、`end`、`transit` 等字段），把 `CHECKED` 改成当天日期，运行 `python build_visa.py`，连同生成的 `visa/ ja/visa/ ko/visa/ sitemap.xml` 一起提交。IndexNow 工作流现在直接读 sitemap.xml，新增页面不用再手动加进 urlList。
+
+**必须盯的日期：** 48 国的 30 天免签目前到 **2026-12-31**（俄罗斯到 2027-12-31，布鲁内无期限）。去年的延期通知是 11 月初发的，今年 11 月留意外交部领事司公告，延期后改 `UNILATERAL_END` 重新生成；如果没延期，页面必须在 1 月 1 日前改掉。
+
+**刻意没写的：** 厄瓜多尔、汤加的互免条件（官方表格不完整）；"香港/澳门算第三地"没有找到官方示例，页面里只写"常见做法，订票前问航空公司"。
