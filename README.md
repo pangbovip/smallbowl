@@ -95,7 +95,8 @@ PayPal Secret 在 https://developer.paypal.com/dashboard/applications/live 里�
 - 行程：`content-paid-*.js` 的 `days[i]` 有 `plan`（时刻/中文/说明）、`rain`、`say` 三部分，第 i 天对应 `content-*.js` 里 `days[i]` 的城市和标题。
 - 每张卡必须有 `say`（中文 + 拼音 + 释义），这是"指给店员看"功能的来源。
 - 免费板块"出发前必装的 App"在三个 `content-*.js` 的 `apps` 数组里，字段：`mark`（标志上的汉字）、`tag`、`what`、`why`（替代了什么）、`setup`（在家要做完的事）、`site`。
-- 每张卡对应一张 `images/<id>.jpg`（3:2）。换成自己拍的照片直接覆盖同名文件，并把 `images/credits.js` 里对应条目删掉。
+- 每张卡对应一张原图 `images/<id>.jpg`（3:2）。换成自己拍的照片：覆盖同名文件，把 `images/credits.js` 里对应条目删掉，然后运行 `python make_responsive_images.py`。页面实际加载的是它生成的 `<id>-400.avif`、`<id>-800.avif` 和 `<id>-800.jpg`，不重新生成就还是旧图。
+- 首页天坛图同理：原图 `images/tiantan.jpg`，页面用的是生成的 `tiantan-*.avif`（电脑竖图）和 `tiantan-wide-*.avif`（手机 3:2 横图）。
 - 城市筛选按钮在 `index.html` 的 `.filters` 里，`data-filter` 值要和卡片的 `city` 一致。
 
 ## 内容核对提醒

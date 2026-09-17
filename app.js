@@ -115,7 +115,8 @@
           '<div class="card-foot">' + sayCardHTML(card.say) + '</div>';
       }
       return '<article class="card' + (locked ? " is-locked" : "") + '" data-city="' + esc(card.city) + '" id="card-' + esc(card.id) + '">' +
-        '<img class="card-img" src="images/' + esc(card.id) + '.jpg" alt="' + esc(card.title) + '" loading="lazy" width="1200" height="800">' +
+        '<picture><source type="image/avif" srcset="images/' + esc(card.id) + '-400.avif 400w, images/' + esc(card.id) + '-800.avif 800w" sizes="(max-width: 720px) calc(100vw - 32px), 380px">' +
+        '<img class="card-img" src="images/' + esc(card.id) + '-800.jpg" alt="' + esc(card.title) + '" loading="lazy" decoding="async" width="1200" height="800"></picture>' +
         '<div class="card-head"><div class="card-name"><span class="card-zh">' + esc(card.zh) + '</span>' +
         '<h3 class="card-title">' + esc(card.title) + '</h3><span class="card-city">' + esc(city) + '</span></div>' +
         '<span class="price">' + esc(card.price) + '</span></div>' + body + '</article>';

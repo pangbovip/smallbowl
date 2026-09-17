@@ -423,3 +423,14 @@ html[lang="ja"] .app-row dt, html[lang="ko"] .app-row dt { font-family: inherit;
 html[lang="ja"] .app-site, html[lang="ko"] .app-site { font-family: inherit; }
 .apps-note { margin-top: 18px; font-size: var(--step-0); color: var(--ink-3); max-width: 70ch; }
 @media print { .apps { grid-template-columns: 1fr 1fr; } .app { break-inside: avoid; } }
+
+/* ---------- responsive images ---------- */
+.card > picture { display: block; }
+.hero-photo picture { display: block; height: 100%; }
+
+/* ---------- header fit on phones: logo + brand + language switch on one line ---------- */
+.brand { flex: none; white-space: nowrap; gap: 8px; }
+@media (max-width: 440px) {
+  .brand-en { display: none; }
+  .brand-zh { font-size: 1.7rem; }
+}

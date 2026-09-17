@@ -11,7 +11,9 @@
 <link rel="alternate" hreflang="x-default" href="https://chinavisit.org/">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+KR:wght@400;700&family=Noto+Sans+SC:wght@400;700&family=Zhi+Mang+Xing&display=swap">
+<link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+KR:wght@400;700&family=Noto+Sans+SC:wght@400;700&family=Zhi+Mang+Xing&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+KR:wght@400;700&family=Noto+Sans+SC:wght@400;700&family=Zhi+Mang+Xing&display=swap" media="print" onload="this.media='all'">
+<noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+KR:wght@400;700&family=Noto+Sans+SC:wght@400;700&family=Zhi+Mang+Xing&display=swap"></noscript>
 <link rel="canonical" href="https://chinavisit.org/ja.html">
 <meta property="og:title" content="China Visit｜はじめての中国7日間ガイド">
 <meta property="og:description" content="日本人向けの中国7日間旅行ガイド。北京の豆汁の飲み方、上海の小籠包の食べ方、シェア自転車、QR決済、地下鉄、トイレまで、誰も教えてくれない小さなコツだけを集めました。完全版は2ドル買い切り。">
@@ -23,7 +25,7 @@
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <meta name="theme-color" content="#F1F3EE">
-<link rel="stylesheet" href="style.css?v=20260912i">
+<link rel="stylesheet" href="style.css?v=20260917b">
 <script type="application/ld+json">
 {"@context":"https://schema.org","@graph":[
  {"@type":"WebSite","name":"China Visit","alternateName":["Small Bowl China","小碗"],"url":"https://chinavisit.org/","inLanguage":["en","ja","ko"],"description":"A 7-day China guide for first-time visitors, built from small practical details: food etiquette, shared bikes, QR payment, metro, toilets."},
@@ -77,7 +79,12 @@
 
     <div class="hero-demo" aria-label="Point-and-say card demo">
       <figure class="hero-photo">
-        <img src="images/tiantan.jpg" alt="Hall of Prayer for Good Harvests, Temple of Heaven, Beijing" width="1400" height="1750" fetchpriority="high">
+        <picture>
+          <source media="(max-width: 860px)" type="image/avif" srcset="images/tiantan-wide-480.avif 480w, images/tiantan-wide-800.avif 800w, images/tiantan-wide-1200.avif 1200w" sizes="calc(100vw - 32px)">
+          <source media="(max-width: 860px)" srcset="images/tiantan-wide-800.jpg 800w" sizes="calc(100vw - 32px)">
+          <source type="image/avif" srcset="images/tiantan-560.avif 560w, images/tiantan-840.avif 840w, images/tiantan-1120.avif 1120w" sizes="(max-width: 1240px) 37vw, 440px">
+          <img src="images/tiantan-840.jpg" alt="Hall of Prayer for Good Harvests, Temple of Heaven, Beijing" width="1400" height="1750" fetchpriority="high">
+        </picture>
         <figcaption><span class="hero-photo-zh">天坛 · 祈年殿</span><span data-i18n="hero.photoCap">北京・天壇。豆汁の店は北門の外、朝6時半から。</span></figcaption>
       </figure>
       <div class="hero-card-wrap">
@@ -276,15 +283,15 @@
   <p class="say-overlay-tip" data-i18n="say.tip">画面を見せる。指さす。笑う。コツはそれだけ。</p>
 </div>
 
-<script src="i18n.js?v=20260912i"></script>
-<script src="content-en.js?v=20260912i"></script>
-<script src="content-ja.js?v=20260912i"></script>
-<script src="content-ko.js?v=20260912i"></script>
-<script src="content-paid-en.js?v=20260912i"></script>
-<script src="content-paid-ja.js?v=20260912i"></script>
-<script src="content-paid-ko.js?v=20260912i"></script>
-<script src="images/credits.js?v=20260912i"></script>
-<script src="app.js?v=20260912i"></script>
+<script src="i18n.js?v=20260917b"></script>
+<script src="content-en.js?v=20260917b"></script>
+<script src="content-ja.js?v=20260917b"></script>
+<script src="content-ko.js?v=20260917b"></script>
+<script src="content-paid-en.js?v=20260917b"></script>
+<script src="content-paid-ja.js?v=20260917b"></script>
+<script src="content-paid-ko.js?v=20260917b"></script>
+<script src="images/credits.js?v=20260917b"></script>
+<script src="app.js?v=20260917b"></script>
 <!-- Cloudflare Web Analytics -->
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "3685ef96a9c6460796e8590ef74cd9d0"}'></script>
 </body>
