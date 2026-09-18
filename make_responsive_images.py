@@ -6,6 +6,7 @@ from PIL import Image
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 IMG = os.path.join(HERE, "images")
+WALL = ["wall-panda", "wall-bund", "wall-xlb", "wall-bike"]   # hero photo wall, 3:2
 CARDS = ["douzhi", "xlb", "bike", "pay", "metro", "hotpot", "water", "toilet",
          "roujiamo", "hsr", "didi", "duck", "jianbing", "gaiwan"]
 AVIF_Q = 58
@@ -39,6 +40,9 @@ if __name__ == "__main__":
     report += emit(hero, "tiantan", [560, 840, 1120], 840)
     wide = crop_ratio(hero, 3, 2, focus_y=0.30)                              # matches object-position 50% 30%
     report += emit(wide, "tiantan-wide", [480, 800, 1200], 800)
+    for wid in WALL:
+        im = Image.open(os.path.join(IMG, wid + ".jpg")).convert("RGB")
+        report += emit(crop_ratio(im, 3, 2), wid, [320, 560], 560)
     for cid in CARDS:
         im = Image.open(os.path.join(IMG, cid + ".jpg")).convert("RGB")      # 1200x800, 3:2
         report += emit(im, cid, [400, 800], 800)
