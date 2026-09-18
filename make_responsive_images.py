@@ -6,7 +6,7 @@ from PIL import Image
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 IMG = os.path.join(HERE, "images")
-WALL = ["wall-panda", "wall-bund", "wall-xlb", "wall-bike"]   # hero photo wall, 3:2
+WALL = ["wall-panda", "wall-bund", "wall-xlb", "wall-bike", "wall-bbq", "wall-tea"]   # hero photo wall, 3:2
 CARDS = ["douzhi", "xlb", "bike", "pay", "metro", "hotpot", "water", "toilet",
          "roujiamo", "hsr", "didi", "duck", "jianbing", "gaiwan"]
 AVIF_Q = 58
