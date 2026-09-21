@@ -497,7 +497,7 @@ TR_T = {
         yes="Yes", no="No",
         hk="Many travellers use a flight to Hong Kong or Macau as the onward leg. The official rule says \"third country or region\"; confirm with your airline before you book, since it checks eligibility at check-in.",
         who_h="Eligible passports ({n})", who_p="Passports marked with a 30-day badge do not need transit at all for trips up to 30 days.",
-        badge="30 days", areas_h="Where you can go ({prov} provinces)", areas_p="Some provinces are open only in listed cities.",
+        ports_h="Every port you can use ({ports})", ports_p="Enter at one, leave from another: they do not have to match. Five ports on the Guangdong side opened on 5 November 2025 and are marked new.", ports_new="new", badge="30 days", areas_h="Where you can go ({prov} provinces)", areas_p="Some provinces are open only in listed cities.",
         say="Show this at the border",
         faqs=[("Is 240-hour transit the same as visa-free entry?", "No. Transit needs an onward ticket to a third country or region and limits you to certain provinces. The 30-day visa-free policy has neither condition, but covers fewer passports."),
               ("Do Americans qualify for 240-hour transit?", "Yes. US passports are on the list of 57 countries. Americans are not on the 30-day visa-free list, so transit is their main visa-free option."),
@@ -525,7 +525,7 @@ TR_T = {
         yes="可", no="不可",
         hk="次の行き先として香港・マカオ行きの便を使う旅行者も多くいます。公式の表現は「第三国または地域」なので、予約前に航空会社に確認してください（搭乗手続きで資格を確認されます）。",
         who_h="対象パスポート（{n}か国）", who_p="「30日」の印がある国は、30日以内の旅行ならトランジット制度を使う必要がありません。",
-        badge="30日", areas_h="行ける範囲（{prov}省・市）", areas_p="一部の省は記載の都市のみ。",
+        ports_h="使える港・空港の全リスト（{ports}）", ports_p="入国と出国で別の港でも構いません。広東省側の5か所は2025年11月5日に追加されたもので、newと表示しています。", ports_new="new", badge="30日", areas_h="行ける範囲（{prov}省・市）", areas_p="一部の省は記載の都市のみ。",
         say="入国審査で見せるカード",
         faqs=[("日本人は240時間トランジットを使う必要がありますか？", "30日以内の旅行なら不要です。日本のパスポートは30日ビザ免除の対象なので、往復航空券でも入国できます。"),
               ("北京で入国して上海から出国できますか？", "できます。指定された港であれば出入国の港が違っても構いません。"),
@@ -552,7 +552,7 @@ TR_T = {
         yes="가능", no="불가",
         hk="다음 목적지로 홍콩·마카오행 항공편을 이용하는 여행자도 많습니다. 공식 표현은 \"제3국 또는 지역\"이므로 예약 전에 항공사에 확인하세요(체크인 때 자격을 확인합니다).",
         who_h="대상 여권 ({n}개국)", who_p="\"30일\" 표시가 있는 국가는 30일 이내 여행이면 경유 제도를 쓸 필요가 없습니다.",
-        badge="30일", areas_h="이동 가능 지역 ({prov}개 성·시)", areas_p="일부 성은 표시된 도시만 해당.",
+        ports_h="이용 가능한 전체 항구·공항 ({ports})", ports_p="입국과 출국 항구가 달라도 됩니다. 광둥성 쪽 5곳은 2025년 11월 5일에 추가되었으며 new로 표시했습니다.", ports_new="new", badge="30일", areas_h="이동 가능 지역 ({prov}개 성·시)", areas_p="일부 성은 표시된 도시만 해당.",
         say="입국심사에서 보여줄 카드",
         faqs=[("한국인도 240시간 경유를 써야 하나요?", "30일 이내 여행이면 필요 없습니다. 한국 여권은 30일 무비자 대상이라 왕복 항공권으로도 입국할 수 있습니다."),
               ("베이징으로 입국해서 상하이로 출국할 수 있나요?", "네. 지정된 항구라면 입국과 출국 항구가 달라도 됩니다."),
@@ -579,13 +579,22 @@ def transit(lang, D, BY, country_url, fmt_date, say_cards, faq_block, cta, sourc
     chips = "".join('<a href="%s">%s%s</a>' % (country_url(lang, c["slug"]), e(nm(c)),
                     ' · <span class="pill free">%s</span>' % e(T["badge"]) if c["scheme"] in ("unilateral", "mutual") else "") for c in elig)
     areas = "".join('<li>%s</li>' % e(zh if lang == "ja" else en) for en, zh in D.TRANSIT_AREAS)
+    port_rows = "".join(
+        '<tr><td>%s</td><td>%s</td></tr>' % (e(area), "".join(
+            '<span class="port%s">%s%s</span>' % (
+                " is-new" if pt in D.NEW_PORTS else "", e(pt),
+                ' <em>%s</em>' % e(T["ports_new"]) if pt in D.NEW_PORTS else "") for pt in pts))
+        for area, pts in D.TRANSIT_PORTS_BY_AREA)
     parts.append('<section class="prose"><h2>%s</h2>%s<h2>%s</h2><div class="ctable-wrap"><table class="ctable"><thead><tr><th>%s</th><th>%s</th></tr></thead><tbody>%s</tbody></table></div>'
                  '<p class="note">%s</p><h2>%s</h2><p>%s</p><div class="chips-links">%s</div><h2>%s</h2><p>%s</p><ul style="columns:2">%s</ul><h2>%s</h2>%s</section>' % (
         e(T["rules_h"]), T["rules"].format(**fmtv), e(T["routes_h"]), e(T["r_th"][0]), e(T["r_th"][1]), rows, e(T["hk"]),
         e(T["who_h"].format(**fmtv)), e(T["who_p"]), chips, e(T["areas_h"].format(**fmtv)), e(T["areas_p"]), areas,
         e(T["say"]), say_cards(lang, ["transit", "hotel"])))
+    parts.append('<section class="prose"><h2 id="ports">%s</h2><p>%s</p>'
+                 '<div class="ctable-wrap"><table class="ctable ports"><tbody>%s</tbody></table></div></section>' % (
+                     e(T["ports_h"].format(**fmtv)), e(T["ports_p"]), port_rows))
     faq_html, faq_ld = faq_block(lang, T["faqs"])
     parts.append(faq_html)
     parts.append(cta(lang))
-    parts.append(sources(lang, ["nia_transit", "transit_faq", "transit_areas"]))
+    parts.append(sources(lang, ["nia_transit", "transit_faq", "transit_areas", "transit_ports_2025"]))
     return T["title"], T["desc"].format(d=d), "\n".join(parts), [faq_ld]

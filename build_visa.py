@@ -92,7 +92,11 @@ def page(lang, path, title, desc, body, alternates, jsonld, crumbs):
     crumb = " / ".join('<a href="%s">%s</a>' % (h, e(t)) for t, h in crumbs[:-1]) + " / " + e(crumbs[-1][0])
     bc = {"@type": "BreadcrumbList", "itemListElement": [
         {"@type": "ListItem", "position": i + 1, "name": t, "item": SITE + h} for i, (t, h) in enumerate(crumbs)]}
-    graph = json.dumps({"@context": "https://schema.org", "@graph": [bc] + jsonld}, ensure_ascii=False)
+    # Policy pages live or die on freshness: tell Google when we last checked them against official sources.
+    wp = {"@type": "WebPage", "@id": SITE + path, "url": SITE + path, "name": title, "description": desc,
+          "inLanguage": lang, "dateModified": D.CHECKED, "isPartOf": {"@type": "WebSite", "name": "China Visit", "url": SITE + "/"},
+          "publisher": {"@type": "Organization", "name": "China Visit", "url": SITE + "/"}}
+    graph = json.dumps({"@context": "https://schema.org", "@graph": [wp, bc] + jsonld}, ensure_ascii=False)
     return """<!DOCTYPE html>
 <html lang="{lang}" data-lang="{lang}">
 <head>

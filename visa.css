@@ -98,3 +98,10 @@ html[lang="ja"] .ctable th, html[lang="ko"] .ctable th { font-family: inherit; l
 .v-faq { margin-top: 10px; }
 .v-foot { display: flex; flex-wrap: wrap; gap: 10px 22px; align-items: baseline; }
 .v-foot a { color: var(--ink-2); }
+
+/* ---------- 240-hour transit: the full port list ---------- */
+.ctable.ports td:first-child { white-space: nowrap; font-weight: 600; width: 1%; vertical-align: top; }
+.ctable.ports .port { display: block; line-height: 1.5; }
+.ctable.ports .port + .port { margin-top: 2px; }
+.ctable.ports .port.is-new { color: var(--ink); font-weight: 600; }
+.ctable.ports .port em { font-family: var(--f-mono); font-style: normal; font-size: .62rem; letter-spacing: .1em; text-transform: uppercase; color: var(--seal); border: 1px solid currentColor; border-radius: 3px; padding: 0 4px; margin-left: 4px; }

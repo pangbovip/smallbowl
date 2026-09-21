@@ -157,6 +157,8 @@ SOURCES = {
                     "url": "https://en.nia.gov.cn/n147418/n147463/c183412/content.html"},
     "transit_faq": {"title": "Chinese Consulate in Montreal: transit FAQ, passport validity and time count (30 May 2025)",
                     "url": "https://montreal.china-consulate.gov.cn/zjfw/lszj/fhqz/cjwd2/202505/t20250530_11637915.htm"},
+    "transit_ports_2025": {"title": "State Council: 240-hour transit ports raised from 60 to 65, effective 5 Nov 2025",
+                           "url": "https://english.www.gov.cn/news/202511/04/content_WS69094ae0c6d00ca5f9a07472.html"},
     "transit_areas": {"title": "Chinese Embassy in Canada: 240-hour transit ports and permitted areas",
                       "url": "https://ca.china-embassy.gov.cn/lsyw/lszj/mqzc00/gjmq00/202501/t20250110_11530399.htm"},
     "nia_regional": {"title": "National Immigration Administration: regional visa-free schemes (20 Aug 2026)",
@@ -166,6 +168,42 @@ SOURCES = {
     "arrival_card": {"title": "Chinese Consulate in Barcelona: online arrival card and 2026 measures",
                      "url": "https://barcelona.china-consulate.gov.cn/gdxw/202603/t20260330_11883678.htm"},
 }
+
+# The 65 ports open to 240-hour visa-free transit, grouped by the province that operates them.
+# 60 are named in the Chinese Embassy in Canada list; the 5 marked NEW_PORTS opened on 5 Nov 2025
+# and are named only in the State Council announcement, so they carry that source's wording.
+TRANSIT_PORTS_BY_AREA = [
+    ("Beijing", ["Beijing Capital International Airport", "Beijing Daxing International Airport"]),
+    ("Tianjin", ["Tianjin Binhai International Airport", "Tianjin Port passenger terminal"]),
+    ("Hebei", ["Shijiazhuang Zhengding International Airport", "Qinhuangdao Port passenger terminal"]),
+    ("Shanxi", ["Taiyuan Wusu International Airport"]),
+    ("Liaoning", ["Shenyang Taoxian International Airport", "Dalian Zhoushuizi International Airport", "Dalian Port passenger terminal"]),
+    ("Heilongjiang", ["Harbin Taiping International Airport"]),
+    ("Shanghai", ["Shanghai Hongqiao International Airport", "Shanghai Pudong International Airport", "Shanghai Port passenger terminal"]),
+    ("Jiangsu", ["Nanjing Lukou International Airport", "Sunan Shuofang International Airport", "Yangzhou Taizhou International Airport", "Lianyungang Port passenger terminal"]),
+    ("Zhejiang", ["Hangzhou Xiaoshan International Airport", "Ningbo Lishe International Airport", "Wenzhou Longwan International Airport", "Yiwu Airport", "Wenzhou Port passenger terminal", "Zhoushan Port passenger terminal"]),
+    ("Anhui", ["Hefei Xinqiao International Airport", "Huangshan Tunxi International Airport"]),
+    ("Fujian", ["Fuzhou Changle International Airport", "Xiamen Gaoqi International Airport", "Quanzhou Jinjiang International Airport", "Wuyishan Airport", "Xiamen Port passenger terminal"]),
+    ("Jiangxi", ["Nanchang Changbei International Airport"]),
+    ("Shandong", ["Jinan Yaoqiang International Airport", "Qingdao Jiaodong International Airport", "Yantai Penglai International Airport", "Weihai Dashuibo International Airport", "Qingdao Port passenger terminal"]),
+    ("Henan", ["Zhengzhou Xinzheng International Airport"]),
+    ("Hubei", ["Wuhan Tianhe International Airport"]),
+    ("Hunan", ["Changsha Huanghua International Airport", "Zhangjiajie Hehua International Airport"]),
+    ("Guangdong", ["Guangzhou Baiyun International Airport", "Shenzhen Bao'an International Airport", "Jieyang Chaoshan International Airport",
+                   "Nansha Port passenger terminal", "Shekou Port passenger terminal",
+                   "Guangzhou Port", "Hengqin Port, Zhuhai", "Zhongshan Port",
+                   "Hong Kong-Zhuhai-Macao Bridge Port", "West Kowloon Station, Guangzhou-Shenzhen-Hong Kong Express Rail Link"]),
+    ("Guangxi", ["Nanning Wuxu International Airport", "Guilin Liangjiang International Airport", "Beihai Fucheng Airport", "Beihai Port passenger terminal"]),
+    ("Hainan", ["Haikou Meilan International Airport", "Sanya Phoenix International Airport"]),
+    ("Chongqing", ["Chongqing Jiangbei International Airport"]),
+    ("Sichuan", ["Chengdu Shuangliu International Airport", "Chengdu Tianfu International Airport"]),
+    ("Guizhou", ["Guiyang Longdongbao International Airport"]),
+    ("Yunnan", ["Kunming Changshui International Airport", "Lijiang Sanyi International Airport", "Mohan Railway Port"]),
+    ("Shaanxi", ["Xi'an Xianyang International Airport"]),
+]
+
+NEW_PORTS = {"Guangzhou Port", "Hengqin Port, Zhuhai", "Zhongshan Port",
+             "Hong Kong-Zhuhai-Macao Bridge Port", "West Kowloon Station, Guangzhou-Shenzhen-Hong Kong Express Rail Link"}
 
 # Permitted areas for 240-hour transit (Chinese Embassy in Canada; ports rose from 60 to 65 on 5 Nov 2025, provinces unchanged).
 TRANSIT_AREAS = [
