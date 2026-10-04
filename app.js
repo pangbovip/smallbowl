@@ -13,9 +13,9 @@
   //    Until that link is pasted here, the buttons fall back to a direct WhatsApp message asking to be added.
   var GROUP_LINK = "https://chat.whatsapp.com/REPLACE_ME_group";
   var WHATSAPP_NUMBER = "8613910049069";
-  // 4. Hand-issued codes (refunds, friends, press). Remove SMALLBOWL-DEMO before launch.
-  var UNLOCK_CODES = ["SMALLBOWL-DEMO"];
-  // 5. Newsletter endpoint (Buttondown / Mailchimp / Formspree). Empty = store locally, no network.
+  // 4. Legacy manual codes. Keep empty; public JavaScript cannot hold secret access codes.
+  var UNLOCK_CODES = [];
+  // 5. Newsletter JSON endpoint. Empty = show unavailable, never claim subscription success.
   var MAIL_ENDPOINT = "";
 
   var LANGS = ["en", "ja", "ko"];
@@ -228,17 +228,16 @@
     safeSet("sb_unlocked", "1"); if (state.code) safeSet("sb_code", state.code);
     renderAll();
   }
-  // Returns a Promise<boolean>. With a worker, the code is checked server-side; without one,
-  // hand-issued codes and the "SB-" + PayPal transaction ID shape are accepted on the client.
+  // Code restoration requires server verification; transaction ID format is not proof of payment.
   function validateCode(code) {
     code = code.trim().toUpperCase();
     if (!code) return Promise.resolve(false);
     if (UNLOCK_CODES.indexOf(code) >= 0) return Promise.resolve(true);
     if (VERIFY_ENDPOINT) {
       return fetch(VERIFY_ENDPOINT + "/check?code=" + encodeURIComponent(code))
-        .then(function (r) { return r.json(); }).then(function (j) { return !!j.ok; }, function () { return false; });
+        .then(function (r) { if (!r.ok) throw new Error("Verification failed"); return r.json(); }).then(function (j) { return j.ok === true; }, function () { return false; });
     }
-    return Promise.resolve(/^SB-[A-Z0-9]{12,20}$/.test(code));
+    return Promise.resolve(false);
   }
   function tryUnlock() {
     var code = $("#codeInput").value.trim().toUpperCase();
@@ -289,7 +288,9 @@
       onApprove: function (data, actions) {
         return actions.order.capture().then(function (details) {
           var cap = details && details.purchase_units && details.purchase_units[0].payments && details.purchase_units[0].payments.captures;
-          var txn = (cap && cap[0] && cap[0].id) || data.orderID;
+          var capture = cap && cap[0];
+          if (!capture || capture.status !== "COMPLETED" || !capture.amount || capture.amount.currency_code !== "USD" || Number(capture.amount.value) < Number(PRICE_USD)) throw new Error("Capture incomplete");
+          var txn = capture.id;
           return issueCode(txn, data.orderID).then(function (code) {
             unlock(code);
             $("#payButtons").hidden = true;
@@ -307,7 +308,7 @@
     var code = "SB-" + String(txnId).toUpperCase();
     if (!VERIFY_ENDPOINT) return Promise.resolve(code);
     return fetch(VERIFY_ENDPOINT + "/issue", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ captureId: txnId, orderId: orderId }) })
-      .then(function (r) { return r.json(); }).then(function (j) { return j.code || code; }, function () { return code; });
+      .then(function (r) { if (!r.ok) throw new Error("Verification failed"); return r.json(); }).then(function (j) { if (typeof j.code !== "string" || !/^SB-[A-Z0-9]{8,32}$/.test(j.code)) throw new Error("Invalid code"); return j.code; });
   }
   document.addEventListener("click", function (e) {
     if (e.target.closest && e.target.closest("[data-buy]")) { e.preventDefault(); openPay(); return; }
@@ -358,9 +359,9 @@
     e.preventDefault();
     var email = $("#mailInput").value.trim(); var msg = $("#mailMsg");
     var done = function () { msg.textContent = t("foot.mailOk"); msg.className = "unlock-msg ok"; $("#mailInput").value = ""; };
-    if (!MAIL_ENDPOINT) { safeSet("sb_mail", email); done(); return; }
+    if (!MAIL_ENDPOINT) { msg.textContent = t("foot.mailUnavailable"); msg.className = "unlock-msg"; return; }
     fetch(MAIL_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ email: email, lang: state.lang }) })
-      .then(done, function () { msg.textContent = "Could not save. Try again."; msg.className = "unlock-msg"; });
+      .then(function (r) { if (!r.ok) throw new Error("Subscription failed"); done(); }).catch(function () { msg.textContent = t("foot.mailError"); msg.className = "unlock-msg"; });
   });
 
   renderAll();
