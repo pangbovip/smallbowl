@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://chinavisit.org/</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-08</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja.html"/>
     <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko.html"/>
@@ -10,7 +10,7 @@
   </url>
   <url>
     <loc>https://chinavisit.org/ja.html</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-08</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja.html"/>
     <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko.html"/>
@@ -18,15 +18,279 @@
   </url>
   <url>
     <loc>https://chinavisit.org/ko.html</loc>
-    <lastmod>2026-09-12</lastmod>
+    <lastmod>2026-10-08</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja.html"/>
     <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/"/>
   </url>
   <url>
+    <loc>https://chinavisit.org/guide/</loc>
+    <lastmod>2026-10-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/guide/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/guide/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/guide/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/guide/"/>
+  </url>
+  <url>
+    <loc>https://chinavisit.org/ja/guide/</loc>
+    <lastmod>2026-10-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/guide/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/guide/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/guide/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/guide/"/>
+  </url>
+  <url>
+    <loc>https://chinavisit.org/ko/guide/</loc>
+    <lastmod>2026-10-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/guide/"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/guide/"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/guide/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/guide/"/>
+  </url>
+  <url>
+    <loc>https://chinavisit.org/guide/how-to-use-alipay-as-a-foreigner.html</loc>
+    <lastmod>2026-10-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/guide/how-to-use-alipay-as-a-foreigner.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/guide/how-to-use-alipay-as-a-foreigner.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/guide/how-to-use-alipay-as-a-foreigner.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/guide/how-to-use-alipay-as-a-foreigner.html"/>
+  </url>
+  <url>
+    <loc>https://chinavisit.org/ja/guide/how-to-use-alipay-as-a-foreigner.html</loc>
+    <lastmod>2026-10-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/guide/how-to-use-alipay-as-a-foreigner.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/guide/how-to-use-alipay-as-a-foreigner.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/guide/how-to-use-alipay-as-a-foreigner.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/guide/how-to-use-alipay-as-a-foreigner.html"/>
+  </url>
+  <url>
+    <loc>https://chinavisit.org/ko/guide/how-to-use-alipay-as-a-foreigner.html</loc>
+    <lastmod>2026-10-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/guide/how-to-use-alipay-as-a-foreigner.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/guide/how-to-use-alipay-as-a-foreigner.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/guide/how-to-use-alipay-as-a-foreigner.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/guide/how-to-use-alipay-as-a-foreigner.html"/>
+  </url>
+  <url>
+    <loc>https://chinavisit.org/guide/apps-to-download-before-china.html</loc>
+    <lastmod>2026-10-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/guide/apps-to-download-before-china.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/guide/apps-to-download-before-china.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/guide/apps-to-download-before-china.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/guide/apps-to-download-before-china.html"/>
+  </url>
+  <url>
+    <loc>https://chinavisit.org/ja/guide/apps-to-download-before-china.html</loc>
+    <lastmod>2026-10-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/guide/apps-to-download-before-china.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/guide/apps-to-download-before-china.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/guide/apps-to-download-before-china.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/guide/apps-to-download-before-china.html"/>
+  </url>
+  <url>
+    <loc>https://chinavisit.org/ko/guide/apps-to-download-before-china.html</loc>
+    <lastmod>2026-10-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/guide/apps-to-download-before-china.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/guide/apps-to-download-before-china.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/guide/apps-to-download-before-china.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/guide/apps-to-download-before-china.html"/>
+  </url>
+  <url>
+    <loc>https://chinavisit.org/guide/china-esim-internet-guide.html</loc>
+    <lastmod>2026-10-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/guide/china-esim-internet-guide.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/guide/china-esim-internet-guide.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/guide/china-esim-internet-guide.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/guide/china-esim-internet-guide.html"/>
+  </url>
+  <url>
+    <loc>https://chinavisit.org/ja/guide/china-esim-internet-guide.html</loc>
+    <lastmod>2026-10-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/guide/china-esim-internet-guide.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/guide/china-esim-internet-guide.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/guide/china-esim-internet-guide.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/guide/china-esim-internet-guide.html"/>
+  </url>
+  <url>
+    <loc>https://chinavisit.org/ko/guide/china-esim-internet-guide.html</loc>
+    <lastmod>2026-10-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/guide/china-esim-internet-guide.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/guide/china-esim-internet-guide.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/guide/china-esim-internet-guide.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/guide/china-esim-internet-guide.html"/>
+  </url>
+  <url>
+    <loc>https://chinavisit.org/guide/how-to-ride-the-metro-in-china.html</loc>
+    <lastmod>2026-10-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/guide/how-to-ride-the-metro-in-china.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/guide/how-to-ride-the-metro-in-china.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/guide/how-to-ride-the-metro-in-china.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/guide/how-to-ride-the-metro-in-china.html"/>
+  </url>
+  <url>
+    <loc>https://chinavisit.org/ja/guide/how-to-ride-the-metro-in-china.html</loc>
+    <lastmod>2026-10-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/guide/how-to-ride-the-metro-in-china.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/guide/how-to-ride-the-metro-in-china.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/guide/how-to-ride-the-metro-in-china.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/guide/how-to-ride-the-metro-in-china.html"/>
+  </url>
+  <url>
+    <loc>https://chinavisit.org/ko/guide/how-to-ride-the-metro-in-china.html</loc>
+    <lastmod>2026-10-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/guide/how-to-ride-the-metro-in-china.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/guide/how-to-ride-the-metro-in-china.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/guide/how-to-ride-the-metro-in-china.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/guide/how-to-ride-the-metro-in-china.html"/>
+  </url>
+  <url>
+    <loc>https://chinavisit.org/guide/shared-bikes-china.html</loc>
+    <lastmod>2026-10-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/guide/shared-bikes-china.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/guide/shared-bikes-china.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/guide/shared-bikes-china.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/guide/shared-bikes-china.html"/>
+  </url>
+  <url>
+    <loc>https://chinavisit.org/ja/guide/shared-bikes-china.html</loc>
+    <lastmod>2026-10-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/guide/shared-bikes-china.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/guide/shared-bikes-china.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/guide/shared-bikes-china.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/guide/shared-bikes-china.html"/>
+  </url>
+  <url>
+    <loc>https://chinavisit.org/ko/guide/shared-bikes-china.html</loc>
+    <lastmod>2026-10-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/guide/shared-bikes-china.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/guide/shared-bikes-china.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/guide/shared-bikes-china.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/guide/shared-bikes-china.html"/>
+  </url>
+  <url>
+    <loc>https://chinavisit.org/guide/how-to-eat-xiaolongbao.html</loc>
+    <lastmod>2026-10-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/guide/how-to-eat-xiaolongbao.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/guide/how-to-eat-xiaolongbao.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/guide/how-to-eat-xiaolongbao.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/guide/how-to-eat-xiaolongbao.html"/>
+  </url>
+  <url>
+    <loc>https://chinavisit.org/ja/guide/how-to-eat-xiaolongbao.html</loc>
+    <lastmod>2026-10-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/guide/how-to-eat-xiaolongbao.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/guide/how-to-eat-xiaolongbao.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/guide/how-to-eat-xiaolongbao.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/guide/how-to-eat-xiaolongbao.html"/>
+  </url>
+  <url>
+    <loc>https://chinavisit.org/ko/guide/how-to-eat-xiaolongbao.html</loc>
+    <lastmod>2026-10-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/guide/how-to-eat-xiaolongbao.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/guide/how-to-eat-xiaolongbao.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/guide/how-to-eat-xiaolongbao.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/guide/how-to-eat-xiaolongbao.html"/>
+  </url>
+  <url>
+    <loc>https://chinavisit.org/guide/how-to-drink-douzhi.html</loc>
+    <lastmod>2026-10-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/guide/how-to-drink-douzhi.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/guide/how-to-drink-douzhi.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/guide/how-to-drink-douzhi.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/guide/how-to-drink-douzhi.html"/>
+  </url>
+  <url>
+    <loc>https://chinavisit.org/ja/guide/how-to-drink-douzhi.html</loc>
+    <lastmod>2026-10-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/guide/how-to-drink-douzhi.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/guide/how-to-drink-douzhi.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/guide/how-to-drink-douzhi.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/guide/how-to-drink-douzhi.html"/>
+  </url>
+  <url>
+    <loc>https://chinavisit.org/ko/guide/how-to-drink-douzhi.html</loc>
+    <lastmod>2026-10-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/guide/how-to-drink-douzhi.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/guide/how-to-drink-douzhi.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/guide/how-to-drink-douzhi.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/guide/how-to-drink-douzhi.html"/>
+  </url>
+  <url>
+    <loc>https://chinavisit.org/guide/sichuan-hotpot-dipping-sauce.html</loc>
+    <lastmod>2026-10-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/guide/sichuan-hotpot-dipping-sauce.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/guide/sichuan-hotpot-dipping-sauce.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/guide/sichuan-hotpot-dipping-sauce.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/guide/sichuan-hotpot-dipping-sauce.html"/>
+  </url>
+  <url>
+    <loc>https://chinavisit.org/ja/guide/sichuan-hotpot-dipping-sauce.html</loc>
+    <lastmod>2026-10-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/guide/sichuan-hotpot-dipping-sauce.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/guide/sichuan-hotpot-dipping-sauce.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/guide/sichuan-hotpot-dipping-sauce.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/guide/sichuan-hotpot-dipping-sauce.html"/>
+  </url>
+  <url>
+    <loc>https://chinavisit.org/ko/guide/sichuan-hotpot-dipping-sauce.html</loc>
+    <lastmod>2026-10-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/guide/sichuan-hotpot-dipping-sauce.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/guide/sichuan-hotpot-dipping-sauce.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/guide/sichuan-hotpot-dipping-sauce.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/guide/sichuan-hotpot-dipping-sauce.html"/>
+  </url>
+  <url>
+    <loc>https://chinavisit.org/guide/hot-water-in-china.html</loc>
+    <lastmod>2026-10-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/guide/hot-water-in-china.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/guide/hot-water-in-china.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/guide/hot-water-in-china.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/guide/hot-water-in-china.html"/>
+  </url>
+  <url>
+    <loc>https://chinavisit.org/ja/guide/hot-water-in-china.html</loc>
+    <lastmod>2026-10-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/guide/hot-water-in-china.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/guide/hot-water-in-china.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/guide/hot-water-in-china.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/guide/hot-water-in-china.html"/>
+  </url>
+  <url>
+    <loc>https://chinavisit.org/ko/guide/hot-water-in-china.html</loc>
+    <lastmod>2026-10-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/guide/hot-water-in-china.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/guide/hot-water-in-china.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/guide/hot-water-in-china.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/guide/hot-water-in-china.html"/>
+  </url>
+  <url>
+    <loc>https://chinavisit.org/guide/public-toilets-in-china.html</loc>
+    <lastmod>2026-10-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/guide/public-toilets-in-china.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/guide/public-toilets-in-china.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/guide/public-toilets-in-china.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/guide/public-toilets-in-china.html"/>
+  </url>
+  <url>
+    <loc>https://chinavisit.org/ja/guide/public-toilets-in-china.html</loc>
+    <lastmod>2026-10-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/guide/public-toilets-in-china.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/guide/public-toilets-in-china.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/guide/public-toilets-in-china.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/guide/public-toilets-in-china.html"/>
+  </url>
+  <url>
+    <loc>https://chinavisit.org/ko/guide/public-toilets-in-china.html</loc>
+    <lastmod>2026-10-08</lastmod>
+    <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/guide/public-toilets-in-china.html"/>
+    <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/guide/public-toilets-in-china.html"/>
+    <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/guide/public-toilets-in-china.html"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/guide/public-toilets-in-china.html"/>
+  </url>
+  <url>
     <loc>https://chinavisit.org/visa/</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/visa/"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/visa/"/>
     <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/visa/"/>
@@ -34,7 +298,7 @@
   </url>
   <url>
     <loc>https://chinavisit.org/ja/visa/</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/visa/"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/visa/"/>
     <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/visa/"/>
@@ -42,7 +306,7 @@
   </url>
   <url>
     <loc>https://chinavisit.org/ko/visa/</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/visa/"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/visa/"/>
     <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/visa/"/>
@@ -50,7 +314,7 @@
   </url>
   <url>
     <loc>https://chinavisit.org/visa/240-hour-transit.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/visa/240-hour-transit.html"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/visa/240-hour-transit.html"/>
     <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/visa/240-hour-transit.html"/>
@@ -58,7 +322,7 @@
   </url>
   <url>
     <loc>https://chinavisit.org/ja/visa/240-hour-transit.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/visa/240-hour-transit.html"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/visa/240-hour-transit.html"/>
     <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/visa/240-hour-transit.html"/>
@@ -66,7 +330,7 @@
   </url>
   <url>
     <loc>https://chinavisit.org/ko/visa/240-hour-transit.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/visa/240-hour-transit.html"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/visa/240-hour-transit.html"/>
     <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/visa/240-hour-transit.html"/>
@@ -74,430 +338,430 @@
   </url>
   <url>
     <loc>https://chinavisit.org/visa/france.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/germany.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/italy.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/netherlands.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/spain.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/switzerland.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/ireland.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/hungary.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/austria.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/belgium.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/luxembourg.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/new-zealand.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/australia.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/poland.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/portugal.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/greece.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/cyprus.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/slovenia.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/slovakia.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/norway.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/finland.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/denmark.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/iceland.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/andorra.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/monaco.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/liechtenstein.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/south-korea.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/visa/south-korea.html"/>
     <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/visa/south-korea.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/visa/south-korea.html"/>
   </url>
   <url>
     <loc>https://chinavisit.org/ko/visa/south-korea.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/visa/south-korea.html"/>
     <xhtml:link rel="alternate" hreflang="ko" href="https://chinavisit.org/ko/visa/south-korea.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/visa/south-korea.html"/>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/bulgaria.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/romania.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/croatia.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/montenegro.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/north-macedonia.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/malta.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/estonia.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/latvia.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/japan.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/visa/japan.html"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/visa/japan.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/visa/japan.html"/>
   </url>
   <url>
     <loc>https://chinavisit.org/ja/visa/japan.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
     <xhtml:link rel="alternate" hreflang="en" href="https://chinavisit.org/visa/japan.html"/>
     <xhtml:link rel="alternate" hreflang="ja" href="https://chinavisit.org/ja/visa/japan.html"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://chinavisit.org/visa/japan.html"/>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/brazil.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/argentina.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/chile.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/peru.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/uruguay.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/saudi-arabia.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/oman.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/kuwait.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/bahrain.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/russia.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/sweden.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/united-kingdom.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/canada.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/brunei.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/san-marino.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/seychelles.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/mauritius.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/bahamas.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/fiji.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/grenada.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/serbia.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/barbados.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/united-arab-emirates.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/bosnia-and-herzegovina.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/belarus.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/qatar.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/armenia.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/suriname.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/maldives.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/dominica.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/albania.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/kazakhstan.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/singapore.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/thailand.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/antigua-and-barbuda.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/georgia.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/solomon-islands.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/samoa.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/uzbekistan.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/azerbaijan.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/malaysia.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/united-states.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/mexico.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/czech-republic.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/lithuania.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/ukraine.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/indonesia.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/vietnam.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/kyrgyzstan.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/india.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/philippines.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/cambodia.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/myanmar.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/laos.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/pakistan.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/bangladesh.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/nepal.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/sri-lanka.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/mongolia.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/turkey.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/israel.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/egypt.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/nigeria.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/south-africa.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/kenya.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
   <url>
     <loc>https://chinavisit.org/visa/colombia.html</loc>
-    <lastmod>2026-09-17</lastmod>
+    <lastmod>2026-10-08</lastmod>
   </url>
 </urlset>

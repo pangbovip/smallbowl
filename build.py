@@ -29,6 +29,10 @@ LANG_FONT = {
     "ko": "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap",
 }
 
+# Visa pages that exist in this language (all other passports link to the English page).
+LOCAL_VISA = {"ja": ("japan", "240-hour-transit"), "ko": ("south-korea", "240-hour-transit")}
+
+
 def build(lang, i18n):
     page = io.open("index.html", encoding="utf-8").read()
     font = LANG_FONT[lang]
@@ -52,7 +56,10 @@ def build(lang, i18n):
         if val is None:
             return mo.group(0)
         return mo.group(1) + html.escape(val, quote=False) + mo.group(4)
-    page = page.replace('href="visa/" data-i18n="nav.visa"', 'href="%s/visa/" data-i18n="nav.visa"' % lang, 1)
+    # Links to the per-language visa and guide pages (app.js does the same when the language is switched in place).
+    page = page.replace('href="visa/"', 'href="%s/visa/"' % lang)
+    page = re.sub(r'href="visa/(%s)\.html"' % "|".join(LOCAL_VISA[lang]), r'href="%s/visa/\1.html"' % lang, page)
+    page = page.replace('href="guide/', 'href="%s/guide/' % lang)
     page = re.sub(r'(data-i18n="([^"]+)"[^>]*>)(.*?)(</)', text_repl, page, flags=re.S)
 
     def ph_repl(mo):

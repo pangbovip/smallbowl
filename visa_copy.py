@@ -20,6 +20,45 @@ def end_of(c, D):
     return c["end"] or D.UNILATERAL_END
 
 
+CHECKED_LINE = {"en": "Last checked {d} against official Chinese sources",
+                "ja": "最終確認：{d}（中国の公式発表で確認）",
+                "ko": "마지막 확인: {d} (중국 공식 발표로 확인)"}
+
+
+def checked_html(lang, D, fmt_date, e):
+    """Visible 'last checked' line; the date is machine-readable too."""
+    d = '<time datetime="%s">%s</time>' % (D.CHECKED, e(fmt_date(D.CHECKED, lang)))
+    return '<p class="checked">%s</p>' % e(CHECKED_LINE[lang]).replace("{d}", d)
+
+
+# Policies that currently end on UNILATERAL_END. Shown as a box near the top of the page, so nobody
+# books a January trip on a rule that may lapse. Text sticks to what visa_data.py and the FAQs already say.
+EXPIRY = {
+    "en": ("Heads-up: this visa-free policy is currently set to end on {end}.",
+           "That is the end date in force when we last checked ({checked}). China has extended its visa-free list several times since 2023, "
+           "but an extension is not guaranteed. If any part of your trip falls after {end}, check with the Chinese embassy or consulate before you book."),
+    "ja": ("注意：このビザ免除の現在の期限は{end}です。",
+           "最終確認日（{checked}）時点の期限です。2023年以降何度も延長されてきましたが、延長が保証されているわけではありません。"
+           "旅程が{end}より後にかかる場合は、予約前に在日中国大使館・総領事館で確認してください。"),
+    "ko": ("주의: 이 무비자 정책의 현재 기한은 {end}입니다.",
+           "마지막 확인일({checked}) 기준 기한입니다. 여러 차례 연장돼 왔지만 연장이 보장되는 것은 아닙니다. "
+           "여행 일정이 {end} 이후에 걸리면 예약 전에 주한 중국대사관·총영사관에서 확인하세요."),
+}
+FEE_EXPIRY = {
+    "en": "Heads-up: the fingerprint waiver and reduced visa fees are currently set to end on {end}. Applying after that? Check the current fee and requirements with the visa center when you apply.",
+}
+
+
+def expiry_box(lang, D, fmt_date, e):
+    head, body = EXPIRY[lang]
+    f = dict(end=fmt_date(D.UNILATERAL_END, lang), checked=fmt_date(D.CHECKED, lang))
+    return '<p class="note expiry" role="note"><strong>%s</strong> %s</p>' % (e(head.format(**f)), e(body.format(**f)))
+
+
+def fee_note(D, fmt_date, e):
+    return '<p class="note expiry">%s</p>' % e(FEE_EXPIRY["en"].format(end=fmt_date(D.UNILATERAL_END, "en")))
+
+
 def sorted_by(countries, lang):
     return sorted(countries, key=lambda c: c[lang] if lang != "en" else c["en"])
 
@@ -161,11 +200,12 @@ def _country_en(c, D, BY, country_url, fmt_date, say_cards, faq_block, cta, sour
 <h2>Staying longer, or flying round-trip?</h2>
 <p>Apply for a tourist (L) visa at a Chinese embassy, consulate or visa application service center before you fly. For single and double-entry visas of up to 180 days, fingerprints are currently waived and fees are reduced until 31 December 2026.</p>
 %s
+%s
 <h2>Show this at the counter</h2>
 %s
 <p>Full rules, the list of %d provinces and all 57 eligible passports: <a href="/visa/240-hour-transit.html">240-hour visa-free transit, explained</a>.</p>
 </section>""" % (D.TRANSIT_PORTS, D.TRANSIT_PROVINCES, e(n), e(n), e(n), e(n), e(n),
-                 _asean_note_en(c), say_cards("en", ["transit", "hotel"]), D.TRANSIT_PROVINCES))
+                 fee_note(D, fmt_date, e), _asean_note_en(c), say_cards("en", ["transit", "hotel"]), D.TRANSIT_PROVINCES))
         faqs = [
             ("Can %s visit China visa-free on a round-trip ticket?" % dem, "No. For 240-hour transit the onward flight must go to a different country or region from the one you arrived from. A return flight home works only if you arrived from somewhere else."),
             ("When does the 240-hour clock start?", "At 00:00 on the day after you arrive. You then have up to 240 hours, and your onward ticket must fall inside that window."),
@@ -190,8 +230,9 @@ def _country_en(c, D, BY, country_url, fmt_date, say_cards, faq_block, cta, sour
 <li><strong>24-hour direct transit.</strong> Any nationality can transit through a Chinese airport within 24 hours without a visa, but must stay in the port area.</li>
 %s
 </ul>
+%s
 <p class="note">Lists change. %s could be added to a visa-free or transit list; this page is checked against official announcements and was last checked on %s.</p>
-</section>""" % (_asean_li_en(c), e(n), e(checked)))
+</section>""" % (_asean_li_en(c), fee_note(D, fmt_date, e), e(n), e(checked)))
         faqs = [
             ("Can %s use China's 240-hour visa-free transit?" % dem, "No. As of %s, %s is not among the 57 eligible countries." % (checked, n)),
             ("Is there any visa-free way for %s to enter China?" % dem,
@@ -206,7 +247,9 @@ def _country_en(c, D, BY, country_url, fmt_date, say_cards, faq_block, cta, sour
     body.append('<section class="prose"><h2>Other passports nearby</h2><div class="chips-links">%s<a href="/visa/">All passports</a><a href="/visa/240-hour-transit.html">240-hour transit</a></div></section>'
                 % _related(c, D, country_url, e))
     body.append(sources("en", srcs))
-    head = '<header class="v-head"><h1>%s</h1><p class="checked">Checked %s against official Chinese sources</p></header>' % (e(title.split("?")[0] + "?"), e(checked))
+    head = '<header class="v-head"><h1>%s</h1>%s</header>' % (e(title.split("?")[0] + "?"), checked_html("en", D, fmt_date, e))
+    if s == "unilateral" and end_of(c, D) == D.UNILATERAL_END:
+        head += expiry_box("en", D, fmt_date, e)
     return title, desc, head + "\n".join(body), [faq_ld], short
 
 
@@ -297,8 +340,9 @@ def _country_local(lang, c, D, fmt_date, say_cards, faq_block, cta, sources, e):
                 ("무비자로 중국에서 일하거나 유학할 수 있나요?", "안 됩니다. 관광, 비즈니스, 친지·친구 방문, 교류 방문, 경유만 해당됩니다."),
                 ("아이도 비자가 필요 없나요?", "네. 본인 여권으로 여행하는 아이에게도 같은 규칙이 적용됩니다.")]
     faq_html, faq_ld = faq_block(lang, faqs)
-    checked_line = {"ja": "%s、中国の公式発表で確認" % checked, "ko": "%s 중국 공식 발표로 확인" % checked}[lang]
-    head = '<header class="v-head"><h1>%s</h1><p class="checked">%s</p></header>' % (e(title), e(checked_line))
+    head = '<header class="v-head"><h1>%s</h1>%s</header>' % (e(title), checked_html(lang, D, fmt_date, e))
+    if end_of(c, D) == D.UNILATERAL_END:
+        head += expiry_box(lang, D, fmt_date, e)
     body = head + verdict + prose + faq_html + cta(lang) + sources(lang, ["nia_unilateral", "embassy_faq", "arrival_card"])
     return title, desc, body, [faq_ld], short
 
@@ -398,6 +442,46 @@ HUB_T = {
 }
 
 
+# Passport pages promoted at the top of each hub. Italy, the UAE and Brunei already rank in Google's
+# top 10 (Search Console, Oct 2026); the rest are the biggest markets for each language.
+FEATURED = {"en": ["italy", "united-arab-emirates", "brunei", "united-kingdom", "united-states", "india"],
+            "ja": ["japan", "italy", "united-arab-emirates", "brunei"],
+            "ko": ["south-korea", "italy", "united-arab-emirates", "brunei"]}
+FEAT_T = {
+    "en": dict(h="Quick answers by passport", uni="30 days visa-free · until {end}", uni_none="30 days visa-free · no end date",
+               mut="Visa-free: {stay} · no end date", tr="Visa needed · 240-hour transit works", visa="Visa needed"),
+    "ja": dict(h="パスポート別のすぐわかる答え", uni="30日ビザ免除・期限{end}", uni_none="30日ビザ免除・期限なし",
+               mut="ビザ不要：{stay}・期限なし", tr="ビザ必要・240時間トランジット可", visa="ビザ必要"),
+    "ko": dict(h="여권별 바로 보는 답", uni="30일 무비자·기한 {end}", uni_none="30일 무비자·기한 없음",
+               mut="비자 불필요: {stay}·기한 없음", tr="비자 필요·240시간 경유 가능", visa="비자 필요"),
+}
+HUB_EXPIRY = {
+    "en": ("Heads-up: the 30-day list currently ends on {end} for {n_end} of its {n_uni} countries.",
+           "Russia's runs to {rus} and Brunei's has no end date. China has extended the list several times since 2023, but an extension is not guaranteed. "
+           "Travelling after {end}? Check again before you book."),
+    "ja": ("注意：30日ビザ免除は、{n_uni}か国のうち{n_end}か国で現在{end}が期限です。",
+           "ロシアは{rus}まで、ブルネイは期限なし。2023年以降何度も延長されてきましたが、延長が保証されているわけではありません。{end}より後に旅行するなら、予約前に改めて確認してください。"),
+    "ko": ("주의: 30일 무비자는 {n_uni}개국 중 {n_end}개국의 현재 기한이 {end}입니다.",
+           "러시아는 {rus}까지, 브루나이는 기한이 없습니다. 2023년 이후 여러 차례 연장됐지만 연장이 보장되는 것은 아닙니다. {end} 이후에 여행한다면 예약 전에 다시 확인하세요."),
+}
+
+
+def featured_html(lang, D, BY, country_url, fmt_date, e):
+    T = FEAT_T[lang]
+    tiles = []
+    for slug in FEATURED[lang]:
+        c = BY[slug]
+        if c["scheme"] == "unilateral":
+            line = T["uni_none"] if c["end"] == "none" else T["uni"].format(end=fmt_date(end_of(c, D), lang))
+        elif c["scheme"] == "mutual":
+            line = T["mut"].format(stay=STAY[lang][c["stay"]])
+        else:
+            line = T[{"transit": "tr", "visa": "visa"}[c["scheme"]]]
+        tiles.append('<a class="pp-tile %s" href="%s"><b>%s</b><span>%s</span></a>' % (
+            VCLASS[c["scheme"]], country_url(lang, slug), e(c["en"] if lang == "en" else c[lang]), e(line)))
+    return '<section class="pp-featured"><h2>%s</h2><div class="pp-tiles">%s</div></section>' % (e(T["h"]), "".join(tiles))
+
+
 def hub(lang, D, BY, country_url, fmt_date, say_cards, faq_block, cta, sources, e):
     T = HUB_T[lang]
     d = fmt_date(D.CHECKED, lang)
@@ -415,13 +499,17 @@ def hub(lang, D, BY, country_url, fmt_date, say_cards, faq_block, cta, sources, 
              country_url(lang, c["slug"])] for c in sorted_by(D.COUNTRIES, lang)]
     opts = "".join('<option value="%s">%s</option>' % (s, e(n)) for s, n, *_ in data)
 
-    parts = ['<header class="v-head"><h1>%s</h1><p class="lede">%s</p></header>' % (e(T["h1"]), e(T["lede"].format(d=d)))]
+    parts = ['<header class="v-head"><h1>%s</h1><p class="lede">%s</p>%s</header>' % (e(T["h1"]), e(T["lede"].format(d=d)), checked_html(lang, D, fmt_date, e))]
     parts.append('<section class="checker"><label for="passport">%s</label><div class="checker-row"><select id="passport"><option value="">%s</option>%s</select></div>'
                  '<div class="checker-out" id="checkerOut" aria-live="polite"></div></section>' % (e(T["label"]), e(T["ph"]), opts))
     parts.append('<section class="verdict" style="border-left-color:var(--ink)"><div class="facts" style="border-top:0;margin-top:0">'
                  '<div class="fact"><b>%d</b><span>%s</span></div><div class="fact"><b>%d</b><span>%s</span></div>'
                  '<div class="fact"><b>%d</b><span>%s</span></div><div class="fact"><b>%s</b><span>%s</span></div></div></section>'
                  % (len(uni), e(T["s_uni"]), len(mut), e(T["s_mut"]), sum(1 for c in D.COUNTRIES if c["transit"]), e(T["s_tr"]), e(end), e(T["s_end"])))
+    hx_head, hx_body = HUB_EXPIRY[lang]
+    hx = dict(end=end, rus=rus, n_uni=len(uni), n_end=sum(1 for c in uni if end_of(c, D) == D.UNILATERAL_END))
+    parts.append('<p class="note expiry" role="note"><strong>%s</strong> %s</p>' % (e(hx_head.format(**hx)), e(hx_body.format(**hx))))
+    parts.append(featured_html(lang, D, BY, country_url, fmt_date, e))
 
     rows_uni = "".join('<tr><td>%s</td><td class="n">%s</td><td class="n">%s</td><td>%s</td></tr>' % (
         link(c), fmt_date(c["since"], lang) if c["since"] else "—",
@@ -567,8 +655,8 @@ def transit(lang, D, BY, country_url, fmt_date, say_cards, faq_block, cta, sourc
     elig = sorted_by([c for c in D.COUNTRIES if c["transit"]], lang)
     nm = (lambda c: c["en"]) if lang == "en" else (lambda c: c[lang])
     fmtv = dict(n=len(elig), ports=D.TRANSIT_PORTS, prov=D.TRANSIT_PROVINCES)
-    parts = ['<header class="v-head"><h1>%s</h1><p class="lede">%s</p><p class="checked">%s</p></header>' % (
-        e(T["h1"]), e(T["lede"]), e({"en": "Checked %s", "ja": "%s 確認", "ko": "%s 확인"}[lang] % d))]
+    parts = ['<header class="v-head"><h1>%s</h1><p class="lede">%s</p>%s</header>' % (
+        e(T["h1"]), e(T["lede"]), checked_html(lang, D, fmt_date, e))]
     parts.append(verdict_html("is-transit", "过", "240h", {"en": "Up to 10 days, no visa, on your way elsewhere.", "ja": "乗り継ぎなら、ビザなしで最大10日。", "ko": "경유라면 비자 없이 최대 10일."}[lang], "",
                               [("240 h", {"en": "max stay", "ja": "最長滞在", "ko": "최대 체류"}[lang]),
                                (str(len(elig)), {"en": "countries", "ja": "対象国", "ko": "대상국"}[lang]),
