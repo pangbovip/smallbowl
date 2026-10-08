@@ -25,9 +25,20 @@ TRANSIT = {"en": "/visa/240-hour-transit.html", "ja": "/ja/visa/240-hour-transit
 # Country pages that exist in each language besides English.
 LOCAL_COUNTRY = {"ja": "japan", "ko": "south-korea"}
 
+# Shared font set on every page (Latin + Chinese for phrase cards and brush marks); Japanese / Korean
+# only on pages in that language. LABEL_FONTS covers just the "日本語 / 한국어" switch labels.
 FONTS = ("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800"
-         "&family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+KR:wght@400;700"
-         "&family=Noto+Sans+SC:wght@400;700&family=Zhi+Mang+Xing&display=swap")
+         "&family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+SC:wght@400;700&family=Zhi+Mang+Xing&display=swap")
+LABEL_FONTS = ("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@700&family=Noto+Sans+KR:wght@700"
+               "&text=%E6%97%A5%E6%9C%AC%E8%AA%9E%ED%95%9C%EA%B5%AD%EC%96%B4&display=swap")
+LANG_FONTS = {"en": "", "ja": "https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap",
+              "ko": "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap"}
+
+
+def font_links(lang):
+    urls = [FONTS, LABEL_FONTS] + ([LANG_FONTS[lang]] if LANG_FONTS[lang] else [])
+    links = "".join('<link rel="stylesheet" href="%s" media="print" onload="this.media=\'all\'">\n' % e(u) for u in urls)
+    return links + "<noscript>%s</noscript>" % "".join('<link rel="stylesheet" href="%s">' % e(u) for u in urls)
 
 e = lambda s: html.escape(str(s), quote=True)
 BY_SLUG = {c["slug"]: c for c in D.COUNTRIES}
@@ -107,8 +118,7 @@ def page(lang, path, title, desc, body, alternates, jsonld, crumbs):
 <link rel="canonical" href="{site}{path}">
 {alts}<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="{fonts}" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="{fonts}"></noscript>
+{fonts}
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
 <meta property="og:url" content="{site}{path}">
@@ -164,7 +174,7 @@ def page(lang, path, title, desc, body, alternates, jsonld, crumbs):
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{{"token": "3685ef96a9c6460796e8590ef74cd9d0"}}'></script>
 </body>
 </html>
-""".format(lang=lang, title=e(title), desc=e(desc), site=SITE, path=path, alts=alt_links, fonts=FONTS, v=ASSET_V,
+""".format(lang=lang, title=e(title), desc=e(desc), site=SITE, path=path, alts=alt_links, fonts=font_links(lang), v=ASSET_V,
            graph=graph, home=HOME[lang], svg=BRAND_SVG, nav=nav, switch=switch, crumb=crumb, body=body,
            home_t=e(u["home"]), hub=HUB[lang], hub_t=e(u["hub"]), transit=TRANSIT[lang], legal=e(u["legal"]),
            say_tip=e(u["say_tip"]))
