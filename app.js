@@ -17,6 +17,14 @@
   var UNLOCK_CODES = [];
   // 5. Newsletter JSON endpoint. Empty = show unavailable, never claim subscription success.
   var MAIL_ENDPOINT = "";
+  // Codes can only be restored on another device once VERIFY_ENDPOINT (worker/) is live.
+  // Until then the page says so and offers manual recovery (PayPal receipt -> we send the PDF).
+  var CAN_RESTORE = !!VERIFY_ENDPOINT || UNLOCK_CODES.length > 0;
+  // Japanese / Korean fonts, loaded only when the page is shown in that language.
+  var LANG_FONTS = {
+    ja: "https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap",
+    ko: "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap"
+  };
 
   var LANGS = ["en", "ja", "ko"];
   var $ = function (s, r) { return (r || document).querySelector(s); };
@@ -48,8 +56,25 @@
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
 
   /* ---------- render ---------- */
+  function ensureLangFont(lang) {
+    if (!LANG_FONTS[lang] || document.querySelector('link[data-lang-font="' + lang + '"]')) return;
+    var l = document.createElement("link");
+    l.rel = "stylesheet"; l.href = LANG_FONTS[lang]; l.setAttribute("data-lang-font", lang);
+    document.head.appendChild(l);
+  }
   function renderAll() {
     document.documentElement.lang = state.lang;
+    ensureLangFont(state.lang);
+    // Only promise cross-device restore when it can actually work.
+    [["#ownedRow > span", "pricing.owned", "pricing.ownedLocal"], [".pay-sub", "pay.sub", "pay.subLocal"],
+     ["#payDone [data-i18n^='pay.doneCode']", "pay.doneCode", "pay.doneCodeLocal"],
+     ["#payDone [data-i18n^='pay.doneNote']", "pay.doneNote", "pay.doneNoteLocal"]].forEach(function (r) {
+      var el = $(r[0]); if (el) el.setAttribute("data-i18n", CAN_RESTORE ? r[1] : r[2]);
+    });
+    // No real group link yet: hide the group invitation instead of pointing at a placeholder.
+    $$(".group-join, #ownedGroupBtn").forEach(function (el) { el.hidden = !hasGroupLink(); });
+    // No newsletter backend yet: hide the form rather than collect emails that go nowhere.
+    var mailForm = $("#mailForm"); if (mailForm) mailForm.hidden = !MAIL_ENDPOINT;
     // Before the group exists, the buttons ask us to add you rather than promising a link that isn't there.
     var groupKey = hasGroupLink() ? "group.cta" : "group.ctaAsk";
     ["#groupBtn", "#ownedGroupBtn"].forEach(function (sel) { var b = $(sel); if (b) b.setAttribute("data-i18n", groupKey); });
@@ -60,9 +85,29 @@
     ["#groupBtn", "#ownedGroupBtn"].forEach(function (sel) { var b = $(sel); if (b) b.href = group; });
     var sister = $("[data-sister-href]");
     if (sister) sister.href = state.lang === "ja" ? "https://wenguhall.com/ja.html" : "https://wenguhall.com/";
-    var visa = $("[data-visa-href]");
-    if (visa) visa.href = state.lang === "en" ? "visa/" : state.lang + "/visa/";
+    localiseLinks();
     renderBoard(); renderApps(); renderDays(); renderTiers(); renderFaq(); renderCredits();
+  }
+
+  // Visa and guide pages have their own URL per language; keep the static links pointing at the right one.
+  var LOCAL_VISA = { ja: ["japan", "240-hour-transit"], ko: ["south-korea", "240-hour-transit"] };
+  function localiseLinks() {
+    var pre = state.lang === "en" ? "" : state.lang + "/";
+    $$("[data-visa-href]").forEach(function (a) { a.href = pre + "visa/"; });
+    $$("[data-visa-page]").forEach(function (a) {
+      var slug = a.getAttribute("data-visa-page");
+      a.href = ((LOCAL_VISA[state.lang] || []).indexOf(slug) >= 0 ? pre : "") + "visa/" + slug + ".html";
+    });
+    $$("[data-guide-path]").forEach(function (a) { a.href = pre + "guide/" + a.getAttribute("data-guide-path"); });
+  }
+  // The standalone page for a card or app, taken from the static guide links (build_guides.py writes them).
+  function guideHref(id) {
+    var a = $('.guide-links [data-guide~="' + id + '"]');
+    return a ? a.getAttribute("href") : "";
+  }
+  function guideLink(id) {
+    var href = guideHref(id);
+    return href ? '<a class="card-more" href="' + esc(href) + '">' + esc(t("guides.more")) + ' →</a>' : "";
   }
 
   // Free section: the apps you must install and verify before you land.
@@ -81,7 +126,7 @@
         '<div class="app-row"><dt>' + esc(t("apps.why")) + '</dt><dd>' + esc(a.why) + '</dd></div>' +
         '</dl>' +
         '<a class="app-site" href="' + esc(a.site) + '" target="_blank" rel="noopener">' + esc(t("apps.open")) + '</a>' +
-        '</article>';
+        guideLink(a.id) + '</article>';
     }).join("");
   }
 
@@ -114,7 +159,7 @@
           '<ol class="steps">' + card.steps.map(function (s) { return "<li>" + esc(s) + "</li>"; }).join("") + '</ol>' +
           '<dl class="kv"><dt>' + esc(t("card.where")) + '</dt><dd>' + esc(card.where) + '</dd>' +
           '<dt>' + esc(t("card.mistake")) + '</dt><dd class="mistake">' + esc(card.mistake) + '</dd></dl></div>' +
-          '<div class="card-foot">' + sayCardHTML(card.say) + '</div>';
+          '<div class="card-foot">' + sayCardHTML(card.say) + guideLink(card.id) + '</div>';
       }
       return '<article class="card' + (locked ? " is-locked" : "") + '" data-city="' + esc(card.city) + '" id="card-' + esc(card.id) + '">' +
         '<picture><source type="image/avif" srcset="images/' + esc(card.id) + '-400.avif 400w, images/' + esc(card.id) + '-800.avif 800w" sizes="(max-width: 720px) calc(100vw - 32px), 380px">' +
@@ -199,8 +244,10 @@
         '<h3>' + esc(tier.name) + '</h3><div class="tier-price">' + price + '</div>' +
         '<ul>' + tier.items.map(function (s) { return "<li>" + esc(s) + "</li>"; }).join("") + '</ul>' + cta + '</div>';
     }).join("");
-    var row = $(".unlock-row:not(.owned-row)");
-    if (row) row.hidden = state.unlocked;
+    var row = $("#codeRow");
+    if (row) row.hidden = state.unlocked || !CAN_RESTORE;
+    var recover = $("#recoverRow");
+    if (recover) recover.hidden = state.unlocked || CAN_RESTORE;
     var owned = $("#ownedRow");
     if (owned) { owned.hidden = !state.unlocked; $("#ownedCode").textContent = state.code; }
   }

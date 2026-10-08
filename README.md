@@ -42,12 +42,14 @@ worker/            可选：Cloudflare Worker，用 PayPal API 校验交易并�
 | `PAYPAL_CLIENT_ID` | 已填问古堂的客户端 ID | 不用改（客户端 ID 本来就是公开的） |
 | `PRICE_USD` | `2.00` | 改价只改这里 |
 | `VERIFY_ENDPOINT` | 空 | 可选：填 Worker 地址后解锁码走服务端校验（见下） |
-| `GROUP_LINK` | 占位符 | **要改**：WhatsApp 建群 → 群资料 → 通过链接邀请 → 复制链接，粘贴到这里。没填之前，按钮自动变成"发消息请求入群"，点击是给你发一条预填的 WhatsApp 私信，你手动拉人；填上链接后按钮自动变回"加入群" |
+| `GROUP_LINK` | 占位符 | **要改**：WhatsApp 建群 → 群资料 → 通过链接邀请 → 复制链接，粘贴到这里。没填之前，付款成功弹窗和"已解锁"行里的入群区块**整块隐藏**；填上真实链接后自动显示"加入群"按钮 |
 | `UNLOCK_CODES` | 含演示码 `SMALLBOWL-DEMO` | **删掉演示码**，留给退款补发、朋友、媒体用 |
 
 ### 两种校验强度
 
-- **不部署 Worker（现状）**：解锁码在浏览器里只校验格式（`SB-` + 12~20 位字母数字）。挡得住普通用户，挡不住看源码的人。2 美元的产品，这个强度通常够用。
+- **不部署 Worker（现状）**：付款成功后**只在付款的那个浏览器里解锁**（存在 localStorage）。换设备输入解锁码无法校验，所以页面不再显示"已购买？输入解锁码"，改为提示买家"把 PayPal 收据发邮件或 WhatsApp 给我们，我们发完整版 PDF"（`app.js` 里 `CAN_RESTORE` 为 false 时的文案，见 i18n.js 的 `*Local` 和 `pricing.recover`）。
+  - 人工补发 PDF 的做法：在 PayPal 后台核对收据 → 用自己的浏览器打开 chinavisit.org，开发者工具 Console 执行 `localStorage.setItem("sb_unlocked","1")` 后刷新 → 完整行程里点"存为 PDF" → 把 PDF 发给买家。
+  - 部署 Worker 并填好 `VERIFY_ENDPOINT` 后，`CAN_RESTORE` 自动变 true，页面自动恢复"换设备输码"的文案和输入框，不用改别的。
 - **部署 Worker（推荐，20 分钟）**：付款后页面把交易号发给 Worker，Worker 用 PayPal API 核实"已完成、≥2 美元"才发码并存入 KV；换设备输码时也查 KV。步骤：
 
 ```bash
@@ -72,11 +74,12 @@ PayPal Secret 在 https://developer.paypal.com/dashboard/applications/live 里�
 
 "存为 PDF"按钮调用浏览器打印，`style.css` 末尾的 `@media print` 只输出解锁内容，买家自己存离线版。付费内容文件仍是公开的静态 JS，看源码能读到；2 美元的产品接受这个取舍，介意就按上面 Worker 方案把这三个文件改成解锁后再从 Worker 拉取。
 
-`MAIL_ENDPOINT`：邮件订阅接口（Buttondown、Formspree、Mailchimp）。留空时邮箱只存本机 localStorage。
+`MAIL_ENDPOINT`：邮件订阅接口（Buttondown、Formspree、Mailchimp）。留空时页脚订阅表单整块隐藏（不收集发不出去的邮箱）；填上后自动显示。
 
 ## SEO 与收录
 
-- 三个语言各有独立网址并互相声明 hreflang：`/`、`/ja.html`、`/ko.html`；`sitemap.xml` 列出三者。
+- 三个语言各有独立网址并互相声明 hreflang：`/`、`/ja.html`、`/ko.html`；`sitemap.xml` 列出三者，以及全部攻略页和签证页。
+- 免费细节卡另有可被搜索收录的独立文章页，见下文"攻略文章页（/guide/）"。
 - `index.html` 头部有 JSON-LD（WebSite、Product $2、FAQPage）。
 - Google Search Console：用"网域"属性添加 `chinavisit.org`，在 Cloudflare DNS 加 Google 给的 TXT 记录验证，然后在"站点地图"提交 `https://chinavisit.org/sitemap.xml`。
 - 韩国用户主要用 Naver：在 Naver Search Advisor 添加站点并提交同一个 sitemap。日本用户用 Google，Yahoo Japan 也走 Google 索引。
@@ -125,3 +128,22 @@ build_visa.py   生成页面 + 重写 sitemap.xml：python build_visa.py
 **必须盯的日期：** 48 国的 30 天免签目前到 **2026-12-31**（俄罗斯到 2027-12-31，布鲁内无期限）。去年的延期通知是 11 月初发的，今年 11 月留意外交部领事司公告，延期后改 `UNILATERAL_END` 重新生成；如果没延期，页面必须在 1 月 1 日前改掉。
 
 **刻意没写的：** 厄瓜多尔、汤加的互免条件（官方表格不完整）；"香港/澳门算第三地"没有找到官方示例，页面里只写"常见做法，订票前问航空公司"。
+
+## 攻略文章页（/guide/）
+
+首页的细节卡是 JS 渲染的，搜索引擎没法把它们当成独立页面收录。`build_guides.py` 用**同一份免费数据**（`content-*.js` 里的免费卡片、`apps`、FAQ，以及 `i18n.js` 的文案）生成静态文章页，卡片和文章页始终同步：
+
+```
+build_guides.py   页面清单（GUIDES）、每页的 title / description / H1（META）、生成逻辑
+```
+
+生成结果（33 页）：`/guide/`、`/ja/guide/`、`/ko/guide/` 三个索引页，加上每种语言 10 篇文章，例如 `/guide/how-to-use-alipay-as-a-foreigner.html`、`/ja/guide/shared-bikes-china.html`。每页有独立的 title / description / H1、canonical、三语 hreflang、Article + BreadcrumbList 结构化数据、相关攻略和签证页的内链，以及 $2 完整版的入口。
+
+- **只用免费内容**：脚本从不读取 `content-paid-*.js`；`check_no_paid()` 会在生成时比对付费文件，有任何付费句子混进页面就直接报错停下。锁定卡只出现标题（本来就公开）。
+- **改了卡片、App、FAQ 或 i18n.js 之后**：运行 `python build_guides.py`。它会重写三种语言的文章页、`index.html` 里的"Step-by-step guides"链接区块（`<!--guides:start-->` 到 `<!--guides:end-->` 之间，别手改）、`ja.html` / `ko.html` 和 `sitemap.xml`。连同 `guide/ ja/guide/ ko/guide/ index.html ja.html ko.html sitemap.xml` 一起提交。
+- **加一篇新文章**：在 `GUIDES` 里加一项（`card` 只能是免费卡），在 `META` 里写三种语言的 title / description / H1，在 `i18n.js` 三种语言里加 `guide.<id>` 短标题，然后运行脚本。
+- 首页卡片底部的"Read the full page →"链接由 `app.js` 根据上面那块静态链接自动加上，不用另外维护。
+- `UPDATED` 是文章页的发布 / 修改日期（页面上显示、结构化数据、sitemap 的 lastmod），改了文案就改这个日期。
+- `build_visa.py` 和 `build_guides.py` 共用 `write_sitemap()`，先跑哪个都会得到完整的 sitemap。签证页模板改动后改 `build_visa.py` 里的 `PAGES_UPDATED`；`visa_data.py` 的 `CHECKED` 只在**重新核对过官方政策**后才改。
+
+**签证页的到期提示**：凡是 `visa_data.py` 里结束日期等于 `UNILATERAL_END`（目前 2026-12-31）的 30 天免签国家，国家页顶部会自动显示红色到期提示；签证索引页也有一条总提示；需签证 / 过境国家页会提示指纹豁免和签证费减免同样在这天到期。延期公告出来后改 `UNILATERAL_END` 和 `CHECKED` 再跑 `python build_visa.py`，提示里的日期会自动更新。

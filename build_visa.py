@@ -17,17 +17,31 @@ from datetime import date
 import visa_data as D
 
 SITE = "https://chinavisit.org"
-ASSET_V = "20260917v"
+ASSET_V = "20261008g"
+# Bump when the page templates change (sitemap lastmod). CHECKED in visa_data.py is the policy-check date.
+PAGES_UPDATED = "2026-10-08"
 LANGS = ("en", "ja", "ko")
 HOME = {"en": "/", "ja": "/ja.html", "ko": "/ko.html"}
 HUB = {"en": "/visa/", "ja": "/ja/visa/", "ko": "/ko/visa/"}
+GUIDE_HUB = {"en": "/guide/", "ja": "/ja/guide/", "ko": "/ko/guide/"}
 TRANSIT = {"en": "/visa/240-hour-transit.html", "ja": "/ja/visa/240-hour-transit.html", "ko": "/ko/visa/240-hour-transit.html"}
 # Country pages that exist in each language besides English.
 LOCAL_COUNTRY = {"ja": "japan", "ko": "south-korea"}
 
+# Shared font set on every page (Latin + Chinese for phrase cards and brush marks); Japanese / Korean
+# only on pages in that language. LABEL_FONTS covers just the "日本語 / 한국어" switch labels.
 FONTS = ("https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800"
-         "&family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+JP:wght@400;700&family=Noto+Sans+KR:wght@400;700"
-         "&family=Noto+Sans+SC:wght@400;700&family=Zhi+Mang+Xing&display=swap")
+         "&family=IBM+Plex+Mono:wght@400;600&family=Noto+Sans+SC:wght@400;700&family=Zhi+Mang+Xing&display=swap")
+LABEL_FONTS = ("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@700&family=Noto+Sans+KR:wght@700"
+               "&text=%E6%97%A5%E6%9C%AC%E8%AA%9E%ED%95%9C%EA%B5%AD%EC%96%B4&display=swap")
+LANG_FONTS = {"en": "", "ja": "https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap",
+              "ko": "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap"}
+
+
+def font_links(lang):
+    urls = [FONTS, LABEL_FONTS] + ([LANG_FONTS[lang]] if LANG_FONTS[lang] else [])
+    links = "".join('<link rel="stylesheet" href="%s" media="print" onload="this.media=\'all\'">\n' % e(u) for u in urls)
+    return links + "<noscript>%s</noscript>" % "".join('<link rel="stylesheet" href="%s">' % e(u) for u in urls)
 
 e = lambda s: html.escape(str(s), quote=True)
 BY_SLUG = {c["slug"]: c for c in D.COUNTRIES}
@@ -54,20 +68,20 @@ def name(c, lang):
 
 # ------------------------------------------------------------------ chrome
 UI = {
-    "en": {"nav": [("Details", "#details"), ("Apps", "#apps"), ("7 days", "#days"), ("Full guide", "#pricing")], "visa": "Visa",
-           "home": "Home", "hub": "Visa check", "checked": "Checked {d}", "sources": "Sources",
+    "en": {"nav": [("Details", "#details"), ("Apps", "#apps"), ("7 days", "#days"), ("Full guide", "#pricing")], "visa": "Visa", "guides": "Guides",
+           "home": "Home", "hub": "Visa check", "checked": "Last checked {d}", "sources": "Sources",
            "legal": "Visa rules change, sometimes with a week's notice. We check official announcements and update this page, but the border officer and your airline have the final word. Confirm with the Chinese embassy or consulate where you live before you fly.",
            "cta_h": "Visa sorted. Now the small bowl.",
            "cta_p": "The part nobody explains: paying with Alipay, unlocking a shared bike, ordering douzhi without a word of Chinese. Free details, full 7-day guide $2.",
            "cta_btn": "Read the free details", "say_tip": "Show the screen. Point. Smile.", "tap": "Tap to enlarge"},
-    "ja": {"nav": [("ディテール", "#details"), ("アプリ", "#apps"), ("7日間", "#days"), ("完全版", "#pricing")], "visa": "ビザ",
-           "home": "ホーム", "hub": "ビザ確認", "checked": "{d} 確認", "sources": "出典",
+    "ja": {"nav": [("ディテール", "#details"), ("アプリ", "#apps"), ("7日間", "#days"), ("完全版", "#pricing")], "visa": "ビザ", "guides": "ガイド",
+           "home": "ホーム", "hub": "ビザ確認", "checked": "最終確認 {d}", "sources": "出典",
            "legal": "ビザ制度は短い予告で変わることがあります。公式発表を確認して更新していますが、最終判断は入国審査官と航空会社です。出発前に在日中国大使館・総領事館で必ず確認してください。",
            "cta_h": "ビザはOK。次は「小さなコツ」。",
            "cta_p": "Alipayでの支払い、シェア自転車の解錠、中国語ゼロで豆汁を注文する方法。誰も教えてくれない部分をまとめました。無料で読めて、完全版は2ドル。",
            "cta_btn": "無料のコツを読む", "say_tip": "画面を見せて、指さして、笑顔で。", "tap": "タップで拡大"},
-    "ko": {"nav": [("디테일", "#details"), ("앱", "#apps"), ("7일", "#days"), ("전체 가이드", "#pricing")], "visa": "비자",
-           "home": "홈", "hub": "비자 확인", "checked": "{d} 확인", "sources": "출처",
+    "ko": {"nav": [("디테일", "#details"), ("앱", "#apps"), ("7일", "#days"), ("전체 가이드", "#pricing")], "visa": "비자", "guides": "가이드",
+           "home": "홈", "hub": "비자 확인", "checked": "마지막 확인 {d}", "sources": "출처",
            "legal": "비자 제도는 짧은 예고로 바뀔 수 있습니다. 공식 발표를 확인해 업데이트하지만 최종 판단은 입국심사관과 항공사가 합니다. 출발 전 주한 중국대사관·총영사관에서 꼭 확인하세요.",
            "cta_h": "비자는 해결. 이제 작은 요령.",
            "cta_p": "알리페이 결제, 공유자전거 잠금 해제, 중국어 한마디 없이 더우즈 주문하기. 아무도 안 알려주는 부분만 모았습니다. 무료로 읽고, 전체 가이드는 2달러.",
@@ -78,17 +92,58 @@ BRAND_SVG = ('<svg class="brand-mark" viewBox="0 0 64 64" width="30" height="30"
              '<rect x="24" y="51" width="16" height="4" rx="1" fill="#C4331F"/><path d="M16 12l30 26M23 8l30 26" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" fill="none"/></svg>')
 
 
+def nav_html(lang, current):
+    """Site nav for generated sub-pages. current: "visa" | "guide"."""
+    u = UI[lang]
+    nav = "".join('<a href="%s%s">%s</a>' % (HOME[lang], h, e(t)) for t, h in u["nav"])
+    nav += '<a href="%s"%s>%s</a>' % (GUIDE_HUB[lang], ' aria-current="page"' if current == "guide" else "", e(u["guides"]))
+    nav += '<a href="%s"%s>%s</a>' % (HUB[lang], ' aria-current="page"' if current == "visa" else "", e(u["visa"]))
+    return nav
+
+
+def switch_html(lang, alternates, fallback):
+    return "".join('<a href="%s" lang="%s" hreflang="%s"%s>%s</a>' % (
+        alternates.get(l, fallback[l]), l, l, ' class="is-on" aria-current="true"' if l == lang else "", lab)
+        for l, lab in (("en", "EN"), ("ja", "日本語"), ("ko", "한국어")))
+
+
+def alt_links_html(alternates):
+    out = "".join('<link rel="alternate" hreflang="%s" href="%s%s">\n' % (l, SITE, p) for l, p in alternates.items())
+    if "en" in alternates:
+        out += '<link rel="alternate" hreflang="x-default" href="%s%s">\n' % (SITE, alternates["en"])
+    return out
+
+
+def say_overlay_html(lang):
+    return """<div class="say-overlay" id="sayOverlay" hidden role="dialog" aria-modal="true" aria-label="Show this to staff">
+  <button type="button" class="say-close" id="sayClose" aria-label="Close">×</button>
+  <p class="say-overlay-zh" id="sayZh"></p>
+  <p class="say-overlay-pinyin" id="sayPinyin"></p>
+  <p class="say-overlay-tip">%s</p>
+</div>
+<script>
+(function () {
+  var o = document.getElementById("sayOverlay");
+  document.addEventListener("click", function (ev) {
+    var b = ev.target.closest("[data-say]");
+    if (!b) return;
+    document.getElementById("sayZh").textContent = b.getAttribute("data-say");
+    document.getElementById("sayPinyin").textContent = b.getAttribute("data-say-pinyin") || "";
+    o.hidden = false; document.getElementById("sayClose").focus();
+  });
+  function close() { o.hidden = true; }
+  document.getElementById("sayClose").addEventListener("click", close);
+  document.addEventListener("keydown", function (ev) { if (ev.key === "Escape") close(); });
+})();
+</script>""" % e(UI[lang]["say_tip"])
+
+
 def page(lang, path, title, desc, body, alternates, jsonld, crumbs):
     """alternates: {lang: path} for hreflang; the language switch uses it, falling back to that language's hub."""
     u = UI[lang]
-    alt_links = "".join('<link rel="alternate" hreflang="%s" href="%s%s">\n' % (l, SITE, p) for l, p in alternates.items())
-    if "en" in alternates:
-        alt_links += '<link rel="alternate" hreflang="x-default" href="%s%s">\n' % (SITE, alternates["en"])
-    switch = "".join('<a href="%s" lang="%s" hreflang="%s"%s>%s</a>' % (
-        alternates.get(l, HUB[l]), l, l, ' class="is-on" aria-current="true"' if l == lang else "", lab)
-        for l, lab in (("en", "EN"), ("ja", "日本語"), ("ko", "한국어")))
-    nav = "".join('<a href="%s%s">%s</a>' % (HOME[lang], h, e(t)) for t, h in u["nav"])
-    nav += '<a href="%s" aria-current="page">%s</a>' % (HUB[lang], e(u["visa"]))
+    alt_links = alt_links_html(alternates)
+    switch = switch_html(lang, alternates, HUB)
+    nav = nav_html(lang, "visa")
     crumb = " / ".join('<a href="%s">%s</a>' % (h, e(t)) for t, h in crumbs[:-1]) + " / " + e(crumbs[-1][0])
     bc = {"@type": "BreadcrumbList", "itemListElement": [
         {"@type": "ListItem", "position": i + 1, "name": t, "item": SITE + h} for i, (t, h) in enumerate(crumbs)]}
@@ -107,8 +162,7 @@ def page(lang, path, title, desc, body, alternates, jsonld, crumbs):
 <link rel="canonical" href="{site}{path}">
 {alts}<link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="{fonts}" media="print" onload="this.media='all'">
-<noscript><link rel="stylesheet" href="{fonts}"></noscript>
+{fonts}
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
 <meta property="og:url" content="{site}{path}">
@@ -136,38 +190,18 @@ def page(lang, path, title, desc, body, alternates, jsonld, crumbs):
 <footer class="foot">
   <div class="foot-brand">
     <span class="brand-zh">小碗</span>
-    <p class="v-foot"><a href="{home}">{home_t}</a><a href="{hub}">{hub_t}</a><a href="{transit}">240h</a><a href="mailto:86886779@qq.com?subject=China%20Visit%20visa">86886779@qq.com</a></p>
+    <p class="v-foot"><a href="{home}">{home_t}</a><a href="{guides}">{guides_t}</a><a href="{hub}">{hub_t}</a><a href="{transit}">240h</a><a href="mailto:86886779@qq.com?subject=China%20Visit%20visa">86886779@qq.com</a></p>
   </div>
   <p class="foot-legal">{legal}</p>
 </footer>
-<div class="say-overlay" id="sayOverlay" hidden role="dialog" aria-modal="true" aria-label="Show this to staff">
-  <button type="button" class="say-close" id="sayClose" aria-label="Close">×</button>
-  <p class="say-overlay-zh" id="sayZh"></p>
-  <p class="say-overlay-pinyin" id="sayPinyin"></p>
-  <p class="say-overlay-tip">{say_tip}</p>
-</div>
-<script>
-(function () {{
-  var o = document.getElementById("sayOverlay");
-  document.addEventListener("click", function (ev) {{
-    var b = ev.target.closest("[data-say]");
-    if (!b) return;
-    document.getElementById("sayZh").textContent = b.getAttribute("data-say");
-    document.getElementById("sayPinyin").textContent = b.getAttribute("data-say-pinyin") || "";
-    o.hidden = false; document.getElementById("sayClose").focus();
-  }});
-  function close() {{ o.hidden = true; }}
-  document.getElementById("sayClose").addEventListener("click", close);
-  document.addEventListener("keydown", function (ev) {{ if (ev.key === "Escape") close(); }});
-}})();
-</script>
+{overlay}
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{{"token": "3685ef96a9c6460796e8590ef74cd9d0"}}'></script>
 </body>
 </html>
-""".format(lang=lang, title=e(title), desc=e(desc), site=SITE, path=path, alts=alt_links, fonts=FONTS, v=ASSET_V,
+""".format(lang=lang, title=e(title), desc=e(desc), site=SITE, path=path, alts=alt_links, fonts=font_links(lang), v=ASSET_V,
            graph=graph, home=HOME[lang], svg=BRAND_SVG, nav=nav, switch=switch, crumb=crumb, body=body,
            home_t=e(u["home"]), hub=HUB[lang], hub_t=e(u["hub"]), transit=TRANSIT[lang], legal=e(u["legal"]),
-           say_tip=e(u["say_tip"]))
+           overlay=say_overlay_html(lang), guides=GUIDE_HUB[lang], guides_t=e(u["guides"]))
 
 
 def faq_block(lang, items):
@@ -195,8 +229,10 @@ def say_cards(lang, keys):
 
 def cta(lang):
     u = UI[lang]
-    return ('<aside class="v-cta"><div><h2>%s</h2><p>%s</p></div><a class="btn" href="%s#details">%s</a></aside>'
-            % (e(u["cta_h"]), e(u["cta_p"]), HOME[lang], e(u["cta_btn"])))
+    import build_guides as G  # lazy: build_guides imports this module
+    starters = "".join('<a href="%s">%s</a>' % (G.guide_path(lang, g["slug"]), e(G.label(lang, g["id"]))) for g in G.STARTERS)
+    return ('<aside class="v-cta"><div><h2>%s</h2><p>%s</p><p class="v-cta-links">%s<a href="%s">%s →</a></p></div><a class="btn" href="%s#details">%s</a></aside>'
+            % (e(u["cta_h"]), e(u["cta_p"]), starters, G.HUB[lang], e(G.label(lang, "all")), HOME[lang], e(u["cta_btn"])))
 
 
 def sources(lang, keys):
@@ -219,6 +255,7 @@ import visa_copy as C  # noqa: E402
 
 def main():
     written = []  # (path, {lang: path} alternates)
+    import build_guides as G  # noqa: F401  (fail early if the guide data is broken)
 
     # hubs
     hub_alts = dict(HUB)
@@ -245,22 +282,39 @@ def main():
             crumbs = [(UI[lang]["home"], HOME[lang]), (UI[lang]["hub"], HUB[lang]), (short, alts[lang])]
             written.append((write(alts[lang], page(lang, alts[lang], title, desc, body, alts, ld, crumbs)), alts))
 
-    write_sitemap(written)
+    assert [p for p, _ in written] == [p for p, _ in visa_entries()], "visa_entries() is out of sync with main()"
+    write_sitemap()
     print("wrote %d visa pages + sitemap.xml" % len(written))
 
 
-def write_sitemap(written):
+def visa_entries():
+    """Every visa page as (path, {lang: path}), in sitemap order. Mirrors main()."""
+    out = [(HUB[l], dict(HUB)) for l in LANGS] + [(TRANSIT[l], dict(TRANSIT)) for l in LANGS]
+    for c in D.COUNTRIES:
+        alts = {"en": "/visa/%s.html" % c["slug"]}
+        for l, slug in LOCAL_COUNTRY.items():
+            if slug == c["slug"]:
+                alts[l] = "/%s/visa/%s.html" % (l, slug)
+        out += [(alts[l], alts) for l in alts]
+    return out
+
+
+def write_sitemap():
+    """Home pages + guides (build_guides.py) + visa pages. Both build scripts call this."""
     import re
+    import build_guides as G
     old = io.open("sitemap.xml", encoding="utf-8").read() if os.path.exists("sitemap.xml") else ""
     kept = dict(re.findall(r"<loc>%s([^<]+)</loc>\s*<lastmod>([^<]+)</lastmod>" % re.escape(SITE), old))
     home_alts = {"en": "/", "ja": "/ja.html", "ko": "/ko.html"}
-    entries = [(p, home_alts) for p in ("/", "/ja.html", "/ko.html")] + written
+    entries = [(p, home_alts, max(kept.get(p, ""), G.UPDATED)) for p in ("/", "/ja.html", "/ko.html")]
+    entries += [(p, alts, G.UPDATED) for p, alts in G.entries()]
+    entries += [(p, alts, max(D.CHECKED, PAGES_UPDATED)) for p, alts in visa_entries()]
     out = ['<?xml version="1.0" encoding="UTF-8"?>',
            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">']
-    for p, alts in entries:
+    for p, alts, lastmod in entries:
         out.append("  <url>")
         out.append("    <loc>%s%s</loc>" % (SITE, p))
-        out.append("    <lastmod>%s</lastmod>" % (kept.get(p) if p in home_alts.values() and p in kept else D.CHECKED))
+        out.append("    <lastmod>%s</lastmod>" % lastmod)
         if len(alts) > 1:
             for l, ap in alts.items():
                 out.append('    <xhtml:link rel="alternate" hreflang="%s" href="%s%s"/>' % (l, SITE, ap))
