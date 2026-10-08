@@ -286,6 +286,7 @@ html[lang="ja"] .faq summary, html[lang="ko"] .faq summary { font-family: inheri
 .pay-code-small { font-size: .85rem; padding: 4px 8px; }
 .owned-row[hidden] { display: none; }
 .unlock-row[hidden] { display: none; }
+.foot-form[hidden], .group-join[hidden], .btn[hidden] { display: none; }
 
 /* ---------- paid: full plan & phrasebook ---------- */
 .paid-section[hidden] { display: none; }

@@ -17,6 +17,14 @@
   var UNLOCK_CODES = [];
   // 5. Newsletter JSON endpoint. Empty = show unavailable, never claim subscription success.
   var MAIL_ENDPOINT = "";
+  // Codes can only be restored on another device once VERIFY_ENDPOINT (worker/) is live.
+  // Until then the page says so and offers manual recovery (PayPal receipt -> we send the PDF).
+  var CAN_RESTORE = !!VERIFY_ENDPOINT || UNLOCK_CODES.length > 0;
+  // Japanese / Korean fonts, loaded only when the page is shown in that language.
+  var LANG_FONTS = {
+    ja: "https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap",
+    ko: "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap"
+  };
 
   var LANGS = ["en", "ja", "ko"];
   var $ = function (s, r) { return (r || document).querySelector(s); };
@@ -48,8 +56,25 @@
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
 
   /* ---------- render ---------- */
+  function ensureLangFont(lang) {
+    if (!LANG_FONTS[lang] || document.querySelector('link[data-lang-font="' + lang + '"]')) return;
+    var l = document.createElement("link");
+    l.rel = "stylesheet"; l.href = LANG_FONTS[lang]; l.setAttribute("data-lang-font", lang);
+    document.head.appendChild(l);
+  }
   function renderAll() {
     document.documentElement.lang = state.lang;
+    ensureLangFont(state.lang);
+    // Only promise cross-device restore when it can actually work.
+    [["#ownedRow > span", "pricing.owned", "pricing.ownedLocal"], [".pay-sub", "pay.sub", "pay.subLocal"],
+     ["#payDone [data-i18n^='pay.doneCode']", "pay.doneCode", "pay.doneCodeLocal"],
+     ["#payDone [data-i18n^='pay.doneNote']", "pay.doneNote", "pay.doneNoteLocal"]].forEach(function (r) {
+      var el = $(r[0]); if (el) el.setAttribute("data-i18n", CAN_RESTORE ? r[1] : r[2]);
+    });
+    // No real group link yet: hide the group invitation instead of pointing at a placeholder.
+    $$(".group-join, #ownedGroupBtn").forEach(function (el) { el.hidden = !hasGroupLink(); });
+    // No newsletter backend yet: hide the form rather than collect emails that go nowhere.
+    var mailForm = $("#mailForm"); if (mailForm) mailForm.hidden = !MAIL_ENDPOINT;
     // Before the group exists, the buttons ask us to add you rather than promising a link that isn't there.
     var groupKey = hasGroupLink() ? "group.cta" : "group.ctaAsk";
     ["#groupBtn", "#ownedGroupBtn"].forEach(function (sel) { var b = $(sel); if (b) b.setAttribute("data-i18n", groupKey); });
@@ -199,8 +224,10 @@
         '<h3>' + esc(tier.name) + '</h3><div class="tier-price">' + price + '</div>' +
         '<ul>' + tier.items.map(function (s) { return "<li>" + esc(s) + "</li>"; }).join("") + '</ul>' + cta + '</div>';
     }).join("");
-    var row = $(".unlock-row:not(.owned-row)");
-    if (row) row.hidden = state.unlocked;
+    var row = $("#codeRow");
+    if (row) row.hidden = state.unlocked || !CAN_RESTORE;
+    var recover = $("#recoverRow");
+    if (recover) recover.hidden = state.unlocked || CAN_RESTORE;
     var owned = $("#ownedRow");
     if (owned) { owned.hidden = !state.unlocked; $("#ownedCode").textContent = state.code; }
   }

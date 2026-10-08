@@ -24,8 +24,18 @@ def load_i18n():
     body = re.sub(r",(\s*[}\]])", r"\1", body)                         # trailing commas
     return json.loads(body)
 
+LANG_FONT = {
+    "ja": "https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap",
+    "ko": "https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap",
+}
+
 def build(lang, i18n):
     page = io.open("index.html", encoding="utf-8").read()
+    font = LANG_FONT[lang]
+    page = page.replace("<!--lang-font-->",
+        '<link rel="preload" as="style" href="%s">\n'
+        '<link rel="stylesheet" href="%s" data-lang-font="%s" media="print" onload="this.media=\'all\'">\n'
+        '<noscript><link rel="stylesheet" href="%s"></noscript>' % (font, font, lang, font), 1)
     strings = i18n[lang]
     m = META[lang]
     page = page.replace('<html lang="en">', '<html lang="%s" data-lang="%s">' % (lang, lang), 1)
