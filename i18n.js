@@ -77,6 +77,12 @@ window.I18N = {
     "pay.doneNote": "Type it into \"Already bought?\" on any other phone or laptop. Save it somewhere.",
     "pay.error": "Payment or access verification could not be confirmed. If PayPal charged you, contact us with your receipt before trying again.",
     "pay.loadError": "PayPal could not load. Check your connection or ad blocker and try again.",
+    "pay.subLocal": "Every locked card and every day opens on this page the moment PayPal confirms, and stays open in this browser. Need it on another device? Send us your PayPal receipt and we'll email you the full guide as a PDF.",
+    "pay.doneCodeLocal": "Your purchase reference (the transaction ID in your PayPal receipt):",
+    "pay.doneNoteLocal": "The guide stays open in this browser. For another phone or laptop, use \"Save as PDF\" in the full plan, or email or WhatsApp us this reference and we'll send you the PDF.",
+    "pricing.ownedLocal": "Unlocked in this browser. Your purchase reference, if you ever need help:",
+    "pricing.recover": "Bought on another device, or cleared your browser? Email or WhatsApp us your PayPal receipt and we'll send you the full guide as a PDF.",
+    "pricing.recoverLink": "Contact us",
   },
 
   ja: {
@@ -156,6 +162,12 @@ window.I18N = {
     "pay.doneNote": "別のスマホやPCでは「購入済みの方」に入力してください。どこかに保存を。",
     "pay.error": "決済またはアクセス確認ができませんでした。請求済みの場合は、再決済の前に領収書を添えてお問い合わせください。",
     "pay.loadError": "PayPalを読み込めませんでした。通信状況や広告ブロッカーを確認して再試行してください。",
+    "pay.subLocal": "PayPalの確認が済んだ瞬間に、ロックされたカードと日程がこのページで全部開き、このブラウザでは開いたままになります。別の端末で読みたいときは、PayPalの領収書をお送りください。完全版をPDFでお届けします。",
+    "pay.doneCodeLocal": "購入番号（PayPalの領収メールの取引IDと同じです）：",
+    "pay.doneNoteLocal": "このブラウザでは開いたままです。別のスマホやPCで読むには、完全版の「PDFで保存」を使うか、この番号をメールかWhatsAppでお送りください。PDFをお届けします。",
+    "pricing.ownedLocal": "このブラウザで解除済み。お問い合わせ用の購入番号：",
+    "pricing.recover": "別の端末で購入した、またはブラウザのデータを消してしまった場合は、PayPalの領収書をメールかWhatsAppでお送りください。完全版をPDFでお届けします。",
+    "pricing.recoverLink": "お問い合わせ",
   },
 
   ko: {
@@ -235,5 +247,11 @@ window.I18N = {
     "pay.doneNote": "다른 폰이나 노트북에서는 '이미 구매하셨나요?'에 입력하세요. 어딘가에 저장해 두세요.",
     "pay.error": "결제 또는 접근 확인에 실패했습니다. 결제된 경우 다시 결제하기 전에 영수증과 함께 문의해 주세요.",
     "pay.loadError": "페이팔을 불러올 수 없습니다. 연결 상태나 광고 차단기를 확인하고 다시 시도하세요.",
+    "pay.subLocal": "페이팔 확인이 끝나는 순간 잠긴 카드와 일정이 이 페이지에서 모두 열리고, 이 브라우저에서는 계속 열려 있습니다. 다른 기기에서 보려면 페이팔 영수증을 보내 주세요. 전체 가이드를 PDF로 보내 드립니다.",
+    "pay.doneCodeLocal": "구매 번호 (페이팔 영수증의 거래 ID와 동일):",
+    "pay.doneNoteLocal": "이 브라우저에서는 계속 열려 있습니다. 다른 폰이나 노트북에서는 전체 일정의 'PDF로 저장'을 쓰거나, 이 번호를 이메일이나 WhatsApp으로 보내 주세요. PDF를 보내 드립니다.",
+    "pricing.ownedLocal": "이 브라우저에서 해제됨. 문의용 구매 번호:",
+    "pricing.recover": "다른 기기에서 구매했거나 브라우저 데이터를 지우셨나요? 페이팔 영수증을 이메일이나 WhatsApp으로 보내 주시면 전체 가이드를 PDF로 보내 드립니다.",
+    "pricing.recoverLink": "문의하기",
   }
 };

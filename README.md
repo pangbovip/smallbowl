@@ -42,12 +42,14 @@ worker/            可选：Cloudflare Worker，用 PayPal API 校验交易并�
 | `PAYPAL_CLIENT_ID` | 已填问古堂的客户端 ID | 不用改（客户端 ID 本来就是公开的） |
 | `PRICE_USD` | `2.00` | 改价只改这里 |
 | `VERIFY_ENDPOINT` | 空 | 可选：填 Worker 地址后解锁码走服务端校验（见下） |
-| `GROUP_LINK` | 占位符 | **要改**：WhatsApp 建群 → 群资料 → 通过链接邀请 → 复制链接，粘贴到这里。没填之前，按钮自动变成"发消息请求入群"，点击是给你发一条预填的 WhatsApp 私信，你手动拉人；填上链接后按钮自动变回"加入群" |
+| `GROUP_LINK` | 占位符 | **要改**：WhatsApp 建群 → 群资料 → 通过链接邀请 → 复制链接，粘贴到这里。没填之前，付款成功弹窗和"已解锁"行里的入群区块**整块隐藏**；填上真实链接后自动显示"加入群"按钮 |
 | `UNLOCK_CODES` | 含演示码 `SMALLBOWL-DEMO` | **删掉演示码**，留给退款补发、朋友、媒体用 |
 
 ### 两种校验强度
 
-- **不部署 Worker（现状）**：解锁码在浏览器里只校验格式（`SB-` + 12~20 位字母数字）。挡得住普通用户，挡不住看源码的人。2 美元的产品，这个强度通常够用。
+- **不部署 Worker（现状）**：付款成功后**只在付款的那个浏览器里解锁**（存在 localStorage）。换设备输入解锁码无法校验，所以页面不再显示"已购买？输入解锁码"，改为提示买家"把 PayPal 收据发邮件或 WhatsApp 给我们，我们发完整版 PDF"（`app.js` 里 `CAN_RESTORE` 为 false 时的文案，见 i18n.js 的 `*Local` 和 `pricing.recover`）。
+  - 人工补发 PDF 的做法：在 PayPal 后台核对收据 → 用自己的浏览器打开 chinavisit.org，开发者工具 Console 执行 `localStorage.setItem("sb_unlocked","1")` 后刷新 → 完整行程里点"存为 PDF" → 把 PDF 发给买家。
+  - 部署 Worker 并填好 `VERIFY_ENDPOINT` 后，`CAN_RESTORE` 自动变 true，页面自动恢复"换设备输码"的文案和输入框，不用改别的。
 - **部署 Worker（推荐，20 分钟）**：付款后页面把交易号发给 Worker，Worker 用 PayPal API 核实"已完成、≥2 美元"才发码并存入 KV；换设备输码时也查 KV。步骤：
 
 ```bash
@@ -72,7 +74,7 @@ PayPal Secret 在 https://developer.paypal.com/dashboard/applications/live 里�
 
 "存为 PDF"按钮调用浏览器打印，`style.css` 末尾的 `@media print` 只输出解锁内容，买家自己存离线版。付费内容文件仍是公开的静态 JS，看源码能读到；2 美元的产品接受这个取舍，介意就按上面 Worker 方案把这三个文件改成解锁后再从 Worker 拉取。
 
-`MAIL_ENDPOINT`：邮件订阅接口（Buttondown、Formspree、Mailchimp）。留空时邮箱只存本机 localStorage。
+`MAIL_ENDPOINT`：邮件订阅接口（Buttondown、Formspree、Mailchimp）。留空时页脚订阅表单整块隐藏（不收集发不出去的邮箱）；填上后自动显示。
 
 ## SEO 与收录
 
