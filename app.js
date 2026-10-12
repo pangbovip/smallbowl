@@ -85,9 +85,29 @@
     ["#groupBtn", "#ownedGroupBtn"].forEach(function (sel) { var b = $(sel); if (b) b.href = group; });
     var sister = $("[data-sister-href]");
     if (sister) sister.href = state.lang === "ja" ? "https://wenguhall.com/ja.html" : "https://wenguhall.com/";
-    var visa = $("[data-visa-href]");
-    if (visa) visa.href = state.lang === "en" ? "visa/" : state.lang + "/visa/";
+    localiseLinks();
     renderBoard(); renderApps(); renderDays(); renderTiers(); renderFaq(); renderCredits();
+  }
+
+  // Visa and guide pages have their own URL per language; keep the static links pointing at the right one.
+  var LOCAL_VISA = { ja: ["japan", "240-hour-transit"], ko: ["south-korea", "240-hour-transit"] };
+  function localiseLinks() {
+    var pre = state.lang === "en" ? "" : state.lang + "/";
+    $$("[data-visa-href]").forEach(function (a) { a.href = pre + "visa/"; });
+    $$("[data-visa-page]").forEach(function (a) {
+      var slug = a.getAttribute("data-visa-page");
+      a.href = ((LOCAL_VISA[state.lang] || []).indexOf(slug) >= 0 ? pre : "") + "visa/" + slug + ".html";
+    });
+    $$("[data-guide-path]").forEach(function (a) { a.href = pre + "guide/" + a.getAttribute("data-guide-path"); });
+  }
+  // The standalone page for a card or app, taken from the static guide links (build_guides.py writes them).
+  function guideHref(id) {
+    var a = $('.guide-links [data-guide~="' + id + '"]');
+    return a ? a.getAttribute("href") : "";
+  }
+  function guideLink(id) {
+    var href = guideHref(id);
+    return href ? '<a class="card-more" href="' + esc(href) + '">' + esc(t("guides.more")) + ' →</a>' : "";
   }
 
   // Free section: the apps you must install and verify before you land.
@@ -106,7 +126,7 @@
         '<div class="app-row"><dt>' + esc(t("apps.why")) + '</dt><dd>' + esc(a.why) + '</dd></div>' +
         '</dl>' +
         '<a class="app-site" href="' + esc(a.site) + '" target="_blank" rel="noopener">' + esc(t("apps.open")) + '</a>' +
-        '</article>';
+        guideLink(a.id) + '</article>';
     }).join("");
   }
 
@@ -139,7 +159,7 @@
           '<ol class="steps">' + card.steps.map(function (s) { return "<li>" + esc(s) + "</li>"; }).join("") + '</ol>' +
           '<dl class="kv"><dt>' + esc(t("card.where")) + '</dt><dd>' + esc(card.where) + '</dd>' +
           '<dt>' + esc(t("card.mistake")) + '</dt><dd class="mistake">' + esc(card.mistake) + '</dd></dl></div>' +
-          '<div class="card-foot">' + sayCardHTML(card.say) + '</div>';
+          '<div class="card-foot">' + sayCardHTML(card.say) + guideLink(card.id) + '</div>';
       }
       return '<article class="card' + (locked ? " is-locked" : "") + '" data-city="' + esc(card.city) + '" id="card-' + esc(card.id) + '">' +
         '<picture><source type="image/avif" srcset="images/' + esc(card.id) + '-400.avif 400w, images/' + esc(card.id) + '-800.avif 800w" sizes="(max-width: 720px) calc(100vw - 32px), 380px">' +
