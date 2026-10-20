@@ -75,13 +75,13 @@ window.CONTENT.en = {
       say: { zh: "这附近哪里可以停共享单车？", py: "zhè fù jìn nǎ lǐ kě yǐ tíng gòng xiǎng dān chē", en: "Where can I park a shared bike near here?" }
     },
     {
-      id: "pay", city: "everywhere", zh: "扫码支付", title: "How to pay by QR code", price: "No fees",
+      id: "pay", city: "everywhere", zh: "扫码支付", title: "How to pay by QR code", price: "≤¥200 free",
       hook: "Nobody carries cash. Your Visa, JCB or Mastercard inside Alipay works at street stalls. PayPay, Kakao Pay and Naver Pay work at many shops too.",
       steps: [
         "Before flying: install Alipay, add your card, verify your passport. Do the same in WeChat Pay as a backup.",
         "Small shop shows a printed QR: tap Scan, scan it, type the amount they say, confirm. Show them the green tick.",
         "Big shop or convenience store: tap Pay (付钱), show your barcode, they scan it. Done in one second.",
-        "Fees: none. Alipay and WeChat Pay add nothing on foreign cards, whatever the amount. Your own bank may charge its usual foreign-transaction fee, so check that at home."
+        "Fees: ¥200 or less is usually free on Alipay and WeChat Pay with a foreign card; above ¥200 the app may charge about 3% of the full amount. Check the confirmation screen before you pay. Your own bank may also charge a foreign-transaction fee."
       ],
       where: "Everywhere. Even the douzhi shop and the old man selling jianbing take QR. Keep about 300 RMB in cash for the rare exception.",
       mistake: "Trusting hotel Wi-Fi to verify your card. Do the setup at home, on your own network, a week before.",

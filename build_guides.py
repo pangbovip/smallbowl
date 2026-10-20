@@ -23,7 +23,7 @@ import visa_data as D
 
 SITE = V.SITE
 LANGS = ("en", "ja", "ko")
-UPDATED = "2026-10-08"     # datePublished / dateModified / sitemap lastmod; bump when the guide copy changes
+UPDATED = "2026-10-20"     # datePublished / dateModified / sitemap lastmod; bump when the guide copy changes
 HUB = V.GUIDE_HUB
 HOME = V.HOME
 e = V.e
@@ -61,7 +61,7 @@ STARTERS = [BY_ID[i] for i in ("alipay", "apps", "esim")]   # linked from every 
 META = {
     "en": {
         "alipay": ("How to Use Alipay in China as a Foreigner (2026 Setup + QR Pay)",
-                   "Set up Alipay with a Visa, Mastercard or JCB before you fly, then pay by scanning a QR code or showing your barcode. Alipay adds no fees on foreign cards. Steps, the one mistake, a phrase to show.",
+                   "Set up Alipay with a Visa, Mastercard or JCB before you fly, then pay by scanning a QR code or showing your barcode. Foreign cards: usually free at ¥200 or less, about 3% above that. Steps, the one mistake, a phrase to show.",
                    "How to use Alipay in China as a foreigner"),
         "apps": ("Apps to Download Before Traveling to China (2026 Checklist)",
                  "Alipay, WeChat, Amap, Trip.com, Google Translate's offline pack and a roaming eSIM: what each one replaces and what to set up at home, before you are on a Chinese network.",
@@ -93,7 +93,7 @@ META = {
     },
     "ja": {
         "alipay": ("外国人のAlipay（アリペイ）の使い方｜中国旅行の設定とQR決済（2026年）",
-                   "出発前にAlipayにVisa・Mastercard・JCBを登録してパスポート認証。現地ではQRを読み取るか、バーコードを見せるだけ。海外カードでもAlipayの手数料はなし。手順・NG・見せるフレーズ付き。",
+                   "出発前にAlipayにVisa・Mastercard・JCBを登録してパスポート認証。現地ではQRを読み取るか、バーコードを見せるだけ。海外カードはおおむね200元以下無料、超えると約3%。手順・NG・見せるフレーズ付き。",
                    "外国人のためのAlipay（アリペイ）の使い方"),
         "apps": ("中国旅行前に入れておくアプリ6選（2026年）｜Alipay・WeChat・地図・翻訳",
                  "Alipay、WeChat、Amap（高徳地図）、Trip.com、Google翻訳のオフラインパック、ローミングeSIM。それぞれ何の代わりになり、出発前に自宅で何を済ませるか。",
@@ -125,7 +125,7 @@ META = {
     },
     "ko": {
         "alipay": ("외국인 알리페이 사용법｜중국 여행 설정과 QR 결제 (2026)",
-                   "출발 전 알리페이에 비자·마스터카드를 등록하고 여권 인증. 현지에서는 QR을 스캔하거나 바코드를 보여주면 끝. 해외 카드도 알리페이 수수료 없음. 순서, 금지 사항, 보여줄 문장까지.",
+                   "출발 전 알리페이에 비자·마스터카드를 등록하고 여권 인증. 현지에서는 QR을 스캔하거나 바코드를 보여주면 끝. 해외 카드는 보통 200위안 이하 무료, 초과 시 약 3%. 순서, 금지 사항, 보여줄 문장까지.",
                    "외국인을 위한 알리페이 사용법"),
         "apps": ("중국 여행 전 필수 앱 6가지 (2026)｜알리페이·위챗·지도·번역",
                  "알리페이, 위챗, 아맵(가오더지도), 트립닷컴, 구글 번역 오프라인 팩, 로밍 eSIM. 각각 무엇을 대신하고, 출발 전에 집에서 무엇을 끝내야 하는지.",
