@@ -16,6 +16,7 @@ import io
 import json
 import os
 import re
+from urllib.parse import quote
 
 import build as B          # load_i18n, and ja/ko homepage generation
 import build_visa as V     # site chrome shared with the visa pages
@@ -33,13 +34,15 @@ e = V.e
 # also: app ids shown after the steps. faq: indexes into content faq. related: other guide ids.
 GUIDES = [
     dict(id="alipay", slug="how-to-use-alipay-as-a-foreigner", card="pay", home=["pay", "alipay"], mark="支付宝", setup=["alipay"], also=["wechat"], faq=[2],
-         related=["apps", "dianping", "bike", "metro", "esim"]),
+         related=["apps", "hotel", "dianping", "bike", "metro", "esim"]),
     dict(id="apps", slug="apps-to-download-before-china", card=None, mark="App", app_list=True, faq=[],
-         related=["alipay", "dianping", "esim", "metro", "bike"]),
+         related=["alipay", "hotel", "dianping", "esim", "metro", "bike"]),
+    dict(id="hotel", slug="cheaper-hotel-booking-china", card=None, doc="hotel", mark="酒店", setup=["alipay"], also=["translate"], faq=[],
+         related=["apps", "alipay", "esim", "metro"]),
     dict(id="dianping", slug="how-to-use-dianping-find-food-china", card=None, doc="dianping", mark="点评", setup=["alipay"], also=["translate"], faq=[],
          related=["alipay", "apps", "xlb", "hotpot"]),
     dict(id="esim", slug="china-esim-internet-guide", card=None, mark="网", main_app="esim", also=["translate"], faq=[1],
-         related=["apps", "alipay", "metro"]),
+         related=["apps", "alipay", "hotel", "metro"]),
     dict(id="metro", slug="how-to-ride-the-metro-in-china", card="metro", mark="地铁", setup=["alipay", "amap"], faq=[],
          related=["bike", "alipay", "apps"]),
     dict(id="bike", slug="shared-bikes-china", card="bike", mark="单车", setup=["alipay"], faq=[],
@@ -56,12 +59,15 @@ GUIDES = [
          related=["water", "metro", "apps"]),
 ]
 BY_ID = {g["id"]: g for g in GUIDES}
-GROUPS = [("money", ["alipay", "apps", "esim"]), ("move", ["metro", "bike"]), ("food", ["dianping", "xlb", "douzhi", "hotpot"]), ("daily", ["water", "toilet"])]
+GROUPS = [("money", ["alipay", "apps", "esim", "hotel"]), ("move", ["metro", "bike"]), ("food", ["dianping", "xlb", "douzhi", "hotpot"]), ("daily", ["water", "toilet"])]
 STARTERS = [BY_ID[i] for i in ("alipay", "apps", "esim")]   # linked from every visa page
 
 # Search-facing copy: title / meta description / H1. Every fact here is already in content-*.js.
 META = {
     "en": {
+        "hotel": ("Cheaper Hotels in China: Book via Chinese OTAs + WhatsApp Help (2026)",
+                  "Booking.com, Agoda and Hotels.com work in China, but Ctrip's Chinese app and Meituan often show lower rates on domestic hotels after local coupons. Compare Trip.com, confirm the hotel accepts foreign passports, or WhatsApp us and we book under your name.",
+                  "Book cheaper hotels in China (WhatsApp help)"),
         "dianping": ("How to Use Dianping in China: The Yelp of China for Foreigners (2026)",
                      "Dianping is China's Yelp. Switch it to English, or use the WeChat or Alipay mini-programs, read scores and per-person price, find Must-Eat List and Black Pearl places, save with group-buy deals, book or queue, and avoid tourist traps.",
                      "How to use Dianping to find good food in China"),
@@ -97,6 +103,9 @@ META = {
                    "Public toilets in China: the rules nobody writes down"),
     },
     "ja": {
+        "hotel": ("中国のホテルを安く予約｜現地OTA比較＋WhatsApp代行（2026年）",
+                  "Booking.comやじゃらん感覚のAgodaも使えますが、中国語の携程や美団は国内ホテルのクーポン後価格が安いことが多いです。Trip.comとの違い、外国人宿泊の確認、WhatsAppでパスポート名義の代行予約まで。",
+                  "中国のホテルを安く予約（WhatsApp相談）"),
         "dianping": ("大衆点評（Dianping）の使い方｜中国版食べログで美味しい店を探す（2026年）",
                      "中国版の食べログ、大衆点評。日本語・英語表示への切り替え、WeChat・Alipayのミニプログラム、点数と人均（1人予算）の読み方、必吃榜・黒珍珠、団購クーポンで節約、予約と整理券、よくある失敗。",
                      "大衆点評で中国のおいしい店を探す方法"),
@@ -132,6 +141,9 @@ META = {
                    "中国の公衆トイレ、誰も書かないルール"),
     },
     "ko": {
+        "hotel": ("중국 호텔 더 싸게 예약｜현지 OTA 비교 + WhatsApp 대행 (2026)",
+                  "부킹닷컴·아고다·야놀자도 되지만, 중국어 씨트립·메이퇀은 국내 호텔 쿠폰 후 가격이 더 싼 경우가 많습니다. 트립닷컴과의 차이, 외국인 숙박 확인, WhatsApp으로 여권 명의 대행 예약까지.",
+                  "중국 호텔 더 싸게 예약 (WhatsApp 상담)"),
         "dianping": ("다중뎬핑(大众点评) 사용법｜중국판 네이버 지도·망고플레이트로 맛집 찾기 (2026)",
                      "중국판 네이버 지도 리뷰·망고플레이트, 다중뎬핑. 한국어·영어 설정, 위챗·알리페이 미니프로그램, 별점과 人均(1인 가격) 읽는 법, 必吃榜·黑珍珠, 团购 할인으로 아끼기, 예약과 번호표, 흔한 실수.",
                      "다중뎬핑으로 중국 맛집 찾는 법"),
@@ -170,22 +182,23 @@ META = {
 
 HUB_META = {
     "en": ("China Travel Guide for First-Timers: {n} Practical How-Tos (2026)",
-           "Practical China how-tos for first-time visitors: using Alipay as a foreigner, apps to download, finding food on Dianping, eSIM internet, the metro, shared bikes, xiaolongbao, douzhi, hotpot sauce, hot water and public toilets.",
+           "Practical China how-tos for first-time visitors: using Alipay as a foreigner, apps to download, cheaper hotel booking with WhatsApp help, finding food on Dianping, eSIM internet, the metro, shared bikes, xiaolongbao, douzhi, hotpot sauce, hot water and public toilets.",
            "China how-to guides for first-timers",
            "The small things nobody explains, one page each. Free to read. The steps, where to go, the one mistake, and a Chinese phrase to show."),
     "ja": ("はじめての中国旅行ガイド：Alipay・アプリ・地下鉄・小籠包まで{n}テーマ（2026年）",
-           "はじめての中国旅行の実用ガイド。外国人のAlipayの使い方、入れておくアプリ、大衆点評で店探し、eSIMとネット、地下鉄、シェア自転車、小籠包、豆汁、火鍋のタレ、お湯、公衆トイレ。",
+           "はじめての中国旅行の実用ガイド。外国人のAlipayの使い方、入れておくアプリ、ホテルを安く予約（WhatsApp）、大衆点評で店探し、eSIMとネット、地下鉄、シェア自転車、小籠包、豆汁、火鍋のタレ、お湯、公衆トイレ。",
            "はじめての中国、テーマ別ガイド",
            "誰も教えてくれない小さなことを、1テーマ1ページで。無料で読めます。手順、場所、NG、見せる中国語フレーズ。"),
     "ko": ("처음 가는 중국 여행 가이드: 알리페이·앱·지하철·샤오롱바오까지 {n}가지 (2026)",
-           "처음 가는 중국 여행 실용 가이드. 외국인 알리페이 사용법, 깔아둘 앱, 다중뎬핑 맛집 찾기, eSIM과 인터넷, 지하철, 공유자전거, 샤오롱바오, 더우즈, 훠궈 소스, 뜨거운 물, 공중화장실.",
+           "처음 가는 중국 여행 실용 가이드. 외국인 알리페이 사용법, 깔아둘 앱, 호텔 더 싸게 예약(WhatsApp), 다중뎬핑 맛집 찾기, eSIM과 인터넷, 지하철, 공유자전거, 샤오롱바오, 더우즈, 훠궈 소스, 뜨거운 물, 공중화장실.",
            "처음 가는 중국, 주제별 가이드",
            "아무도 안 알려주는 작은 것들을 주제마다 한 페이지로. 무료로 읽을 수 있습니다. 순서, 장소, 금지 사항, 보여줄 중국어 문장."),
 }
 
 UI = {
     "en": dict(guides="Guides", steps="Step by step", save="Coupons and how to spend less", where="Where to go", mistake="The one mistake", say="Show this to staff",
-               setup="Set this up at home first", also="Also useful", before="Before you fly", related="Related guides",
+               setup="Set this up at home first", also="Also useful", before="Before you fly", related="Related guides", wa_label="WhatsApp",
+               wa_number="+86 139 1004 9069",
                visa_h="Do you need a visa?", visa_p="Check your passport against China's official lists.",
                visa_all="All passports", visa_tr="240-hour transit", price="Price", city="City", zh="In Chinese",
                published="Published {d}", photo="Photo:", site="Official site", ask="Questions people ask",
@@ -195,7 +208,8 @@ UI = {
                cta_locked="Also unlocks these cards: {titles}", cta_btn="See the full guide · US$2",
                apps_intro="Six apps, all free. Each one replaces something you would use at home."),
     "ja": dict(guides="ガイド", steps="手順", save="クーポンと節約のコツ", where="どこで", mistake="やってはいけない1つ", say="店員さんに見せるフレーズ",
-               setup="先に自宅で設定しておくもの", also="あわせて使うもの", before="出発前に", related="関連ガイド",
+               setup="先に自宅で設定しておくもの", also="あわせて使うもの", before="出発前に", related="関連ガイド", wa_label="WhatsApp",
+               wa_number="+86 139 1004 9069",
                visa_h="中国のビザは必要？", visa_p="中国の公式リストでパスポートごとに確認できます。",
                visa_all="すべての国", visa_tr="240時間トランジット", price="値段", city="都市", zh="中国語",
                published="{d}公開", photo="写真：", site="公式サイト", ask="よくある質問",
@@ -205,7 +219,8 @@ UI = {
                cta_locked="さらに解除されるカード：{titles}", cta_btn="完全版を見る · 2ドル",
                apps_intro="6つとも無料。それぞれ、普段使っている何かの代わりになります。"),
     "ko": dict(guides="가이드", steps="순서", save="쿠폰과 아끼는 법", where="어디서", mistake="하지 말아야 할 한 가지", say="직원에게 보여줄 문장",
-               setup="먼저 집에서 설정해 둘 것", also="함께 쓰면 좋은 것", before="출발 전에", related="관련 가이드",
+               setup="먼저 집에서 설정해 둘 것", also="함께 쓰면 좋은 것", before="출발 전에", related="관련 가이드", wa_label="WhatsApp",
+               wa_number="+86 139 1004 9069",
                visa_h="중국 비자, 필요할까?", visa_p="중국 공식 목록으로 여권별로 확인할 수 있습니다.",
                visa_all="전체 국가", visa_tr="240시간 경유", price="가격", city="도시", zh="중국어",
                published="{d} 게시", photo="사진:", site="공식 사이트", ask="자주 묻는 질문",
@@ -360,6 +375,22 @@ def visa_html(lang):
         e(u["visa_h"]), e(u["visa_p"]), "".join(links))
 
 
+
+WHATSAPP_NUMBER = "8613910049069"
+
+
+def whatsapp_cta_html(lang, doc):
+    wa = doc.get("whatsapp") if doc else None
+    if not wa:
+        return ""
+    u = UI[lang]
+    href = "https://wa.me/%s?text=%s" % (WHATSAPP_NUMBER, quote(wa["msg"]))
+    return ('<aside class="g-wa"><div><h2>%s</h2><p>%s</p>'
+            '<p class="g-wa-num"><span class="g-wa-label">%s</span> <span>%s</span></p></div>'
+            '<a class="btn btn-seal" href="%s" target="_blank" rel="noopener">%s</a></aside>'
+            % (e(wa["h"]), e(wa["p"]), e(u["wa_label"]), e(u["wa_number"]), e(href), e(wa["btn"])))
+
+
 def cta_html(lang):
     u, c = UI[lang], CONTENT[lang]
     paid_tier = next(t for t in c["tiers"] if t.get("cta") == "buy")
@@ -481,6 +512,11 @@ def article(lang, g):
     if doc:
         for sec in doc["sections"]:
             prose.append('<h2>%s</h2><ol class="steps g-steps">%s</ol>' % (e(sec["h"]), "".join("<li>%s</li>" % e(x) for x in sec["items"])))
+        # Close prose early so the WhatsApp CTA sits as a full-width aside, then resume.
+        if doc.get("whatsapp"):
+            parts.append('<section class="prose">%s</section>' % "".join(prose))
+            parts.append(whatsapp_cta_html(lang, doc))
+            prose = []
         prose.append('<h2>%s</h2><p class="note g-mistake">%s</p>' % (e(u["mistake"]), e(doc["mistake"])))
         prose.append('<h2>%s</h2>%s' % (e(u["say"]), say_card(doc["say"], lang)))
     if g.get("setup"):
