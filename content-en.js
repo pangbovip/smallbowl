@@ -201,6 +201,55 @@ window.CONTENT.en = {
     { name: "Full guide", price: "2", cur: "USD", alt: "¥300 · ₩2,800", sub: "one-time, less than a bowl of douzhi", hero: true, tag: "Everything", items: ["7 days, hour by hour", "Chinese address for every stop, paste into Didi", "60 point-and-say cards", "Rain plans for each day", "Offline PDF + this site unlocked", "WhatsApp group: ask us anything while you are there", "Free updates through 2026"], cta: "buy", link: "pack" }
   ],
 
+  guides: {
+    dianping: {
+      hook: "Dianping is China's Yelp: star scores, photo reviews, average spend per person and group-buy deals for almost every restaurant in the country. Locals check it before they eat anywhere new.",
+      facts: [["Free", "Price"], ["Yelp", "Like"], ["大众点评", "In Chinese"]],
+      sections: [
+        { h: "Get it: app, mini-program, or neither", items: [
+          "Search Dianping (大众点评) in your app store. You can register with a foreign phone number by picking your country code, or log in with WeChat.",
+          "Switch the interface language: 我的 (Me), the three-line menu at top right, 设置 (Settings), 语言 (Language), then English. Menus switch; most reviews and many shop names stay in Chinese.",
+          "No install? Open WeChat and search 大众点评 for the mini-program, then tap ··· and Translate to overlay the page in English. Fewer features, no extra account.",
+          "Meituan (美团) is the sister app for delivery and also lists restaurant deals. Inside Alipay, search 美团 to open its mini-program and pay with the card you already linked."
+        ] },
+        { h: "How to read a listing", items: [
+          "The score is out of 5, shown as stars plus a decimal. Compare places on the same street, not across cities: a strong score in one neighbourhood can be average in another.",
+          "人均 (per person) is the average spend reviewers report. It is the quickest way to tell a noodle shop from a banquet hall before you walk in.",
+          "Look at the photo tab, not the cover photo. Diner photos show the real portions and the dishes people actually order.",
+          "推荐菜 (recommended dishes) lists what reviewers order most. Screenshot it and point at the pictures when you order.",
+          "排队 (queue) or 取号 (take a number) on the page means the place gets busy. Go early, or take a number online before you arrive."
+        ] },
+        { h: "Find good food nearby", items: [
+          "Allow location, then tap 附近 (Nearby) or 美食 (Food). Sort by 距离 (distance) or by rating, and filter by cuisine and price.",
+          "Look for 必吃榜 (Must-Eat List), Dianping's own yearly ranking built from reviews. Shops on it often show the badge in the app and a sticker at the door.",
+          "黑珍珠 (Black Pearl) is Meituan-Dianping's restaurant guide, closer to a Michelin list. Diamond plaques by the door mean the place is on it: great for a special dinner, not a cheap lunch.",
+          "Offline trick: no signal or no app? Look at the door. A 必吃榜 or 黑珍珠 plaque, a queue of locals and a menu only in Chinese are all good signs."
+        ] },
+        { h: "Translate menus and reviews", items: [
+          "Point Google Translate's camera (with the Chinese offline pack) at the screen or a paper menu. On iPhone you can also long-press text and tap Translate.",
+          "Reviews are mostly Chinese. You do not need to read them all: skim the photos, the 推荐菜 list and the most recent few reviews for complaints."
+        ] },
+        { h: "Save with group-buy deals (团购)", items: [
+          "Many listings show 团购 deals: set meals or cash vouchers sold in the app, usually below the menu price. Buy before you sit down, then show the code when you pay.",
+          "Read the rules on each voucher: valid days and hours, whether it works at every branch, and whether you must book. Some exclude weekends or holidays.",
+          "Payment goes through Alipay or WeChat Pay with your foreign card. Unused vouchers can usually be refunded in the app; check the voucher terms before you buy."
+        ] },
+        { h: "Book a table or take a queue number", items: [
+          "If the page shows 订座 (reserve), pick a time and party size. If it shows 排队 or 取号, take a number online and watch your place in the queue from the hotel.",
+          "Busy places call numbers in Chinese. Show your number to staff when you arrive, and keep the app open so you can see when you are close."
+        ] }
+      ],
+      mistake: "Trusting the score alone. A famous tourist spot can rate well and still be the most expensive meal of your trip. Check 人均, the diner photos and where the locals are queuing.",
+      say: { zh: "我在大众点评上团购了，这是券码。", py: "wǒ zài dà zhòng diǎn píng shang tuán gòu le, zhè shì quàn mǎ", en: "I bought a group deal on Dianping. Here is the code." },
+      faq: [
+        { q: "Is Dianping in English?", a: "The app has a language setting with English (also Japanese and Korean): Me, menu, Settings, Language. Menus switch, but most reviews and many restaurant names stay in Chinese, so keep a translation app handy." },
+        { q: "Can I use Dianping without a Chinese phone number?", a: "You can register with a foreign number by choosing your country code, or log in with WeChat. If the code never arrives, use the WeChat mini-program instead, or open Meituan inside Alipay." },
+        { q: "How do I pay for Dianping deals?", a: "Through Alipay or WeChat Pay with your Visa or Mastercard linked. Set up Alipay at home before you fly; it also pays at the restaurant till." },
+        { q: "What is the difference between Dianping and Meituan?", a: "Same company. Dianping is for discovering and reviewing places to eat; Meituan is for food delivery and getting things done. Both sell restaurant deals." }
+      ]
+    }
+  },
+
   faq: [
     { q: "Do I need a visa?", a: "As of 2026, Japanese and Korean passports enter visa-free for up to 30 days under a trial policy that has been extended several times. Most European passports also get 30 days. Others can use the 240-hour transit exemption when flying onward to a third country. Check your embassy's site the week before you fly; this changes." },
     { q: "Will my phone work? Google, LINE, KakaoTalk?", a: "On local networks they are blocked. Buy an international roaming eSIM before you leave (Ubigi, Airalo, or your carrier's roaming). Traffic routes through your home country and everything works without a VPN. Hotel Wi-Fi is a local network, so switch back to mobile data when you need Google Maps." },

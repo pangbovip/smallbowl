@@ -23,7 +23,7 @@ import visa_data as D
 
 SITE = V.SITE
 LANGS = ("en", "ja", "ko")
-UPDATED = "2026-10-23"     # datePublished / dateModified / sitemap lastmod; bump when the guide copy changes
+UPDATED = "2026-10-24"     # datePublished / dateModified / sitemap lastmod; bump when the guide copy changes
 HUB = V.GUIDE_HUB
 HOME = V.HOME
 e = V.e
@@ -33,9 +33,11 @@ e = V.e
 # also: app ids shown after the steps. faq: indexes into content faq. related: other guide ids.
 GUIDES = [
     dict(id="alipay", slug="how-to-use-alipay-as-a-foreigner", card="pay", home=["pay", "alipay"], mark="支付宝", setup=["alipay"], also=["wechat"], faq=[2],
-         related=["apps", "bike", "metro", "esim"]),
+         related=["apps", "dianping", "bike", "metro", "esim"]),
     dict(id="apps", slug="apps-to-download-before-china", card=None, mark="App", app_list=True, faq=[],
-         related=["alipay", "esim", "metro", "bike"]),
+         related=["alipay", "dianping", "esim", "metro", "bike"]),
+    dict(id="dianping", slug="how-to-use-dianping-find-food-china", card=None, doc="dianping", mark="点评", setup=["alipay"], also=["translate"], faq=[],
+         related=["alipay", "apps", "xlb", "hotpot"]),
     dict(id="esim", slug="china-esim-internet-guide", card=None, mark="网", main_app="esim", also=["translate"], faq=[1],
          related=["apps", "alipay", "metro"]),
     dict(id="metro", slug="how-to-ride-the-metro-in-china", card="metro", mark="地铁", setup=["alipay", "amap"], faq=[],
@@ -54,12 +56,15 @@ GUIDES = [
          related=["water", "metro", "apps"]),
 ]
 BY_ID = {g["id"]: g for g in GUIDES}
-GROUPS = [("money", ["alipay", "apps", "esim"]), ("move", ["metro", "bike"]), ("food", ["xlb", "douzhi", "hotpot"]), ("daily", ["water", "toilet"])]
+GROUPS = [("money", ["alipay", "apps", "esim"]), ("move", ["metro", "bike"]), ("food", ["dianping", "xlb", "douzhi", "hotpot"]), ("daily", ["water", "toilet"])]
 STARTERS = [BY_ID[i] for i in ("alipay", "apps", "esim")]   # linked from every visa page
 
 # Search-facing copy: title / meta description / H1. Every fact here is already in content-*.js.
 META = {
     "en": {
+        "dianping": ("How to Use Dianping in China: The Yelp of China for Foreigners (2026)",
+                     "Dianping is China's Yelp. Switch it to English, or use the WeChat or Alipay mini-programs, read scores and per-person price, find Must-Eat List and Black Pearl places, save with group-buy deals, book or queue, and avoid tourist traps.",
+                     "How to use Dianping to find good food in China"),
         "alipay": ("Alipay for Foreigners in China: Visa/Mastercard, QR Pay, Fees & Coupons (2026)",
                    "Set up Alipay at home with Visa, Mastercard or JCB, then pay in China by scanning a QR or showing your barcode. Claim travel coupons when shown, watch fees (usually free at ¥200 or less, about 3% above), and skip pricey TourCard top-ups. Steps, how to spend less, a phrase to show.",
                    "How to use Alipay in China: foreign card, QR, coupons"),
@@ -92,6 +97,9 @@ META = {
                    "Public toilets in China: the rules nobody writes down"),
     },
     "ja": {
+        "dianping": ("大衆点評（Dianping）の使い方｜中国版食べログで美味しい店を探す（2026年）",
+                     "中国版の食べログ、大衆点評。日本語・英語表示への切り替え、WeChat・Alipayのミニプログラム、点数と人均（1人予算）の読み方、必吃榜・黒珍珠、団購クーポンで節約、予約と整理券、よくある失敗。",
+                     "大衆点評で中国のおいしい店を探す方法"),
         "alipay": ("外国人のAlipay｜Visa・MastercardとQR決済・手数料・クーポン（2026年・中国旅行）",
                    "出発前に自宅でAlipayへVisa・Mastercard・JCBを登録しパスポート認証。中国ではQRを読み取るかバーコードを見せるだけ。表示された旅行クーポンは受け取り、手数料はおおむね200元以下無料・超えると約3%。TourCard型チャージは避けて節約。手順・節約のコツ・見せるフレーズ付き。",
                    "外国人のためのAlipay：海外カード・QR・クーポン"),
@@ -124,6 +132,9 @@ META = {
                    "中国の公衆トイレ、誰も書かないルール"),
     },
     "ko": {
+        "dianping": ("다중뎬핑(大众点评) 사용법｜중국판 네이버 지도·망고플레이트로 맛집 찾기 (2026)",
+                     "중국판 네이버 지도 리뷰·망고플레이트, 다중뎬핑. 한국어·영어 설정, 위챗·알리페이 미니프로그램, 별점과 人均(1인 가격) 읽는 법, 必吃榜·黑珍珠, 团购 할인으로 아끼기, 예약과 번호표, 흔한 실수.",
+                     "다중뎬핑으로 중국 맛집 찾는 법"),
         "alipay": ("외국인 알리페이｜비자·마스터카드·QR 결제·수수료·쿠폰 (2026)",
                    "출발 전 집에서 알리페이에 비자·마스터카드·JCB를 등록하고 여권 인증. 중국에서는 QR을 스캔하거나 바코드를 보여주면 끝. 뜨는 여행 쿠폰은 받고, 수수료는 보통 200위안 이하 무료·초과 시 약 3%. TourCard형 충전은 피하고 아끼기. 순서, 아끼는 법, 보여줄 문장까지.",
                    "외국인을 위한 알리페이: 해외 카드·QR·쿠폰"),
@@ -159,15 +170,15 @@ META = {
 
 HUB_META = {
     "en": ("China Travel Guide for First-Timers: {n} Practical How-Tos (2026)",
-           "Practical China how-tos for first-time visitors: using Alipay as a foreigner, apps to download, eSIM internet, the metro, shared bikes, xiaolongbao, douzhi, hotpot sauce, hot water and public toilets.",
+           "Practical China how-tos for first-time visitors: using Alipay as a foreigner, apps to download, finding food on Dianping, eSIM internet, the metro, shared bikes, xiaolongbao, douzhi, hotpot sauce, hot water and public toilets.",
            "China how-to guides for first-timers",
            "The small things nobody explains, one page each. Free to read. The steps, where to go, the one mistake, and a Chinese phrase to show."),
     "ja": ("はじめての中国旅行ガイド：Alipay・アプリ・地下鉄・小籠包まで{n}テーマ（2026年）",
-           "はじめての中国旅行の実用ガイド。外国人のAlipayの使い方、入れておくアプリ、eSIMとネット、地下鉄、シェア自転車、小籠包、豆汁、火鍋のタレ、お湯、公衆トイレ。",
+           "はじめての中国旅行の実用ガイド。外国人のAlipayの使い方、入れておくアプリ、大衆点評で店探し、eSIMとネット、地下鉄、シェア自転車、小籠包、豆汁、火鍋のタレ、お湯、公衆トイレ。",
            "はじめての中国、テーマ別ガイド",
            "誰も教えてくれない小さなことを、1テーマ1ページで。無料で読めます。手順、場所、NG、見せる中国語フレーズ。"),
     "ko": ("처음 가는 중국 여행 가이드: 알리페이·앱·지하철·샤오롱바오까지 {n}가지 (2026)",
-           "처음 가는 중국 여행 실용 가이드. 외국인 알리페이 사용법, 깔아둘 앱, eSIM과 인터넷, 지하철, 공유자전거, 샤오롱바오, 더우즈, 훠궈 소스, 뜨거운 물, 공중화장실.",
+           "처음 가는 중국 여행 실용 가이드. 외국인 알리페이 사용법, 깔아둘 앱, 다중뎬핑 맛집 찾기, eSIM과 인터넷, 지하철, 공유자전거, 샤오롱바오, 더우즈, 훠궈 소스, 뜨거운 물, 공중화장실.",
            "처음 가는 중국, 주제별 가이드",
            "아무도 안 알려주는 작은 것들을 주제마다 한 페이지로. 무료로 읽을 수 있습니다. 순서, 장소, 금지 사항, 보여줄 중국어 문장."),
 }
@@ -441,10 +452,13 @@ def article(lang, g):
     path = guide_path(lang, g["slug"])
     c = card(lang, g["card"]) if g.get("card") else None
     main_app = app(lang, g["main_app"]) if g.get("main_app") else None
+    doc = CONTENT[lang]["guides"][g["doc"]] if g.get("doc") else None
     date = V.fmt_date(UPDATED, lang)
 
     if c:
         lede = c["hook"]
+    elif doc:
+        lede = doc["hook"]
     elif main_app:
         lede = main_app["what"]
     else:
@@ -460,7 +474,15 @@ def article(lang, g):
                      '<div class="fact"><b lang="zh">%s</b><span>%s</span></div></div></section>' % (
                          e(c["price"]), e(u["price"]), e(CONTENT[lang]["cityNames"][c["city"]]), e(u["city"]), e(c["zh"]), e(u["zh"])))
         parts.append('<figure class="g-photo">%s%s</figure>' % (picture(c["id"], c["title"]), credit_html(lang, c["id"])))
+    if doc:
+        parts.append('<section class="verdict g-facts"><div class="facts" style="border-top:0;margin-top:0">%s</div></section>' % "".join(
+            '<div class="fact"><b%s>%s</b><span>%s</span></div>' % (' lang="zh"' if i == 2 else "", e(b), e(sp)) for i, (b, sp) in enumerate(doc["facts"])))
     prose = []
+    if doc:
+        for sec in doc["sections"]:
+            prose.append('<h2>%s</h2><ol class="steps g-steps">%s</ol>' % (e(sec["h"]), "".join("<li>%s</li>" % e(x) for x in sec["items"])))
+        prose.append('<h2>%s</h2><p class="note g-mistake">%s</p>' % (e(u["mistake"]), e(doc["mistake"])))
+        prose.append('<h2>%s</h2>%s' % (e(u["say"]), say_card(doc["say"], lang)))
     if g.get("setup"):
         prose.append('<h2>%s</h2><div class="apps g-apps">%s</div>' % (e(u["setup"]), "".join(app_box(lang, app(lang, a), current_guide_id=g["id"]) for a in g["setup"])))
     if c:
@@ -482,6 +504,9 @@ def article(lang, g):
         prose.append('<h2>%s</h2><div class="apps g-apps">%s</div>' % (e(u["also"]), "".join(app_box(lang, app(lang, a), current_guide_id=g["id"]) for a in g["also"])))
     parts.append('<section class="prose">%s</section>' % "".join(prose))
     parts.append(faq_html(lang, g["faq"]))
+    if doc:
+        parts.append('<section class="prose v-faq"><h2>%s</h2><div class="faq">%s</div></section>' % (e(u["ask"]), "".join(
+            '<details open><summary>%s</summary><div class="faq-body"><p>%s</p></div></details>' % (e(f["q"]), e(f["a"])) for f in doc["faq"])))
     parts.append(cta_html(lang))
     parts.append(related_html(lang, g))
     parts.append(visa_html(lang))
@@ -493,7 +518,10 @@ def article(lang, g):
            "image": [img], "datePublished": UPDATED, "dateModified": UPDATED, "author": {"@type": "Organization", "name": "China Visit", "url": SITE + "/"},
            "publisher": PUBLISHER, "mainEntityOfPage": {"@type": "WebPage", "@id": SITE + path},
            "isPartOf": {"@type": "WebSite", "name": "China Visit", "url": SITE + "/"}}
-    graph = {"@context": "https://schema.org", "@graph": [art, breadcrumbs_ld(crumbs)]}
+    nodes = [art, breadcrumbs_ld(crumbs)]
+    if doc:
+        nodes.append({"@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": f["q"], "acceptedAnswer": {"@type": "Answer", "text": f["a"]}} for f in doc["faq"]]})
+    graph = {"@context": "https://schema.org", "@graph": nodes}
     return path, shell(lang, path, title, desc, body, alts_for(g), graph, crumbs, img[len(SITE):])
 
 
@@ -513,7 +541,7 @@ def index(lang):
             else:
                 a = app(lang, g["main_app"]) if g.get("main_app") else None
                 thumb = '<span class="g-tile-mark" aria-hidden="true">%s</span>' % e(g["mark"])
-                blurb = a["what"] if a else I18N[lang]["apps.sub"]
+                blurb = a["what"] if a else (CONTENT[lang]["guides"][g["doc"]]["hook"] if g.get("doc") else I18N[lang]["apps.sub"])
             tiles.append('<a class="g-tile" href="%s">%s<span class="g-tile-text"><b>%s</b><span>%s</span></span></a>' % (
                 guide_path(lang, g["slug"]), thumb, e(label(lang, gid)), e(blurb)))
         parts.append('<section class="g-group"><h2>%s</h2><div class="g-tiles">%s</div></section>' % (e(u["groups"][gkey]), "".join(tiles)))
