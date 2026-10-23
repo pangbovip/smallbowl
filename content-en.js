@@ -83,6 +83,13 @@ window.CONTENT.en = {
         "Big shop or convenience store: tap Pay (付钱), show your barcode, they scan it. Done in one second.",
         "Fees: ¥200 or less is usually free on Alipay and WeChat Pay with a foreign card; above ¥200 the app may charge about 3% of the full amount. Check the confirmation screen before you pay. Your own bank may also charge a foreign-transaction fee."
       ],
+      save: [
+        "Coupons: after you finish passport verification, open the Alipay home. Overseas accounts often show a travel or welcome voucher pack on the front page — claim it before you fly. Amounts and rules change; take whatever the app offers that day.",
+        "City deals: in China, use Alipay search for inbound tourism coupons (city or province packs — names rotate, e.g. Zhejiang's 嗨游 / ZheJiangTravel). Finish real-name first; they are usually first-come and expire in a few days.",
+        "At checkout: before you confirm, look on the pay screen for coupons or discounts and tap to apply. Brand mini-programs and 口碑-style pages sometimes have extra shop coupons too.",
+        "Fees: with a foreign card, ¥200 or less per tap is usually free of Alipay's service fee; above that the app may charge about 3% of the full amount. Prefer snacks, metro and small shops at or under ¥200 when you can, and check your own bank's foreign-transaction fee.",
+        "Skip prepaid top-ups sold as Tour Pass / TourCard for everyday QR if they charge a top-up fee (often around 5%). Linking Visa/Mastercard/JCB directly is usually cheaper for shops. New TourCard sign-ups have been winding down — don't chase one just to save."
+      ],
       where: "Everywhere. Even the douzhi shop and the old man selling jianbing take QR. Keep about 300 RMB in cash for the rare exception.",
       mistake: "Trusting hotel Wi-Fi to verify your card. Do the setup at home, on your own network, a week before.",
       say: { zh: "可以用支付宝吗？", py: "kě yǐ yòng zhī fù bǎo ma", en: "Can I pay with Alipay?" }
@@ -197,7 +204,7 @@ window.CONTENT.en = {
   faq: [
     { q: "Do I need a visa?", a: "As of 2026, Japanese and Korean passports enter visa-free for up to 30 days under a trial policy that has been extended several times. Most European passports also get 30 days. Others can use the 240-hour transit exemption when flying onward to a third country. Check your embassy's site the week before you fly; this changes." },
     { q: "Will my phone work? Google, LINE, KakaoTalk?", a: "On local networks they are blocked. Buy an international roaming eSIM before you leave (Ubigi, Airalo, or your carrier's roaming). Traffic routes through your home country and everything works without a VPN. Hotel Wi-Fi is a local network, so switch back to mobile data when you need Google Maps." },
-    { q: "Cash or apps?", a: "Alipay with your home card covers 95 percent of the trip. Set it up at home. Carry about 300 RMB in small notes for the rest. Bank of China ATMs accept foreign cards." },
+    { q: "Cash or apps?", a: "Alipay with your home card covers 95 percent of the trip. Set it up at home, and claim any travel or welcome coupons that show on the Alipay home page before you fly. Carry about 300 RMB in small notes for the rest. Bank of China ATMs accept foreign cards." },
     { q: "How much English is there?", a: "Hotels and airports, yes. Restaurants, taxis and shops, mostly no. That is why every card here ends with a phrase to show. Download the Chinese pack for your translate app's camera before you fly." },
     { q: "Is it safe? Do I tip?", a: "Very safe, including late at night. No tipping anywhere, not restaurants, not taxis, not hotels. Keep your passport on you: trains, museums and some parks check it at the gate." }
   ]
