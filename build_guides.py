@@ -23,7 +23,7 @@ import visa_data as D
 
 SITE = V.SITE
 LANGS = ("en", "ja", "ko")
-UPDATED = "2026-10-20"     # datePublished / dateModified / sitemap lastmod; bump when the guide copy changes
+UPDATED = "2026-10-23"     # datePublished / dateModified / sitemap lastmod; bump when the guide copy changes
 HUB = V.GUIDE_HUB
 HOME = V.HOME
 e = V.e
@@ -60,9 +60,9 @@ STARTERS = [BY_ID[i] for i in ("alipay", "apps", "esim")]   # linked from every 
 # Search-facing copy: title / meta description / H1. Every fact here is already in content-*.js.
 META = {
     "en": {
-        "alipay": ("How to Use Alipay in China as a Foreigner (2026 Setup + QR Pay)",
-                   "Set up Alipay with a Visa, Mastercard or JCB before you fly, then pay by scanning a QR code or showing your barcode. Foreign cards: usually free at ¥200 or less, about 3% above that. Steps, the one mistake, a phrase to show.",
-                   "How to use Alipay in China as a foreigner"),
+        "alipay": ("Alipay for Foreigners in China: Visa/Mastercard, QR Pay & Fees (2026)",
+                   "Set up Alipay at home with Visa, Mastercard or JCB, then pay in China by scanning a QR or showing your barcode. Foreign cards: usually free at ¥200 or less, about 3% above that. Steps, the one mistake, a phrase to show.",
+                   "How to use Alipay in China with a foreign card and QR"),
         "apps": ("Apps to Download Before Traveling to China (2026 Checklist)",
                  "Alipay, WeChat, Amap, Trip.com, Google Translate's offline pack and a roaming eSIM: what each one replaces and what to set up at home, before you are on a Chinese network.",
                  "6 apps to download before you travel to China"),
@@ -92,9 +92,9 @@ META = {
                    "Public toilets in China: the rules nobody writes down"),
     },
     "ja": {
-        "alipay": ("外国人のAlipay（アリペイ）の使い方｜中国旅行の設定とQR決済（2026年）",
-                   "出発前にAlipayにVisa・Mastercard・JCBを登録してパスポート認証。現地ではQRを読み取るか、バーコードを見せるだけ。海外カードはおおむね200元以下無料、超えると約3%。手順・NG・見せるフレーズ付き。",
-                   "外国人のためのAlipay（アリペイ）の使い方"),
+        "alipay": ("外国人のAlipay｜Visa・MastercardとQR決済・手数料（2026年・中国旅行）",
+                   "出発前に自宅でAlipayへVisa・Mastercard・JCBを登録しパスポート認証。中国ではQRを読み取るかバーコードを見せるだけ。海外カードはおおむね200元以下無料、超えると約3%。手順・NG・見せるフレーズ付き。",
+                   "外国人のためのAlipay：海外カードとQR決済"),
         "apps": ("中国旅行前に入れておくアプリ6選（2026年）｜Alipay・WeChat・地図・翻訳",
                  "Alipay、WeChat、Amap（高徳地図）、Trip.com、Google翻訳のオフラインパック、ローミングeSIM。それぞれ何の代わりになり、出発前に自宅で何を済ませるか。",
                  "中国旅行の前に入れておくアプリ6つ"),
@@ -124,9 +124,9 @@ META = {
                    "中国の公衆トイレ、誰も書かないルール"),
     },
     "ko": {
-        "alipay": ("외국인 알리페이 사용법｜중국 여행 설정과 QR 결제 (2026)",
-                   "출발 전 알리페이에 비자·마스터카드를 등록하고 여권 인증. 현지에서는 QR을 스캔하거나 바코드를 보여주면 끝. 해외 카드는 보통 200위안 이하 무료, 초과 시 약 3%. 순서, 금지 사항, 보여줄 문장까지.",
-                   "외국인을 위한 알리페이 사용법"),
+        "alipay": ("외국인 알리페이｜비자·마스터카드·QR 결제·수수료 (2026)",
+                   "출발 전 집에서 알리페이에 비자·마스터카드·JCB를 등록하고 여권 인증. 중국에서는 QR을 스캔하거나 바코드를 보여주면 끝. 해외 카드는 보통 200위안 이하 무료, 초과 시 약 3%. 순서, 금지 사항, 보여줄 문장까지.",
+                   "외국인을 위한 알리페이: 해외 카드와 QR 결제"),
         "apps": ("중국 여행 전 필수 앱 6가지 (2026)｜알리페이·위챗·지도·번역",
                  "알리페이, 위챗, 아맵(가오더지도), 트립닷컴, 구글 번역 오프라인 팩, 로밍 eSIM. 각각 무엇을 대신하고, 출발 전에 집에서 무엇을 끝내야 하는지.",
                  "중국 여행 전에 깔아둘 앱 6가지"),
@@ -296,15 +296,21 @@ def say_card(say, lang):
             % (e(say["zh"]), e(say["py"]), e(say["zh"]), e(say["py"]), e(say["en"]), e(tap)))
 
 
-def app_box(lang, a, heading_level="h3"):
+def app_box(lang, a, heading_level="h3", current_guide_id=None):
     t = I18N[lang]
+    # Deep-link to the Alipay guide from any page that embeds the Alipay app card, but never self-link.
+    guide_link = ""
+    if a["id"] == "alipay" and current_guide_id != "alipay":
+        guide_link = '<a class="card-more" href="%s">%s</a>' % (
+            guide_path(lang, BY_ID["alipay"]["slug"]), e(label(lang, "alipay")))
     return ('<article class="app" id="app-%s"><span class="app-mark" aria-hidden="true">%s</span>'
             '<div class="app-head"><%s class="app-name">%s</%s><span class="app-zh">%s</span><span class="app-tag">%s</span></div>'
             '<p class="app-what">%s</p><dl class="app-rows"><div class="app-row"><dt>%s</dt><dd class="app-setup">%s</dd></div>'
             '<div class="app-row"><dt>%s</dt><dd>%s</dd></div></dl>'
-            '<a class="app-site" href="%s" target="_blank" rel="noopener">%s</a></article>'
+            '<a class="app-site" href="%s" target="_blank" rel="noopener">%s</a>%s</article>'
             % (e(a["id"]), e(a["mark"]), heading_level, e(a["name"]), heading_level, e(a["zh"]), e(a["tag"]), e(a["what"]),
-               e(t["apps.doNow"]), e(a["setup"]), e(t["apps.why"]), e(a["why"]), e(a["site"]), e(t["apps.open"])))
+               e(t["apps.doNow"]), e(a["setup"]), e(t["apps.why"]), e(a["why"]), e(a["site"]), e(t["apps.open"]),
+               guide_link))
 
 
 def picture(cid, alt, eager=True):
@@ -456,7 +462,7 @@ def article(lang, g):
         parts.append('<figure class="g-photo">%s%s</figure>' % (picture(c["id"], c["title"]), credit_html(lang, c["id"])))
     prose = []
     if g.get("setup"):
-        prose.append('<h2>%s</h2><div class="apps g-apps">%s</div>' % (e(u["setup"]), "".join(app_box(lang, app(lang, a)) for a in g["setup"])))
+        prose.append('<h2>%s</h2><div class="apps g-apps">%s</div>' % (e(u["setup"]), "".join(app_box(lang, app(lang, a), current_guide_id=g["id"]) for a in g["setup"])))
     if c:
         prose.append('<h2>%s</h2><ol class="steps g-steps">%s</ol>' % (e(u["steps"]), "".join("<li>%s</li>" % e(s) for s in c["steps"])))
         prose.append('<h2>%s</h2><p>%s</p>' % (e(u["where"]), e(c["where"])))
@@ -468,10 +474,10 @@ def article(lang, g):
         prose.append('<p><a href="%s" target="_blank" rel="noopener">%s: %s</a></p>' % (e(main_app["site"]), e(main_app["name"]), e(main_app["site"])))
     if g.get("app_list"):
         prose.append('<p>%s</p>' % e(u["apps_intro"]))
-        prose.append('<div class="apps g-apps g-apps-list">%s</div>' % "".join(app_box(lang, a, "h2") for a in CONTENT[lang]["apps"]))
+        prose.append('<div class="apps g-apps g-apps-list">%s</div>' % "".join(app_box(lang, a, "h2", current_guide_id=g["id"]) for a in CONTENT[lang]["apps"]))
         prose.append('<p class="note">%s</p>' % e(t["apps.note"]))
     if g.get("also"):
-        prose.append('<h2>%s</h2><div class="apps g-apps">%s</div>' % (e(u["also"]), "".join(app_box(lang, app(lang, a)) for a in g["also"])))
+        prose.append('<h2>%s</h2><div class="apps g-apps">%s</div>' % (e(u["also"]), "".join(app_box(lang, app(lang, a), current_guide_id=g["id"]) for a in g["also"])))
     parts.append('<section class="prose">%s</section>' % "".join(prose))
     parts.append(faq_html(lang, g["faq"]))
     parts.append(cta_html(lang))
