@@ -17,7 +17,7 @@ from datetime import date
 import visa_data as D
 
 SITE = "https://chinavisit.org"
-ASSET_V = "20261008g"
+ASSET_V = "20261024h"
 # Bump when the page templates change (sitemap lastmod). CHECKED in visa_data.py is the policy-check date.
 PAGES_UPDATED = "2026-10-08"
 LANGS = ("en", "ja", "ko")

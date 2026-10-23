@@ -202,6 +202,50 @@ window.CONTENT.en = {
   ],
 
   guides: {
+    hotel: {
+      hook: "Booking.com, Agoda and Hotels.com work in China. Chinese apps (Ctrip's Chinese app and Meituan) often show lower rates on domestic and budget hotels after local coupons. Message us on WhatsApp and we compare live quotes, then book under your passport name.",
+      facts: [["WhatsApp help", "Service"], ["Booking.com / Agoda", "Like"], ["酒店", "In Chinese"]],
+      sections: [
+        { h: "Why a China-side booking can cost less", items: [
+          "International sites and Chinese OTAs often show different prices for the same hotel. Luxury chains usually keep rates close; mid-range domestic brands and small guesthouses are where Chinese apps (Ctrip Chinese, Meituan) more often win after coupons and member deals.",
+          "Trip.com is Ctrip's international site: English, foreign cards, deep China inventory. The Chinese Ctrip app and Meituan can still show flash sales and domestic-member rates that never appear on the English side.",
+          "Always compare the full stay: breakfast, cancellation, pay-now versus pay-at-hotel, and your bank's foreign-transaction fee. A lower RMB price is not always cheaper after FX fees.",
+          "We do not invent discount percentages. Send a hotel or a city and dates, and we compare live quotes on Chinese platforms against Booking.com, Agoda or Trip.com."
+        ] },
+        { h: "Platforms at a glance", items: [
+          "Trip.com: best default for foreigners — English (also Japanese and Korean), foreign cards, hotels that accept passports, chat support.",
+          "Booking.com, Agoda, Hotels.com: familiar apps and strong on international chains; thinner coverage of tiny Chinese inns.",
+          "Ctrip Chinese app (携程) and Meituan (美团): often stronger on budget and mid-range after coupons; Chinese UI; usually Alipay or WeChat Pay.",
+          "If you only want one app, use Trip.com. If you want the local price when it is better, WhatsApp us and we book on the Chinese side for you."
+        ] },
+        { h: "Foreign guest check-in (do not skip)", items: [
+          "Hotels must scan your original passport and register you with local police. A photo of the passport is not enough.",
+          "Most city hotels accept foreign guests. Some tiny inns still cannot complete registration — book refundable, or confirm they accept foreign passports before you pay.",
+          "Trip.com and international OTAs usually filter for foreigner-friendly properties. On Chinese apps, ask us to confirm before paying.",
+          "Put every guest's name exactly as on the passport. Name mismatches are a common check-in delay."
+        ] },
+        { h: "WhatsApp us to book at the lower rate", items: [
+          "Message +86 139 1004 9069 on WhatsApp (same number as the site footer). Send city, check-in and check-out, guests, budget, and any must-haves (metro, breakfast, quiet).",
+          "Optional: paste a Booking.com, Agoda or Trip.com link you like. We check the same hotel on Chinese OTAs and reply with options and the total price.",
+          "When you choose one, we book under your passport name, send the confirmation and Chinese address for Didi, and stay reachable if the front desk needs help.",
+          "Payment and cancellation follow the platform voucher you pick. We explain the rules in plain language before you confirm."
+        ] }
+      ],
+      mistake: "Paying for a rock-bottom local inn without confirming it can register a foreign passport. Arrive late, get refused, and you are hunting a room with luggage.",
+      say: { zh: "我有预订，这是护照。", py: "wǒ yǒu yù dìng, zhè shì hù zhào", en: "I have a reservation. Here is my passport." },
+      whatsapp: {
+        h: "Book a cheaper hotel on WhatsApp",
+        p: "Send city, dates and budget. We compare Chinese OTA rates with Booking.com / Agoda / Trip.com and book under your passport name.",
+        btn: "Message on WhatsApp",
+        msg: "Hi, I need help booking a hotel in China. City: / Dates: / Guests: / Budget:"
+      },
+      faq: [
+        { q: "Is Trip.com the same as Ctrip?", a: "Same company. Trip.com is the international site (English, foreign cards). The Chinese Ctrip app has more local coupons and flash sales. Compare both when you can, or ask us on WhatsApp." },
+        { q: "Will every cheap hotel accept my passport?", a: "No. Hotels must register foreign guests. International platforms usually list places that can; tiny inns on Chinese apps sometimes cannot. We confirm before you pay." },
+        { q: "How do I pay if you book for me?", a: "You pay the platform or hotel for the room you choose — Alipay with your foreign card, or a foreign card on Trip.com, depending on the option. We never ask you to send cash to a personal account for the room itself." },
+        { q: "What should I send on WhatsApp?", a: "City, check-in and check-out dates, number of guests, budget, and a Booking.com / Agoda / Trip.com link if you already like a hotel. Passport names exactly as printed help us book correctly." }
+      ]
+    },
     dianping: {
       hook: "Dianping is China's Yelp: star scores, photo reviews, average spend per person and group-buy deals for almost every restaurant in the country. Locals check it before they eat anywhere new.",
       facts: [["Free", "Price"], ["Yelp", "Like"], ["大众点评", "In Chinese"]],

@@ -153,3 +153,14 @@ html[lang="ja"] .g-kicker, html[lang="ko"] .g-kicker { font-family: inherit; let
 .g-tile-text span { font-size: var(--step-0); color: var(--ink-2); }
 .v-cta-list { margin: 8px 0 0; padding-left: 1.1em; display: grid; gap: 2px; color: color-mix(in srgb, var(--ground) 85%, transparent); font-size: var(--step-1); }
 .v-cta-locked { font-size: var(--step-0); }
+
+/* WhatsApp booking CTA on guide pages */
+.g-wa { display: grid; grid-template-columns: 1fr auto; gap: 18px; align-items: center; background: #128C7E; color: #fff; border-radius: 10px; padding: 24px 26px; margin: 28px 0 20px; }
+.g-wa h2 { font-size: var(--step-4); font-weight: 800; color: #fff; }
+.g-wa p { color: rgba(255,255,255,.88); margin-top: 6px; }
+.g-wa-num { margin-top: 10px !important; font-family: var(--f-mono); font-size: var(--step-0); }
+.g-wa-label { text-transform: uppercase; letter-spacing: .08em; opacity: .85; margin-right: 8px; }
+html[lang="ja"] .g-wa-label, html[lang="ko"] .g-wa-label { font-family: inherit; letter-spacing: 0; text-transform: none; font-weight: 700; }
+.g-wa .btn { border-color: #fff; background: #fff; color: #075E54; white-space: nowrap; font-weight: 700; }
+.g-wa .btn:hover { background: #E7FFFB; }
+@media (max-width: 640px) { .g-wa { grid-template-columns: 1fr; } }
