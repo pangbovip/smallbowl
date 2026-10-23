@@ -60,9 +60,9 @@ STARTERS = [BY_ID[i] for i in ("alipay", "apps", "esim")]   # linked from every 
 # Search-facing copy: title / meta description / H1. Every fact here is already in content-*.js.
 META = {
     "en": {
-        "alipay": ("Alipay for Foreigners in China: Visa/Mastercard, QR Pay & Fees (2026)",
-                   "Set up Alipay at home with Visa, Mastercard or JCB, then pay in China by scanning a QR or showing your barcode. Foreign cards: usually free at ¥200 or less, about 3% above that. Steps, the one mistake, a phrase to show.",
-                   "How to use Alipay in China with a foreign card and QR"),
+        "alipay": ("Alipay for Foreigners in China: Visa/Mastercard, QR Pay, Fees & Coupons (2026)",
+                   "Set up Alipay at home with Visa, Mastercard or JCB, then pay in China by scanning a QR or showing your barcode. Claim travel coupons when shown, watch fees (usually free at ¥200 or less, about 3% above), and skip pricey TourCard top-ups. Steps, how to spend less, a phrase to show.",
+                   "How to use Alipay in China: foreign card, QR, coupons"),
         "apps": ("Apps to Download Before Traveling to China (2026 Checklist)",
                  "Alipay, WeChat, Amap, Trip.com, Google Translate's offline pack and a roaming eSIM: what each one replaces and what to set up at home, before you are on a Chinese network.",
                  "6 apps to download before you travel to China"),
@@ -92,9 +92,9 @@ META = {
                    "Public toilets in China: the rules nobody writes down"),
     },
     "ja": {
-        "alipay": ("外国人のAlipay｜Visa・MastercardとQR決済・手数料（2026年・中国旅行）",
-                   "出発前に自宅でAlipayへVisa・Mastercard・JCBを登録しパスポート認証。中国ではQRを読み取るかバーコードを見せるだけ。海外カードはおおむね200元以下無料、超えると約3%。手順・NG・見せるフレーズ付き。",
-                   "外国人のためのAlipay：海外カードとQR決済"),
+        "alipay": ("外国人のAlipay｜Visa・MastercardとQR決済・手数料・クーポン（2026年・中国旅行）",
+                   "出発前に自宅でAlipayへVisa・Mastercard・JCBを登録しパスポート認証。中国ではQRを読み取るかバーコードを見せるだけ。表示された旅行クーポンは受け取り、手数料はおおむね200元以下無料・超えると約3%。TourCard型チャージは避けて節約。手順・節約のコツ・見せるフレーズ付き。",
+                   "外国人のためのAlipay：海外カード・QR・クーポン"),
         "apps": ("中国旅行前に入れておくアプリ6選（2026年）｜Alipay・WeChat・地図・翻訳",
                  "Alipay、WeChat、Amap（高徳地図）、Trip.com、Google翻訳のオフラインパック、ローミングeSIM。それぞれ何の代わりになり、出発前に自宅で何を済ませるか。",
                  "中国旅行の前に入れておくアプリ6つ"),
@@ -124,9 +124,9 @@ META = {
                    "中国の公衆トイレ、誰も書かないルール"),
     },
     "ko": {
-        "alipay": ("외국인 알리페이｜비자·마스터카드·QR 결제·수수료 (2026)",
-                   "출발 전 집에서 알리페이에 비자·마스터카드·JCB를 등록하고 여권 인증. 중국에서는 QR을 스캔하거나 바코드를 보여주면 끝. 해외 카드는 보통 200위안 이하 무료, 초과 시 약 3%. 순서, 금지 사항, 보여줄 문장까지.",
-                   "외국인을 위한 알리페이: 해외 카드와 QR 결제"),
+        "alipay": ("외국인 알리페이｜비자·마스터카드·QR 결제·수수료·쿠폰 (2026)",
+                   "출발 전 집에서 알리페이에 비자·마스터카드·JCB를 등록하고 여권 인증. 중국에서는 QR을 스캔하거나 바코드를 보여주면 끝. 뜨는 여행 쿠폰은 받고, 수수료는 보통 200위안 이하 무료·초과 시 약 3%. TourCard형 충전은 피하고 아끼기. 순서, 아끼는 법, 보여줄 문장까지.",
+                   "외국인을 위한 알리페이: 해외 카드·QR·쿠폰"),
         "apps": ("중국 여행 전 필수 앱 6가지 (2026)｜알리페이·위챗·지도·번역",
                  "알리페이, 위챗, 아맵(가오더지도), 트립닷컴, 구글 번역 오프라인 팩, 로밍 eSIM. 각각 무엇을 대신하고, 출발 전에 집에서 무엇을 끝내야 하는지.",
                  "중국 여행 전에 깔아둘 앱 6가지"),
@@ -173,7 +173,7 @@ HUB_META = {
 }
 
 UI = {
-    "en": dict(guides="Guides", steps="Step by step", where="Where to go", mistake="The one mistake", say="Show this to staff",
+    "en": dict(guides="Guides", steps="Step by step", save="Coupons and how to spend less", where="Where to go", mistake="The one mistake", say="Show this to staff",
                setup="Set this up at home first", also="Also useful", before="Before you fly", related="Related guides",
                visa_h="Do you need a visa?", visa_p="Check your passport against China's official lists.",
                visa_all="All passports", visa_tr="240-hour transit", price="Price", city="City", zh="In Chinese",
@@ -183,7 +183,7 @@ UI = {
                cta_p="Everything on this page is free. The full 7-day guide adds:",
                cta_locked="Also unlocks these cards: {titles}", cta_btn="See the full guide · US$2",
                apps_intro="Six apps, all free. Each one replaces something you would use at home."),
-    "ja": dict(guides="ガイド", steps="手順", where="どこで", mistake="やってはいけない1つ", say="店員さんに見せるフレーズ",
+    "ja": dict(guides="ガイド", steps="手順", save="クーポンと節約のコツ", where="どこで", mistake="やってはいけない1つ", say="店員さんに見せるフレーズ",
                setup="先に自宅で設定しておくもの", also="あわせて使うもの", before="出発前に", related="関連ガイド",
                visa_h="中国のビザは必要？", visa_p="中国の公式リストでパスポートごとに確認できます。",
                visa_all="すべての国", visa_tr="240時間トランジット", price="値段", city="都市", zh="中国語",
@@ -193,7 +193,7 @@ UI = {
                cta_p="このページの内容は無料です。7日間の完全版には：",
                cta_locked="さらに解除されるカード：{titles}", cta_btn="完全版を見る · 2ドル",
                apps_intro="6つとも無料。それぞれ、普段使っている何かの代わりになります。"),
-    "ko": dict(guides="가이드", steps="순서", where="어디서", mistake="하지 말아야 할 한 가지", say="직원에게 보여줄 문장",
+    "ko": dict(guides="가이드", steps="순서", save="쿠폰과 아끼는 법", where="어디서", mistake="하지 말아야 할 한 가지", say="직원에게 보여줄 문장",
                setup="먼저 집에서 설정해 둘 것", also="함께 쓰면 좋은 것", before="출발 전에", related="관련 가이드",
                visa_h="중국 비자, 필요할까?", visa_p="중국 공식 목록으로 여권별로 확인할 수 있습니다.",
                visa_all="전체 국가", visa_tr="240시간 경유", price="가격", city="도시", zh="중국어",
@@ -465,6 +465,8 @@ def article(lang, g):
         prose.append('<h2>%s</h2><div class="apps g-apps">%s</div>' % (e(u["setup"]), "".join(app_box(lang, app(lang, a), current_guide_id=g["id"]) for a in g["setup"])))
     if c:
         prose.append('<h2>%s</h2><ol class="steps g-steps">%s</ol>' % (e(u["steps"]), "".join("<li>%s</li>" % e(s) for s in c["steps"])))
+        if c.get("save"):
+            prose.append('<h2>%s</h2><ol class="steps g-steps">%s</ol>' % (e(u["save"]), "".join("<li>%s</li>" % e(s) for s in c["save"])))
         prose.append('<h2>%s</h2><p>%s</p>' % (e(u["where"]), e(c["where"])))
         prose.append('<h2>%s</h2><p class="note g-mistake">%s</p>' % (e(u["mistake"]), e(c["mistake"])))
         prose.append('<h2>%s</h2>%s' % (e(u["say"]), say_card(c["say"], lang)))
