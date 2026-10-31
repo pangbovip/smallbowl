@@ -164,3 +164,6 @@ html[lang="ja"] .g-wa-label, html[lang="ko"] .g-wa-label { font-family: inherit;
 .g-wa .btn { border-color: #fff; background: #fff; color: #075E54; white-space: nowrap; font-weight: 700; }
 .g-wa .btn:hover { background: #E7FFFB; }
 @media (max-width: 640px) { .g-wa { grid-template-columns: 1fr; } }
+.g-ota{margin-bottom:1rem}
+.g-ota-btns{display:flex;gap:.5rem;flex-wrap:wrap}
+.g-ota-note{opacity:.8;margin-top:.4rem}

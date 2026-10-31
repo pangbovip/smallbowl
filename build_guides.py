@@ -311,6 +311,7 @@ def entries():
     out = [(HUB[l], dict(HUB)) for l in LANGS]
     for g in GUIDES:
         out += [(guide_path(l, g["slug"]), alts_for(g)) for l in LANGS]
+    out += [(DISCLOSURE_PATH[l], dict(DISCLOSURE_PATH)) for l in LANGS]
     return out
 
 
@@ -378,8 +379,46 @@ def visa_html(lang):
 
 WHATSAPP_NUMBER = "8613910049069"
 
+# ------------------------------------------------------------------ hotel affiliate links
+# THE one place to swap in real affiliate links. Placeholders are plain homepages (no affiliate IDs yet).
+AFFILIATE_LINKS = {
+    "trip": "https://www.trip.com/",     # PLACEHOLDER: replace with Trip.com Affiliate link
+    "agoda": "https://www.agoda.com/",   # PLACEHOLDER: replace with Agoda Partners link
+}
+DISCLOSURE_PATH = {"en": "/affiliate-disclosure.html", "ja": "/ja/affiliate-disclosure.html", "ko": "/ko/affiliate-disclosure.html"}
+AFF = {
+    "en": dict(self_h="Book it yourself", self_p="Compare prices and book online.", wa_h="Want a lower or local rate, or help booking? WhatsApp us",
+               note="Affiliate links: we may earn a commission at no extra cost to you.", more="Details", foot="Affiliate disclosure",
+               title="Affiliate disclosure", desc="How affiliate links work on chinavisit.org.",
+               text="Some links on this page are affiliate links. If you book through them, chinavisit.org may earn a commission at no extra cost to you. We only recommend services we would use ourselves."),
+    "ja": dict(self_h="自分で予約する", self_p="オンラインで料金を比べて予約できます。", wa_h="もっと安い料金・現地料金や予約のお手伝いが必要なら、WhatsAppでどうぞ",
+               note="アフィリエイトリンクです。追加費用なしで当サイトに手数料が入る場合があります。", more="詳細", foot="アフィリエイトについて",
+               title="アフィリエイトについて", desc="chinavisit.org のアフィリエイトリンクについて。",
+               text="このページの一部のリンクはアフィリエイトリンクです。リンク経由で予約された場合、お客様に追加費用はかからず、chinavisit.org が手数料を受け取ることがあります。私たち自身が使いたいと思うサービスだけをおすすめしています。"),
+    "ko": dict(self_h="직접 예약하기", self_p="온라인에서 가격을 비교하고 예약하세요.", wa_h="더 저렴한 요금이나 현지 요금, 예약 도움이 필요하면 WhatsApp으로 문의하세요",
+               note="제휴 링크입니다. 추가 비용 없이 사이트가 수수료를 받을 수 있습니다.", more="자세히", foot="제휴 링크 안내",
+               title="제휴 링크 안내", desc="chinavisit.org의 제휴 링크 안내.",
+               text="이 페이지의 일부 링크는 제휴 링크입니다. 이 링크를 통해 예약하시면 추가 비용 없이 chinavisit.org가 수수료를 받을 수 있습니다. 저희가 직접 사용할 만한 서비스만 추천합니다."),
+}
 
-def whatsapp_cta_html(lang, doc):
+
+def ota_html(lang):
+    a = AFF[lang]
+    btn = lambda k, n: '<a class="btn" href="%s" target="_blank" rel="sponsored nofollow noopener">%s</a>' % (e(AFFILIATE_LINKS[k]), n)
+    return ('<aside class="g-wa g-ota"><div><h2>%s</h2><p>%s</p><p class="g-ota-note"><small>%s <a href="%s">%s</a></small></p></div>'
+            '<div class="g-ota-btns">%s %s</div></aside>'
+            % (e(a["self_h"]), e(a["self_p"]), e(a["note"]), DISCLOSURE_PATH[lang], e(a["more"]), btn("trip", "Trip.com"), btn("agoda", "Agoda")))
+
+
+def disclosure_page(lang):
+    a, path = AFF[lang], DISCLOSURE_PATH[lang]
+    body = '<article class="prose"><h1>%s</h1><p>%s</p></article>' % (e(a["title"]), e(a["text"]))
+    graph = {"@context": "https://schema.org", "@type": "WebPage", "name": a["title"], "url": SITE + path}
+    return path, shell(lang, path, a["title"] + " | China Visit", a["desc"], body, dict(DISCLOSURE_PATH), graph,
+                       [(V.UI[lang]["home"], HOME[lang]), (a["title"], path)], "/images/logo-512.png")
+
+
+def whatsapp_cta_html(lang, doc, heading=None):
     wa = doc.get("whatsapp") if doc else None
     if not wa:
         return ""
@@ -388,7 +427,7 @@ def whatsapp_cta_html(lang, doc):
     return ('<aside class="g-wa"><div><h2>%s</h2><p>%s</p>'
             '<p class="g-wa-num"><span class="g-wa-label">%s</span> <span>%s</span></p></div>'
             '<a class="btn btn-seal" href="%s" target="_blank" rel="noopener">%s</a></aside>'
-            % (e(wa["h"]), e(wa["p"]), e(u["wa_label"]), e(u["wa_number"]), e(href), e(wa["btn"])))
+            % (e(heading or wa["h"]), e(wa["p"]), e(u["wa_label"]), e(u["wa_number"]), e(href), e(wa["btn"])))
 
 
 def cta_html(lang):
@@ -452,7 +491,7 @@ def shell(lang, path, title, desc, body, alternates, graph, crumbs, og_image):
 <footer class="foot">
   <div class="foot-brand">
     <span class="brand-zh">小碗</span>
-    <p class="v-foot"><a href="{home}">{home_t}</a><a href="{hub}">{hub_t}</a><a href="{visa}">{visa_t}</a><a href="mailto:86886779@qq.com?subject=China%20Visit">86886779@qq.com</a></p>
+    <p class="v-foot"><a href="{home}">{home_t}</a><a href="{hub}">{hub_t}</a><a href="{visa}">{visa_t}</a><a href="mailto:86886779@qq.com?subject=China%20Visit">86886779@qq.com</a><a href="{aff}">{aff_t}</a></p>
   </div>
   <p class="foot-legal">{legal}</p>
 </footer>
@@ -464,7 +503,7 @@ def shell(lang, path, title, desc, body, alternates, graph, crumbs, og_image):
            og_image=og_image, v=V.ASSET_V, graph=json.dumps(graph, ensure_ascii=False).replace("</", "<\\/"), home=HOME[lang], svg=V.BRAND_SVG,
            nav=V.nav_html(lang, "guide"), switch=V.switch_html(lang, alternates, HUB), crumb=crumb, body=body,
            home_t=e(V.UI[lang]["home"]), hub=HUB[lang], hub_t=e(UI[lang]["guides"]), visa=V.HUB[lang], visa_t=e(V.UI[lang]["hub"]),
-           legal=e(t["foot.legal"]), overlay=V.say_overlay_html(lang))
+           legal=e(t["foot.legal"]), aff=DISCLOSURE_PATH[lang], aff_t=e(AFF[lang]["foot"]), overlay=V.say_overlay_html(lang))
 
 
 def breadcrumbs_ld(crumbs):
@@ -515,7 +554,9 @@ def article(lang, g):
         # Close prose early so the WhatsApp CTA sits as a full-width aside, then resume.
         if doc.get("whatsapp"):
             parts.append('<section class="prose">%s</section>' % "".join(prose))
-            parts.append(whatsapp_cta_html(lang, doc))
+            if g["id"] == "hotel":
+                parts.append(ota_html(lang))
+            parts.append(whatsapp_cta_html(lang, doc, AFF[lang]["wa_h"] if g["id"] == "hotel" else None))
             prose = []
         prose.append('<h2>%s</h2><p class="note g-mistake">%s</p>' % (e(u["mistake"]), e(doc["mistake"])))
         prose.append('<h2>%s</h2>%s' % (e(u["say"]), say_card(doc["say"], lang)))
@@ -637,13 +678,15 @@ def write(path, text):
     fs = path.lstrip("/")
     if fs.endswith("/"):
         fs += "index.html"
-    os.makedirs(os.path.dirname(fs), exist_ok=True)
+    if os.path.dirname(fs):
+        os.makedirs(os.path.dirname(fs), exist_ok=True)
     io.open(fs, "w", encoding="utf-8", newline="\n").write(text)
 
 
 def main():
     pages = [index(l) for l in LANGS] + [article(l, g) for g in GUIDES for l in LANGS]
-    assert [p for p, _ in pages] == [p for p, _ in (entries()[:3] + [(x, 0) for x, _ in entries()[3:]])]
+    pages += [disclosure_page(l) for l in LANGS]
+    assert [p for p, _ in pages] == [p for p, _ in entries()]
     check_no_paid(pages)
     for path, text in pages:
         write(path, text)
@@ -651,7 +694,7 @@ def main():
     V.write_sitemap()
     i18n = B.load_i18n()
     for lang in ("ja", "ko"):
-        io.open("%s.html" % lang, "w", encoding="utf-8", newline="\n").write(B.build(lang, i18n))
+        io.open("%s.html" % lang, "w", encoding="utf-8", newline="\n").write(B.build(lang, i18n).replace('href="/affiliate-disclosure.html"', 'href="%s"' % DISCLOSURE_PATH[lang]))
     print("wrote %d guide pages, index.html guide block, ja.html, ko.html, sitemap.xml" % len(pages))
 
 
