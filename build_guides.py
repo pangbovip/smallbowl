@@ -383,7 +383,7 @@ WHATSAPP_NUMBER = "8613910049069"
 # THE one place to swap in real affiliate links. Placeholders are plain homepages (no affiliate IDs yet).
 AFFILIATE_LINKS = {
     "trip": "https://www.trip.com/hotels/?Allianceid=11206805&SID=334934839&trip_sub1=chinavisit",  # Trip.com Affiliate AID+SID
-    "agoda": "https://www.agoda.com/",   # PLACEHOLDER: replace with Agoda Partners link
+    "agoda": "https://www.agoda.com/partners/partnersearch.aspx?pcs=1&cid=1979579",  # Agoda Partners CID
 }
 DISCLOSURE_PATH = {"en": "/affiliate-disclosure.html", "ja": "/ja/affiliate-disclosure.html", "ko": "/ko/affiliate-disclosure.html"}
 AFF = {
